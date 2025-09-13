@@ -181,34 +181,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>90</y>
-      <width>81</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="usernameLayout">
-     <item>
-      <widget class="QLabel" name="usernameText">
-       <property name="font">
-        <font>
-         <family>Roboto Mono</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Username</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QPushButton" name="powerButtonBase">
     <property name="geometry">
      <rect>
@@ -378,7 +350,6 @@ QScrollBar::sub-line:vertical {
     padding: 8px 16px;
     text-align: left;
     border: none;
-    font-size: 14px;
 }
 
 #sideMenu QPushButton:hover {
@@ -402,7 +373,7 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -421,7 +392,7 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -440,7 +411,7 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -459,7 +430,7 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -478,7 +449,7 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -497,13 +468,35 @@ QScrollBar::sub-line:vertical {
      <property name="font">
       <font>
        <family>SF Pro Display</family>
-       <pointsize>-1</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
       <string>Buy Coins</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="usernameText">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>81</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto Mono</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Username</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
