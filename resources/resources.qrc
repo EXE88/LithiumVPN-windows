@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/power.svg</file>
+    <file>icons/coin.png</file>
+    <file>icons/menu.png</file>
+    <file>icons/user.png</file>
+  </qresource>
+  <qresource prefix="fonts">
+    <file>fonts/RobotoMono-Regular.ttf</file>
+  </qresource>
+</RCC>
