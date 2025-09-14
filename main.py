@@ -8,7 +8,8 @@ try:
 except Exception:
     QSvgRenderer = None
     SVG_AVAILABLE = False
-
+from custome_widgets.fancy_label import FancyLabel
+from custome_widgets.round_line import RoundedLine
 
 class MainAppWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -36,11 +37,27 @@ class MainAppWindow(QtWidgets.QMainWindow):
         tint = QtGui.QColor(0, 0, 0)
         self.set_svg_icon_on_button(self.ui.powerButton, ':/icons/icons/power.svg', size, tint_color=tint)
 
+        try:
+            self.ui.continueProfileLine.hide()
+        except Exception:
+            pass
+
+        self.rounded_line = RoundedLine(parent=self.ui.homeTab,
+                                        x=25.5, y=65,
+                                        length=71.7, thickness=2.3,
+                                        color=QtGui.QColor(230, 230, 230),
+                                        vertical=True)
+
+        self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, "LithiumVPN")
+
+        self.ui.menuButton.raise_()
+        self.ui.sideMenu.raise_()
+
     def _connect_signals(self):
         self.ui.powerButton.clicked.connect(self.on_power_clicked)
         self.ui.menuButton.clicked.connect(self.on_menu_clicked)
-        self.ui.pushButton.clicked.connect(lambda: self.on_sidebutton_clicked("Home"))
-        self.ui.pushButton_2.clicked.connect(lambda: self.on_sidebutton_clicked("Account"))
+        self.ui.sideMenuHomeButton.clicked.connect(lambda: self.on_sidebutton_clicked("Home"))
+        self.ui.sideMenuAccountButton.clicked.connect(lambda: self.on_sidebutton_clicked("Account"))
 
     def on_power_clicked(self):
         current = self.ui.connectionStatusText.text()

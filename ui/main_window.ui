@@ -137,9 +137,9 @@
         <height>26</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="coinLayout_2">
+      <layout class="QHBoxLayout" name="coinLayout">
        <item>
-        <widget class="QLabel" name="coinNumber_2">
+        <widget class="QLabel" name="coinNumber">
          <property name="font">
           <font>
            <family>Roboto Mono</family>
@@ -152,7 +152,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="coinIcon_2">
+        <widget class="QPushButton" name="coinIcon">
          <property name="enabled">
           <bool>false</bool>
          </property>
