@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/arrow-left.png</file>
+    <file>icons/arrow.png</file>
+    <file>icons/email.png</file>
     <file>icons/key.png</file>
     <file>icons/user_for_login.png</file>
     <file>icons/power.svg</file>
