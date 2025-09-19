@@ -14,7 +14,7 @@ except Exception:
 from custome_widgets.fancy_label import FancyLabel
 from custome_widgets.round_line import RoundedLine
 from custome_widgets.fancy_round_button import FancyRoundButton
-
+from modules.database import ManageDatabase
 
 class MainAppWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -27,6 +27,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self._initial_setup()
         self._connect_signals()
+
+        self.manage_db = ManageDatabase()
+        self.manage_db.init_db()
 
     def _initial_setup(self):
         username = "danial1388"
@@ -43,25 +46,19 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
-        # vertical rounded line
         self.rounded_line = RoundedLine(parent=self.ui.homeTab,
                                         x=25.5, y=65,
                                         length=71.7, thickness=2.3,
                                         color=QtGui.QColor(230, 230, 230),
                                         vertical=True)
 
-        # header
         self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, "LithiumVPN")
 
-        # ----------------- ENSURE designer's powerButtonBase IS REMOVED -----------------
-        # remove any widget named "powerButtonBase" anywhere under centralwidget
         try:
-            # try attribute first
             if hasattr(self.ui, "powerButtonBase") and self.ui.powerButtonBase is not None:
                 self.ui.powerButtonBase.hide()
                 self.ui.powerButtonBase.setParent(None)
                 self.ui.powerButtonBase.deleteLater()
-                # remove attribute to be safe
                 try:
                     delattr(self.ui, "powerButtonBase")
                 except Exception:
@@ -69,7 +66,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
-        # Also scan children in case there are leftover widgets with that objectName
         try:
             children = self.ui.centralwidget.findChildren(QtWidgets.QWidget)
             for ch in children:
@@ -82,9 +78,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     pass
         except Exception:
             pass
-        # ------------------------------------------------------------------------------
 
-        # remove placeholder powerButton as well (we will replace it)
         btn_geom = None
         try:
             if hasattr(self.ui, "powerButton") and self.ui.powerButton is not None:
@@ -95,14 +89,12 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             btn_geom = None
 
-        # fallback geometry if nothing found
         if btn_geom is None:
             btn_geom = QtCore.QRect(100, 140, 200, 200)
 
         parent = self.ui.homeTab
         svg_path = ':/icons/icons/power.svg'
 
-        # create fancy button WITHOUT external white ring (make ring transparent)
         diameter = btn_geom.width()
         self.power_button_fancy = FancyRoundButton(
             parent=parent,
@@ -110,7 +102,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             svg_path=svg_path,
             halo_color=QtGui.QColor(255, 255, 255),
             halo_alpha=220,
-            ring_color=QtGui.QColor(0, 0, 0, 0),  # transparent ring -> no white stroke
+            ring_color=QtGui.QColor(0, 0, 0, 0),
             ring_width=0,
             halo_scale=0.75,
             halo_blur_factor=0.35,
@@ -119,10 +111,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.power_button_fancy.setGeometry(btn_geom)
         self.ui.powerButton = self.power_button_fancy
 
-        # default state
         self.power_button_fancy.set_state("disconnected")
 
-        # make sure menu/sidemenu above
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
@@ -140,14 +130,18 @@ class MainAppWindow(QtWidgets.QMainWindow):
         if current in ("Not Connected", "Disconnected"):
             self.power_button_fancy.set_state("connecting")
             self.ui.connectionStatusText.setText("Connecting...")
+            self.ui.selectConfigComboBox.setDisabled(True)
             QtCore.QTimer.singleShot(2000, self._on_connected)
         else:
             self.power_button_fancy.set_state("disconnected")
             self.ui.connectionStatusText.setText("Disconnected")
+            self.ui.selectConfigComboBox.setDisabled(False)
 
     def _on_connected(self):
         self.power_button_fancy.set_state("connected")
         self.ui.connectionStatusText.setText("Connected")
+        self.ui.selectConfigComboBox.setDisabled(True)
+
 
     def on_menu_clicked(self):
         QtWidgets.QMessageBox.information(self, "Menu", "Menu clicked")
