@@ -161,7 +161,6 @@ class LoginWindow(QtWidgets.QWidget):
 
         self._make_labels_clickable()
         self._apply_header_with_fancylabel()
-        self._apply_subtext_shadow()
         self._setup_button_shadow_animations()
 
         self.ui.loginButton.clicked.connect(self.on_login_clicked)
@@ -188,35 +187,6 @@ class LoginWindow(QtWidgets.QWidget):
             FancyLabel(parent=self.ui.userRegister, target_label=self.ui.headerTextRegister, text=self.ui.headerTextRegister.text())
         except Exception:
             pass
-
-    def _apply_subtext_shadow(self):
-        for lbl_name in ("pTextLogin", "pTextRegister"):
-            lbl = getattr(self.ui, lbl_name, None)
-            if lbl is None:
-                continue
-            try:
-                lbl.setAutoFillBackground(False)
-                lbl.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground, True)
-
-                base_ss = (lbl.styleSheet() or "").strip()
-                if base_ss:
-                    if not base_ss.endswith(";"):
-                        base_ss = base_ss + ";"
-                    new_ss = base_ss + " background-color: transparent;"
-                else:
-                    new_ss = "background-color: transparent;"
-
-                lbl.setStyleSheet(new_ss)
-
-                eff = QGraphicsDropShadowEffect(lbl)
-                eff.setBlurRadius(12)
-                eff.setColor(QtGui.QColor(59, 130, 246, 120))
-                eff.setOffset(0, 0)
-                lbl.setGraphicsEffect(eff)
-
-                lbl.update()
-            except Exception:
-                pass
 
     def _setup_button_shadow_animations(self):
         for btn in (self.ui.loginButton, self.ui.submitButton):
