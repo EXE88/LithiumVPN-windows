@@ -7,13 +7,31 @@ class ManageDatabase:
     def __init__(self):
         self.BASE_DIR = Path(__file__).resolve().parent.parent
         load_dotenv(self.BASE_DIR / ".env")
+
         self.DB_PATH = os.getenv("DATABASE_PATH")
         self.DB_NAME = os.getenv("DATABASE_NAME")
+        self.DOMAIN_SUB = os.getenv("DOMAIN_SUB")
+        self.DOMAIN_NAME = os.getenv("DOMAIN_NAME")
+        self.DOMAIN_TLD = os.getenv("DOMAIN_TLD")
+        self.DOMAIN_PORT = os.getenv("DOMAIN_PORT")
+
         self.db_file = os.path.join(self.DB_PATH, self.DB_NAME)
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
-        self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT);")
+        self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER);")
+
+        try:
+            with sqlite3.connect(self.db_file) as conn:
+                cursor = conn.cursor()
+                cursor.execute("DELETE FROM Backaddr;")
+                cursor.execute(
+                    "INSERT INTO Backaddr (sub, name, tld, port) VALUES (?, ?, ?, ?);",
+                    (self.DOMAIN_SUB, self.DOMAIN_NAME, self.DOMAIN_TLD, self.DOMAIN_PORT)
+                )
+                conn.commit()
+        except sqlite3.Error as e:
+            print(f"Database error in init_db (Backaddr insert): {e}")
 
 
     def execute_database(self, command):
@@ -48,10 +66,10 @@ class ManageDatabase:
         try:
             conn = sqlite3.connect(self.db_file)
             cursor = conn.cursor()
-            cursor.execute("SELECT sub, name, tld FROM Backaddr LIMIT 1;")
+            cursor.execute("SELECT sub, name, tld, port FROM Backaddr LIMIT 1;")
             row = cursor.fetchone()
             if row:
-                return {"sub": row[0], "name": row[1], "tld": row[2]}
+                return {"sub": row[0], "name": row[1], "tld": row[2], "port":row[3]}
             return None
         except sqlite3.Error as e:
             print(f"Database error in get_backaddr: {e}")

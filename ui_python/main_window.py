@@ -150,7 +150,7 @@ class Ui_MainWindow(object):
 "background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))")
         self.powerButton.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icons/icons/power.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/icons/icons/power.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.powerButton.setIcon(icon2)
         self.powerButton.setIconSize(QtCore.QSize(150, 150))
         self.powerButton.setObjectName("powerButton")
