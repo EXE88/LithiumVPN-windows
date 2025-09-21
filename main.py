@@ -19,6 +19,7 @@ from custome_widgets.popup_toast import PopupToast
 from custome_widgets.clickable_label import ClickableLabel
 from custome_widgets.fancy_round_button import FancyRoundButton
 from modules.database import ManageDatabase
+from modules.api_calls import ApiCalls
 
 class MainAppWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -303,11 +304,20 @@ if __name__ == "__main__":
     
     manage_db = ManageDatabase()
     manage_db.init_db()
+
     backaddr_full = manage_db.get_backaddr()
-    backaddr_full = f"{backaddr_full['sub']}.{backaddr_full['name']}.{backaddr_full['tld']}:{backaddr_full['port']}"
+    backaddr_full = f"http://{backaddr_full['sub']}.{backaddr_full['name']}.{backaddr_full['tld']}:{backaddr_full['port']}"
+
+    api_calls = ApiCalls(backaddr_full)
 
     app = QtWidgets.QApplication(sys.argv)
+
     main_window = MainAppWindow()
     login_window = LoginWindow()
-    login_window.show()
+
+    if api_calls.login_needed():
+        login_window.show()
+    else:
+        main_window.show()
+
     sys.exit(app.exec())

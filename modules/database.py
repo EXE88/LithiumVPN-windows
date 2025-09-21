@@ -20,6 +20,7 @@ class ManageDatabase:
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
         self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER);")
+        self.execute_database("CREATE TABLE IF NOT EXISTS Config (config_id TEXT,config_code TEXT,gb_eft BIGINT,days_left BIGINT);")
 
         try:
             with sqlite3.connect(self.db_file) as conn:
