@@ -27,9 +27,24 @@ class Ui_Form(object):
         self.userLogin.setObjectName("userLogin")
         self.passwordLineEdit = QtWidgets.QLineEdit(parent=self.userLogin)
         self.passwordLineEdit.setGeometry(QtCore.QRect(88, 311, 251, 41))
-        self.passwordLineEdit.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.passwordLineEdit.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.passwordLineEdit.setMaxLength(100)
         self.passwordLineEdit.setFrame(True)
         self.passwordLineEdit.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
@@ -54,9 +69,24 @@ class Ui_Form(object):
         self.keyIcon.setObjectName("keyIcon")
         self.emailLineEdit = QtWidgets.QLineEdit(parent=self.userLogin)
         self.emailLineEdit.setGeometry(QtCore.QRect(88, 234, 251, 41))
-        self.emailLineEdit.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.emailLineEdit.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.emailLineEdit.setMaxLength(100)
         self.emailLineEdit.setFrame(True)
         self.emailLineEdit.setCursorPosition(0)
@@ -83,10 +113,35 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(16)
+        font.setBold(True)
         self.loginButton.setFont(font)
-        self.loginButton.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:12")
+        self.loginButton.setStyleSheet("#loginButton {\n"
+"    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */\n"
+"    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"\n"
+"    /* عمق (سایه‌ی مصنوعی) */\n"
+"    border: 2px solid #0f172a;        /* خط دور تیره‌تر */\n"
+"    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */\n"
+"\n"
+"    /*transition: all 0.2s;*/\n"
+"}\n"
+"\n"
+"#loginButton:hover {\n"
+"    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"#loginButton:pressed {\n"
+"    background-color: #1e293b;\n"
+"    border: 2px solid #0a0f1c;\n"
+"    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */\n"
+"    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
         self.loginButton.setObjectName("loginButton")
         self.dontHaveAccountText = QtWidgets.QLabel(parent=self.userLogin)
         self.dontHaveAccountText.setGeometry(QtCore.QRect(78, 500, 131, 41))
@@ -107,10 +162,35 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(16)
+        font.setBold(True)
         self.submitButton.setFont(font)
-        self.submitButton.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:12")
+        self.submitButton.setStyleSheet("#submitButton {\n"
+"    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */\n"
+"    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"\n"
+"    /* عمق (سایه‌ی مصنوعی) */\n"
+"    border: 2px solid #0f172a;        /* خط دور تیره‌تر */\n"
+"    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */\n"
+"\n"
+"    /*transition: all 0.2s;*/\n"
+"}\n"
+"\n"
+"#submitButton:hover {\n"
+"    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"#submitButton:pressed {\n"
+"    background-color: #1e293b;\n"
+"    border: 2px solid #0a0f1c;\n"
+"    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */\n"
+"    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
         self.submitButton.setObjectName("submitButton")
         self.pTextRegister = QtWidgets.QLabel(parent=self.userRegister)
         self.pTextRegister.setGeometry(QtCore.QRect(-10, 140, 411, 31))
@@ -146,9 +226,24 @@ class Ui_Form(object):
         self.emailIcon.setObjectName("emailIcon")
         self.emailLineEditRegister = QtWidgets.QLineEdit(parent=self.userRegister)
         self.emailLineEditRegister.setGeometry(QtCore.QRect(88, 208, 251, 41))
-        self.emailLineEditRegister.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.emailLineEditRegister.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.emailLineEditRegister.setMaxLength(100)
         self.emailLineEditRegister.setFrame(True)
         self.emailLineEditRegister.setCursorPosition(0)
@@ -157,9 +252,24 @@ class Ui_Form(object):
         self.emailLineEditRegister.setObjectName("emailLineEditRegister")
         self.passwordLineEditRegister = QtWidgets.QLineEdit(parent=self.userRegister)
         self.passwordLineEditRegister.setGeometry(QtCore.QRect(88, 318, 251, 41))
-        self.passwordLineEditRegister.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.passwordLineEditRegister.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.passwordLineEditRegister.setMaxLength(100)
         self.passwordLineEditRegister.setFrame(True)
         self.passwordLineEditRegister.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
@@ -184,9 +294,24 @@ class Ui_Form(object):
         self.userIconRegister.setObjectName("userIconRegister")
         self.usernameLineEditRegister = QtWidgets.QLineEdit(parent=self.userRegister)
         self.usernameLineEditRegister.setGeometry(QtCore.QRect(88, 263, 251, 41))
-        self.usernameLineEditRegister.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.usernameLineEditRegister.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.usernameLineEditRegister.setMaxLength(100)
         self.usernameLineEditRegister.setFrame(True)
         self.usernameLineEditRegister.setCursorPosition(0)
@@ -195,9 +320,24 @@ class Ui_Form(object):
         self.usernameLineEditRegister.setObjectName("usernameLineEditRegister")
         self.confirmPasswordLineEditRegister = QtWidgets.QLineEdit(parent=self.userRegister)
         self.confirmPasswordLineEditRegister.setGeometry(QtCore.QRect(88, 373, 251, 41))
-        self.confirmPasswordLineEditRegister.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.confirmPasswordLineEditRegister.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.confirmPasswordLineEditRegister.setMaxLength(100)
         self.confirmPasswordLineEditRegister.setFrame(True)
         self.confirmPasswordLineEditRegister.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)

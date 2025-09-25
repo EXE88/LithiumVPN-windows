@@ -60,9 +60,24 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
@@ -140,9 +155,24 @@ border-radius:8</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
@@ -220,12 +250,37 @@ border-radius:8</string>
       <font>
        <family>Roboto Mono</family>
        <pointsize>16</pointsize>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:12</string>
+      <string notr="true">#loginButton {
+    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */
+    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+
+    /* عمق (سایه‌ی مصنوعی) */
+    border: 2px solid #0f172a;        /* خط دور تیره‌تر */
+    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */
+
+    /*transition: all 0.2s;*/
+}
+
+#loginButton:hover {
+    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */
+    color: white;
+}
+
+#loginButton:pressed {
+    background-color: #1e293b;
+    border: 2px solid #0a0f1c;
+    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */
+    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */
+    padding-bottom: 8px;
+}
+</string>
      </property>
      <property name="text">
       <string>Login</string>
@@ -284,12 +339,37 @@ border-radius:12</string>
       <font>
        <family>Roboto Mono</family>
        <pointsize>16</pointsize>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:12</string>
+      <string notr="true">#submitButton {
+    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */
+    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+
+    /* عمق (سایه‌ی مصنوعی) */
+    border: 2px solid #0f172a;        /* خط دور تیره‌تر */
+    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */
+
+    /*transition: all 0.2s;*/
+}
+
+#submitButton:hover {
+    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */
+    color: white;
+}
+
+#submitButton:pressed {
+    background-color: #1e293b;
+    border: 2px solid #0a0f1c;
+    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */
+    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */
+    padding-bottom: 8px;
+}
+</string>
      </property>
      <property name="text">
       <string>Submit</string>
@@ -403,9 +483,24 @@ border-radius:12</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
@@ -436,9 +531,24 @@ border-radius:8</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
@@ -516,9 +626,24 @@ border-radius:8</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
@@ -549,9 +674,24 @@ border-radius:8</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+      <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
      </property>
      <property name="maxLength">
       <number>100</number>
