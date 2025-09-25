@@ -33,7 +33,7 @@ class ApiCalls:
                             if refresh_request.status_code == 200:
                                 new_access_token = refresh_request.json().get('access')
                                 if new_access_token:
-                                    self.managedb.execute_database(f"UPDATE auth SET access = {new_access_token};")
+                                    self.managedb.execute_database(f"UPDATE Auth SET access='{new_access_token}';")
                                     return False
                                 else:
                                     return True
@@ -67,9 +67,10 @@ class ApiCalls:
             refresh = data.get('refresh')
 
             if access and refresh:
-                self.managedb.execute_database(
-                    f"UPDATE auth SET access = '{access}', refresh = '{refresh}';"
-                )
+                if self.managedb.get_auth()==None:
+                    self.managedb.save_tokens_first_time(access, refresh)
+                else:
+                    self.managedb.execute_database(f"UPDATE Auth SET access='{access}', refresh='{refresh}';")
                 return True, "Logged in successfully."
             else:
                 return False, "Unexpected error."

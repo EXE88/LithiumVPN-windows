@@ -14,7 +14,7 @@ class PopupToast(QtWidgets.QWidget):
                 background-color: rgba(40,40,40,230);
                 color: white;
                 border-radius: 10px;
-                padding: 10px 14px;
+                padding: 10px 2px;
                 font-family: 'SF Pro Display';
                 font-size: 13px;
             }
@@ -44,7 +44,7 @@ class PopupToast(QtWidgets.QWidget):
         th = self.container.sizeHint().height()
         self.resize(tw, th)
         start_x = pw
-        end_x = pw - tw - 20
+        end_x = pw - tw - 40
         y = 20
         self.move(start_x, y)
         self.show()

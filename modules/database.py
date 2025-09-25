@@ -47,6 +47,18 @@ class ManageDatabase:
             if conn:
                 conn.close()
 
+    def save_tokens_first_time(self, access, refresh):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute("INSERT OR REPLACE INTO Auth(access, refresh) VALUES(?, ?);", (access, refresh))
+            conn.commit()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        finally:
+            if conn:
+                conn.close()
+
     def get_auth(self) -> dict | None:
         try:
             conn = sqlite3.connect(self.db_file)

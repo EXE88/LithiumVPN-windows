@@ -92,7 +92,7 @@ QLineEdit:focus {
       <number>0</number>
      </property>
      <property name="placeholderText">
-      <string>enter you password</string>
+      <string>enter your password</string>
      </property>
      <property name="cursorMoveStyle">
       <enum>Qt::CursorMoveStyle::LogicalMoveStyle</enum>
@@ -145,7 +145,7 @@ QLineEdit:focus {
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="emailLineEdit">
+    <widget class="QLineEdit" name="usernameLineEdit">
      <property name="geometry">
       <rect>
        <x>88</x>
@@ -184,7 +184,7 @@ QLineEdit:focus {
       <number>0</number>
      </property>
      <property name="placeholderText">
-      <string>enter your email address</string>
+      <string>enter your username</string>
      </property>
      <property name="cursorMoveStyle">
       <enum>Qt::CursorMoveStyle::LogicalMoveStyle</enum>

@@ -163,7 +163,6 @@ class LoginWindow(QtWidgets.QWidget):
 
         self._make_labels_clickable()
         self._apply_header_with_fancylabel()
-        self._setup_button_shadow_animations()
 
         self.ui.loginButton.clicked.connect(self.on_login_clicked)
         self.ui.submitButton.clicked.connect(self.on_submit_clicked)
@@ -192,68 +191,11 @@ class LoginWindow(QtWidgets.QWidget):
         except Exception:
             pass
 
-    def _setup_button_shadow_animations(self):
-        for btn in (self.ui.loginButton, self.ui.submitButton):
-            try:
-                eff = QGraphicsDropShadowEffect(self)
-                eff.setBlurRadius(8)
-                eff.setColor(QtGui.QColor(0, 0, 0, 160))
-                eff.setOffset(0, 6)
-                btn.setGraphicsEffect(eff)
-                btn._shadow_effect = eff
-                btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-                btn.pressed.connect(lambda b=btn: self._btn_press_shadow(b))
-                btn.released.connect(lambda b=btn: self._btn_release_shadow(b))
-            except Exception:
-                pass
-
-    def _btn_press_shadow(self, btn: QtWidgets.QPushButton):
-        eff = getattr(btn, "_shadow_effect", None)
-        if eff is None:
-            return
-        anim = QPropertyAnimation(eff, b"blurRadius", self)
-        anim.setDuration(110)
-        anim.setStartValue(eff.blurRadius())
-        anim.setEndValue(3)
-        anim.setEasingCurve(QEasingCurve.Type.OutCubic)
-        anim.start()
-        btn._shadow_press_anim = anim
-
-        a = QtCore.QVariantAnimation(self)
-        a.setDuration(110)
-        a.setStartValue(eff.offset().y())
-        a.setEndValue(2)
-        a.valueChanged.connect(lambda v, e=eff: e.setOffset(0, float(v)))
-        a.start()
-        btn._shadow_offset_anim = a
-
-    def _btn_release_shadow(self, btn: QtWidgets.QPushButton):
-        eff = getattr(btn, "_shadow_effect", None)
-        if eff is None:
-            return
-        anim = QPropertyAnimation(eff, b"blurRadius", self)
-        anim.setDuration(180)
-        anim.setStartValue(eff.blurRadius())
-        anim.setEndValue(8)
-        anim.setEasingCurve(QEasingCurve.Type.OutBack)
-        anim.start()
-        btn._shadow_release_anim = anim
-
-        a = QtCore.QVariantAnimation(self)
-        a.setDuration(180)
-        a.setStartValue(eff.offset().y())
-        a.setEndValue(6)
-        a.valueChanged.connect(lambda v, e=eff: e.setOffset(0, float(v)))
-        a.start()
-        btn._shadow_offset_release_anim = a
-
     def validate_login(self) -> tuple[bool, str]:
-        email = self.ui.emailLineEdit.text().strip()
+        username = self.ui.usernameLineEdit.text().strip()
         pwd = self.ui.passwordLineEdit.text()
-        if not email:
-            return False, "Email is required"
-        if "@gmail.com" not in email.lower():
-            return False, "Email must be a Gmail address"
+        if not username:
+            return False, "Username is required"
         if len(pwd) < 8:
             return False, "Password must be at least 8 characters"
         return True, ""
@@ -281,10 +223,16 @@ class LoginWindow(QtWidgets.QWidget):
             self._show_toast(msg)
             return
 
-        email = self.ui.emailLineEdit.text().strip()
+        username = self.ui.usernameLineEdit.text().strip()
         password = self.ui.passwordLineEdit.text()
-        print("Login OK ->", {"email": email, "password": password})
-        self._show_toast("Login OK — values printed to console", duration=1800)
+        login_window.ui.loginButton.setDisabled(True)
+        ok , msg = api_calls.login(username=username,password=password)
+        if ok:
+            self._show_toast(msg, duration=1800)
+            main_window.show()
+            return login_window.close()
+        self._show_toast(msg, duration=1800)
+        return login_window.ui.loginButton.setDisabled(False)
 
     def on_submit_clicked(self):
         ok, msg = self.validate_submit()
@@ -295,8 +243,15 @@ class LoginWindow(QtWidgets.QWidget):
         username = self.ui.usernameLineEditRegister.text().strip()
         email = self.ui.emailLineEditRegister.text().strip()
         password = self.ui.passwordLineEditRegister.text()
-        print("Submit OK ->", {"username": username, "email": email, "password": password})
-        self._show_toast("Account created (sample)", duration=1800)
+        login_window.ui.loginButton.setDisabled(True)
+
+        ok , msg = api_calls.register(username=username,email=email,password=password)
+        if ok:
+            self._show_toast(msg, duration=1800)
+            email_verify_window.show()
+            return login_window.close()
+        self._show_toast(msg, duration=1800)
+        return login_window.ui.loginButton.setDisabled(False)
 
     def _show_toast(self, text: str, duration: int = 2500):
         toast = PopupToast(self, text=text, duration=duration)
@@ -340,10 +295,9 @@ if __name__ == "__main__":
     login_window = LoginWindow()
     email_verify_window = VerifyEmailWindow()
 
-    email_verify_window.show()
-    #if api_calls.login_needed():
-        #login_window.show()
-    #else:
-    #    main_window.show()
+    if api_calls.login_needed():
+        login_window.show()
+    else:
+        main_window.show()
 
     sys.exit(app.exec())

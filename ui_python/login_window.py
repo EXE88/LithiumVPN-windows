@@ -67,9 +67,9 @@ class Ui_Form(object):
         self.keyIcon.setPixmap(QtGui.QPixmap(":/icons/icons/key.png"))
         self.keyIcon.setScaledContents(True)
         self.keyIcon.setObjectName("keyIcon")
-        self.emailLineEdit = QtWidgets.QLineEdit(parent=self.userLogin)
-        self.emailLineEdit.setGeometry(QtCore.QRect(88, 234, 251, 41))
-        self.emailLineEdit.setStyleSheet("QLineEdit {\n"
+        self.usernameLineEdit = QtWidgets.QLineEdit(parent=self.userLogin)
+        self.usernameLineEdit.setGeometry(QtCore.QRect(88, 234, 251, 41))
+        self.usernameLineEdit.setStyleSheet("QLineEdit {\n"
 "    background-color: #1e293b;   /* زمینه تیره */\n"
 "    color: #e2e8f0;              /* متن روشن */\n"
 "    border-radius: 8px;\n"
@@ -87,12 +87,12 @@ class Ui_Form(object):
 "    outline: none;\n"
 "}\n"
 "")
-        self.emailLineEdit.setMaxLength(100)
-        self.emailLineEdit.setFrame(True)
-        self.emailLineEdit.setCursorPosition(0)
-        self.emailLineEdit.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.LogicalMoveStyle)
-        self.emailLineEdit.setClearButtonEnabled(True)
-        self.emailLineEdit.setObjectName("emailLineEdit")
+        self.usernameLineEdit.setMaxLength(100)
+        self.usernameLineEdit.setFrame(True)
+        self.usernameLineEdit.setCursorPosition(0)
+        self.usernameLineEdit.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.LogicalMoveStyle)
+        self.usernameLineEdit.setClearButtonEnabled(True)
+        self.usernameLineEdit.setObjectName("usernameLineEdit")
         self.pTextLogin = QtWidgets.QLabel(parent=self.userLogin)
         self.pTextLogin.setGeometry(QtCore.QRect(-10, 140, 411, 31))
         font = QtGui.QFont()
@@ -360,9 +360,9 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "LithiumVPN - Login"))
-        self.passwordLineEdit.setPlaceholderText(_translate("Form", "enter you password"))
+        self.passwordLineEdit.setPlaceholderText(_translate("Form", "enter your password"))
         self.headerText.setText(_translate("Form", "LithiumVPN"))
-        self.emailLineEdit.setPlaceholderText(_translate("Form", "enter your email address"))
+        self.usernameLineEdit.setPlaceholderText(_translate("Form", "enter your username"))
         self.pTextLogin.setText(_translate("Form", "Login to your account"))
         self.loginButton.setText(_translate("Form", "Login"))
         self.dontHaveAccountText.setText(_translate("Form", "Dont have any account ?"))
