@@ -17,7 +17,7 @@ class Ui_Form(object):
         Form.setMaximumSize(QtCore.QSize(400, 600))
         Form.setStyleSheet("background-color:rgb(15, 23, 42)")
         self.headerText = QtWidgets.QLabel(parent=Form)
-        self.headerText.setGeometry(QtCore.QRect(0, 130, 401, 41))
+        self.headerText.setGeometry(QtCore.QRect(0, 70, 401, 41))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(36)
@@ -26,7 +26,7 @@ class Ui_Form(object):
         self.headerText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.headerText.setObjectName("headerText")
         self.pTextVerify = QtWidgets.QLabel(parent=Form)
-        self.pTextVerify.setGeometry(QtCore.QRect(0, 190, 401, 31))
+        self.pTextVerify.setGeometry(QtCore.QRect(0, 130, 401, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
@@ -35,28 +35,71 @@ class Ui_Form(object):
         self.pTextVerify.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.pTextVerify.setObjectName("pTextVerify")
         self.codeEditLine = QtWidgets.QLineEdit(parent=Form)
-        self.codeEditLine.setGeometry(QtCore.QRect(130, 290, 141, 41))
-        self.codeEditLine.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:8")
+        self.codeEditLine.setEnabled(True)
+        self.codeEditLine.setGeometry(QtCore.QRect(120, 245, 161, 51))
+        self.codeEditLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #1e293b;   /* زمینه تیره */\n"
+"    color: #e2e8f0;              /* متن روشن */\n"
+"    border-radius: 8px;\n"
+"    padding: 8px 12px;\n"
+"    font-size: 14px;\n"
+"\n"
+"    /* خط و عمق */\n"
+"    border: 2px solid #0f172a;\n"
+"    border-bottom: 4px solid #0a0f1c;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #3b82f6;   /* آبی روشن */\n"
+"    border-bottom: 4px solid #2563eb;\n"
+"    outline: none;\n"
+"}\n"
+"")
         self.codeEditLine.setMaxLength(6)
         self.codeEditLine.setFrame(True)
         self.codeEditLine.setCursorPosition(0)
+        self.codeEditLine.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.codeEditLine.setCursorMoveStyle(QtCore.Qt.CursorMoveStyle.LogicalMoveStyle)
         self.codeEditLine.setClearButtonEnabled(True)
         self.codeEditLine.setObjectName("codeEditLine")
         self.verifyButton = QtWidgets.QPushButton(parent=Form)
-        self.verifyButton.setGeometry(QtCore.QRect(130, 388, 141, 51))
+        self.verifyButton.setEnabled(True)
+        self.verifyButton.setGeometry(QtCore.QRect(130, 410, 141, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(16)
+        font.setBold(True)
         self.verifyButton.setFont(font)
-        self.verifyButton.setStyleSheet("background-color:rgb(249, 249, 249);\n"
-"color:black;\n"
-"border-radius:12")
+        self.verifyButton.setStyleSheet("#verifyButton {\n"
+"    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */\n"
+"    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"\n"
+"    /* عمق (سایه‌ی مصنوعی) */\n"
+"    border: 2px solid #0f172a;        /* خط دور تیره‌تر */\n"
+"    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */\n"
+"\n"
+"    /*transition: all 0.2s;*/\n"
+"}\n"
+"\n"
+"#verifyButton:hover {\n"
+"    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"#verifyButton:pressed {\n"
+"    background-color: #1e293b;\n"
+"    border: 2px solid #0a0f1c;\n"
+"    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */\n"
+"    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
         self.verifyButton.setObjectName("verifyButton")
         self.backToLoginButton = QtWidgets.QPushButton(parent=Form)
-        self.backToLoginButton.setGeometry(QtCore.QRect(160, 511, 91, 41))
+        self.backToLoginButton.setGeometry(QtCore.QRect(170, 505, 91, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -65,17 +108,44 @@ class Ui_Form(object):
         self.backToLoginButton.setFlat(True)
         self.backToLoginButton.setObjectName("backToLoginButton")
         self.arrowIcon = QtWidgets.QLabel(parent=Form)
-        self.arrowIcon.setGeometry(QtCore.QRect(144, 524, 16, 16))
+        self.arrowIcon.setGeometry(QtCore.QRect(140, 518, 31, 16))
         self.arrowIcon.setText("")
         self.arrowIcon.setPixmap(QtGui.QPixmap(":/icons/icons/arrow-left.png"))
         self.arrowIcon.setScaledContents(True)
         self.arrowIcon.setObjectName("arrowIcon")
         self.resendCodeButton = QtWidgets.QPushButton(parent=Form)
-        self.resendCodeButton.setGeometry(QtCore.QRect(140, 463, 121, 41))
+        self.resendCodeButton.setGeometry(QtCore.QRect(140, 310, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         self.resendCodeButton.setFont(font)
+        self.resendCodeButton.setStyleSheet("#resendCodeButton {\n"
+"    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */\n"
+"    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"\n"
+"    /* عمق (سایه‌ی مصنوعی) */\n"
+"    border: 2px solid #0f172a;        /* خط دور تیره‌تر */\n"
+"    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */\n"
+"\n"
+"    /*transition: all 0.2s;*/\n"
+"}\n"
+"\n"
+"#resendCodeButton:hover {\n"
+"    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"#resendCodeButton:pressed {\n"
+"    background-color: #1e293b;\n"
+"    border: 2px solid #0a0f1c;\n"
+"    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */\n"
+"    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
         self.resendCodeButton.setFlat(True)
         self.resendCodeButton.setObjectName("resendCodeButton")
 

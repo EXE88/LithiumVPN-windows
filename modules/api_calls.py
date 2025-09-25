@@ -1,5 +1,5 @@
 import requests
-from database import ManageDatabase
+from .database import ManageDatabase
 
 class ApiCalls:
     def __init__(self, base_url):

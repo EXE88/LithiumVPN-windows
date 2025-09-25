@@ -3,6 +3,7 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 import resources_rc
 from ui_python.main_window import Ui_MainWindow
 from ui_python.login_window import Ui_Form as Ui_LoginWindow
+from ui_python.verify_email_window import Ui_Form as Ui_VerifyEmailWindow
 from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation
 from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QGraphicsOpacityEffect
 
@@ -182,10 +183,12 @@ class LoginWindow(QtWidgets.QWidget):
     def _apply_header_with_fancylabel(self):
         try:
             FancyLabel(parent=self.ui.userLogin, target_label=self.ui.headerText, text=self.ui.headerText.text())
+            FancyLabel(parent=self.ui.userLogin, target_label=self.ui.pTextLogin, text=self.ui.pTextLogin.text(), font_size=12)
         except Exception:
             pass
         try:
             FancyLabel(parent=self.ui.userRegister, target_label=self.ui.headerTextRegister, text=self.ui.headerTextRegister.text())
+            FancyLabel(parent=self.ui.userRegister, target_label=self.ui.pTextRegister, text=self.ui.pTextRegister.text(), font_size=13)
         except Exception:
             pass
 
@@ -299,6 +302,27 @@ class LoginWindow(QtWidgets.QWidget):
         toast = PopupToast(self, text=text, duration=duration)
         toast.show_toast()
 
+class VerifyEmailWindow(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_VerifyEmailWindow()
+        self.ui.setupUi(self)
+
+        self._apply_header_with_fancylabel()
+    
+    def _apply_header_with_fancylabel(self):
+        try:
+            FancyLabel(parent=self, target_label=self.ui.headerText, text=self.ui.headerText.text())
+        except Exception:
+            pass
+        try:
+            FancyLabel(parent=self, target_label=self.ui.pTextVerify, text=self.ui.pTextVerify.text(),font_size=13)
+        except Exception:
+            pass
+
+    def _show_toast(self, text: str, duration: int = 2500):
+        toast = PopupToast(self, text=text, duration=duration)
+        toast.show_toast()
 
 if __name__ == "__main__":
     
@@ -314,10 +338,12 @@ if __name__ == "__main__":
 
     main_window = MainAppWindow()
     login_window = LoginWindow()
+    email_verify_window = VerifyEmailWindow()
 
-    if api_calls.login_needed():
-        login_window.show()
-    else:
-        main_window.show()
+    email_verify_window.show()
+    #if api_calls.login_needed():
+        #login_window.show()
+    #else:
+    #    main_window.show()
 
     sys.exit(app.exec())

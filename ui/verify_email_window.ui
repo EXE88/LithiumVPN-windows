@@ -32,7 +32,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>130</y>
+     <y>70</y>
      <width>401</width>
      <height>41</height>
     </rect>
@@ -57,7 +57,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>190</y>
+     <y>130</y>
      <width>401</width>
      <height>31</height>
     </rect>
@@ -79,18 +79,36 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="codeEditLine">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>290</y>
-     <width>141</width>
-     <height>41</height>
+     <x>120</x>
+     <y>245</y>
+     <width>161</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:8</string>
+    <string notr="true">QLineEdit {
+    background-color: #1e293b;   /* زمینه تیره */
+    color: #e2e8f0;              /* متن روشن */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    /* خط و عمق */
+    border: 2px solid #0f172a;
+    border-bottom: 4px solid #0a0f1c;
+}
+
+QLineEdit:focus {
+    border: 2px solid #3b82f6;   /* آبی روشن */
+    border-bottom: 4px solid #2563eb;
+    outline: none;
+}
+</string>
    </property>
    <property name="maxLength">
     <number>6</number>
@@ -100,6 +118,9 @@ border-radius:8</string>
    </property>
    <property name="cursorPosition">
     <number>0</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="placeholderText">
     <string>enter securety code</string>
@@ -112,10 +133,13 @@ border-radius:8</string>
    </property>
   </widget>
   <widget class="QPushButton" name="verifyButton">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>388</y>
+     <y>410</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -124,12 +148,37 @@ border-radius:8</string>
     <font>
      <family>Roboto Mono</family>
      <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:rgb(249, 249, 249);
-color:black;
-border-radius:12</string>
+    <string notr="true">#verifyButton {
+    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */
+    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+
+    /* عمق (سایه‌ی مصنوعی) */
+    border: 2px solid #0f172a;        /* خط دور تیره‌تر */
+    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */
+
+    /*transition: all 0.2s;*/
+}
+
+#verifyButton:hover {
+    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */
+    color: white;
+}
+
+#verifyButton:pressed {
+    background-color: #1e293b;
+    border: 2px solid #0a0f1c;
+    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */
+    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */
+    padding-bottom: 8px;
+}
+</string>
    </property>
    <property name="text">
     <string>Verify</string>
@@ -138,8 +187,8 @@ border-radius:12</string>
   <widget class="QPushButton" name="backToLoginButton">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>511</y>
+     <x>170</x>
+     <y>505</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -166,9 +215,9 @@ border-radius:12</string>
   <widget class="QLabel" name="arrowIcon">
    <property name="geometry">
     <rect>
-     <x>144</x>
-     <y>524</y>
-     <width>16</width>
+     <x>140</x>
+     <y>518</y>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -186,7 +235,7 @@ border-radius:12</string>
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>463</y>
+     <y>310</y>
      <width>121</width>
      <height>41</height>
     </rect>
@@ -196,6 +245,35 @@ border-radius:12</string>
      <pointsize>10</pointsize>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#resendCodeButton {
+    background-color: #1e293b;        /* خاکستری-آبی تیره، ست با پس‌زمینه */
+    color: #e2e8f0;                   /* متن روشن (خاکستری خیلی روشن) */
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+
+    /* عمق (سایه‌ی مصنوعی) */
+    border: 2px solid #0f172a;        /* خط دور تیره‌تر */
+    border-bottom: 4px solid #0a0f1c; /* سایه پایین برای برجسته شدن */
+
+    /*transition: all 0.2s;*/
+}
+
+#resendCodeButton:hover {
+    background-color: #334155;        /* کمی روشن‌تر وقتی موس میره روش */
+    color: white;
+}
+
+#resendCodeButton:pressed {
+    background-color: #1e293b;
+    border: 2px solid #0a0f1c;
+    border-top: 4px solid #0a0f1c;    /* وقتی فشار میدی انگار دکمه فرو میره */
+    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */
+    padding-bottom: 8px;
+}
+</string>
    </property>
    <property name="text">
     <string>Resend Code</string>
