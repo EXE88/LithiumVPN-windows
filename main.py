@@ -228,7 +228,6 @@ class LoginWindow(QtWidgets.QWidget):
         login_window.ui.loginButton.setDisabled(True)
         ok , msg = api_calls.login(username=username,password=password)
         if ok:
-            self._show_toast(msg, duration=1800)
             main_window.show()
             return login_window.close()
         self._show_toast(msg, duration=1800)
@@ -247,7 +246,7 @@ class LoginWindow(QtWidgets.QWidget):
 
         ok , msg = api_calls.register(username=username,email=email,password=password)
         if ok:
-            self._show_toast(msg, duration=1800)
+            email_verify_window.set_data(email,username,password)
             email_verify_window.show()
             return login_window.close()
         self._show_toast(msg, duration=1800)
@@ -264,7 +263,11 @@ class VerifyEmailWindow(QtWidgets.QWidget):
         self.ui.setupUi(self)
 
         self._apply_header_with_fancylabel()
-    
+
+        self.ui.verifyButton.clicked.connect(self.on_verify_clicked)
+        self.ui.backToLoginButton.clicked.connect(self.on_back_to_login_clicked)
+        self.ui.resendCodeButton.clicked.connect(self.on_resend_code_clicked)
+
     def _apply_header_with_fancylabel(self):
         try:
             FancyLabel(parent=self, target_label=self.ui.headerText, text=self.ui.headerText.text())
@@ -274,6 +277,47 @@ class VerifyEmailWindow(QtWidgets.QWidget):
             FancyLabel(parent=self, target_label=self.ui.pTextVerify, text=self.ui.pTextVerify.text(),font_size=13)
         except Exception:
             pass
+
+    def validate_code(self):
+        code = self.ui.codeEditLine.text().strip()
+        if not code.isdigit():
+            return False, "plase enter a valid code"
+        return True, ""
+
+    def on_verify_clicked(self):
+        ok, msg = self.validate_code()
+        if ok:
+            code = self.ui.codeEditLine.text().strip()
+            self.ui.verifyButton.setDisabled(True)
+            ok , msg = api_calls.send_verifycation_code(self.email,code)
+            if ok:
+                ok , msg = api_calls.login(self.username,self.password)
+                if ok:
+                    main_window.show()
+                    return email_verify_window.close()
+                self.ui.verifyButton.setDisabled(False)
+                return self._show_toast(msg,2000)
+            self.ui.verifyButton.setDisabled(False)
+            return self._show_toast(msg,2000)
+        return self._show_toast(msg, 2000)
+
+    def on_back_to_login_clicked(self):
+        login_window.show()
+        return email_verify_window.close()
+
+    def on_resend_code_clicked(self):
+        self.ui.resendCodeButton.setDisabled(True)
+        ok ,msg = api_calls.resend_verification_code(self.email)
+        if ok:
+            self._show_toast(msg, 2000)
+            return self.ui.resendCodeButton.setDisabled(False)
+        self._show_toast(msg, 2000)
+        return self.ui.resendCodeButton.setDisabled(False)
+
+    def set_data(self,email,username,password):
+        self.email = email
+        self.username = username
+        self.password = password
 
     def _show_toast(self, text: str, duration: int = 2500):
         toast = PopupToast(self, text=text, duration=duration)
