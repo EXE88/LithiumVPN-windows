@@ -35,14 +35,18 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self._connect_signals()
 
     def _initial_setup(self):
-        username = "danial1388"
-        self.ui.usernameText.setFixedWidth(len(username) * 10)
-        self.ui.usernameText.setText(username)
-        self.ui.coinNumber.setText("160")
-        self.ui.selectConfigComboBox.clear()
-        self.ui.selectConfigComboBox.addItems([
-            "Iran-06lw1wpj", "Iran-d7r9arzn", "Iran-ye0NdN6j", "Iran-7nmSP6LR"
-        ])
+        self.user_details_status , self.user_details = api_calls.get_user()
+
+        if self.user_details_status and isinstance(self.user_details,dict):
+            username = self.user_details.get("username")
+            self.ui.usernameText.setFixedWidth(len(username) * 10)
+            self.ui.usernameText.setText(username)
+            self.ui.coinNumber.setText(str(self.user_details.get("coin_count")))
+            self.ui.selectConfigComboBox.clear()
+            config_names = [cfg.get("config_code", "").split("#")[1] for cfg in self.user_details.get("config_codes", [])]
+            self.ui.selectConfigComboBox.addItems(config_names)
+        else:
+            self._show_toast(self.user_details,3000)
 
         try:
             self.ui.continueProfileLine.hide()
@@ -130,19 +134,22 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def on_power_clicked(self):
         current = self.ui.connectionStatusText.text()
-        if current in ("Not Connected", "Disconnected"):
+        if current in ("Not Connected", "Disconnected") and self.ui.selectConfigComboBox.currentText() != "":
             self.power_button_fancy.set_state("connecting")
+            self.power_button_fancy.setDisabled(True)
             self.ui.connectionStatusText.setText("Connecting...")
             self.ui.selectConfigComboBox.setDisabled(True)
             QtCore.QTimer.singleShot(2000, self._on_connected)
         else:
             self.power_button_fancy.set_state("disconnected")
             self.ui.connectionStatusText.setText("Disconnected")
+            self.power_button_fancy.setDisabled(False)
             self.ui.selectConfigComboBox.setDisabled(False)
 
     def _on_connected(self):
         self.power_button_fancy.set_state("connected")
         self.ui.connectionStatusText.setText("Connected")
+        self.power_button_fancy.setDisabled(False)
         self.ui.selectConfigComboBox.setDisabled(True)
 
 
@@ -151,6 +158,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def on_sidebutton_clicked(self, name):
         QtWidgets.QMessageBox.information(self, name, f"{name} clicked")
+
+    def _show_toast(self, text: str, duration: int = 2500):
+        toast = PopupToast(self, text=text, duration=duration)
+        toast.show_toast()
 
 class LoginWindow(QtWidgets.QWidget):
     def __init__(self):

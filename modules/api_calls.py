@@ -146,5 +146,27 @@ class ApiCalls:
 
         else:
             return False, resend_code_request.json().get("error", "Server error.")
+        
+    def get_user(self):
+        tokens = self.managedb.get_auth()
+        
+        if not tokens or not tokens.get('access'):
+            return False, "Tokens not found."
+        
+        headers = {"Authorization": f"Bearer {tokens['access']}"}
+        try:
+            response = requests.get(
+                self.base_url + "/accounts/status/",
+                headers=headers
+            )
+        except requests.exceptions.RequestException:
+            return False, "Network error."
+        
+        if response.status_code == 200:
+            return True, response.json()
+        elif response.status_code == 401:
+            return False, "Unauthorized. Please log in again."
+        else:
+            return False, "Server error."
 
         
