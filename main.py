@@ -123,6 +123,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
+        self.menu_toggle = False
+
     def refresh_user_data(self):
         try:
             status, data = api_calls.get_user()
@@ -187,7 +189,46 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
 
     def on_menu_clicked(self):
-        QtWidgets.QMessageBox.information(self, "Menu", "Menu clicked")
+        menu_btn = self.ui.menuButton
+        side_menu = self.ui.sideMenu
+
+        if not hasattr(self, "_menu_btn_initial_geom"):
+            self._menu_btn_initial_geom = menu_btn.geometry()
+        if not hasattr(self, "_side_menu_initial_geom"):
+            self._side_menu_initial_geom = side_menu.geometry()
+
+        menu_btn_geom = self._menu_btn_initial_geom
+        side_menu_geom = self._side_menu_initial_geom
+
+        offset = 100
+
+        anim_menu = QPropertyAnimation(menu_btn, b"geometry")
+        anim_side = QPropertyAnimation(side_menu, b"geometry")
+
+        anim_menu.setDuration(350)
+        anim_side.setDuration(350)
+        anim_menu.setEasingCurve(QEasingCurve.Type.OutQuad)
+        anim_side.setEasingCurve(QEasingCurve.Type.OutQuad)
+
+        if not self.menu_toggle:
+            menu_btn_end = QtCore.QRect(menu_btn_geom.x() - offset, menu_btn_geom.y(), menu_btn_geom.width(), menu_btn_geom.height())
+            side_menu_end = QtCore.QRect(side_menu_geom.x() - offset, side_menu_geom.y(), side_menu_geom.width(), side_menu_geom.height())
+        else:
+            menu_btn_end = QtCore.QRect(menu_btn_geom.x(), menu_btn_geom.y(), menu_btn_geom.width(), menu_btn_geom.height())
+            side_menu_end = QtCore.QRect(side_menu_geom.x(), side_menu_geom.y(), side_menu_geom.width(), side_menu_geom.height())
+
+        anim_menu.setStartValue(menu_btn.geometry())
+        anim_menu.setEndValue(menu_btn_end)
+        anim_side.setStartValue(side_menu.geometry())
+        anim_side.setEndValue(side_menu_end)
+
+        anim_menu.start()
+        anim_side.start()
+
+        menu_btn._anim = anim_menu
+        side_menu._anim = anim_side
+
+        self.menu_toggle = not self.menu_toggle
 
     def on_sidebutton_clicked(self, name):
         QtWidgets.QMessageBox.information(self, name, f"{name} clicked")
