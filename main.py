@@ -4,8 +4,8 @@ import resources_rc
 from ui_python.main_window import Ui_MainWindow
 from ui_python.login_window import Ui_Form as Ui_LoginWindow
 from ui_python.verify_email_window import Ui_Form as Ui_VerifyEmailWindow
-from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation
-from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QGraphicsOpacityEffect
+from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation, Qt, QSize, QRect
+from PyQt6.QtGui import QColor
 
 try:
     from PyQt6.QtSvg import QSvgRenderer
@@ -19,6 +19,7 @@ from custome_widgets.round_line import RoundedLine
 from custome_widgets.popup_toast import PopupToast
 from custome_widgets.clickable_label import ClickableLabel
 from custome_widgets.fancy_round_button import FancyRoundButton
+from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
 
@@ -35,18 +36,38 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self._connect_signals()
 
     def _initial_setup(self):
-        self.user_details_status , self.user_details = api_calls.get_user()
-
-        if self.user_details_status and isinstance(self.user_details,dict):
-            username = self.user_details.get("username")
+        self.user_details_status, self.user_details = api_calls.get_user()
+        if self.user_details_status and isinstance(self.user_details, dict):
+            username = self.user_details.get("username", "")
             self.ui.usernameText.setFixedWidth(len(username) * 10)
             self.ui.usernameText.setText(username)
-            self.ui.coinNumber.setText(str(self.user_details.get("coin_count")))
+            self.ui.coinNumber.setText(str(self.user_details.get("coin_count", 0)))
             self.ui.selectConfigComboBox.clear()
-            config_names = [cfg.get("config_code", "").split("#")[1] for cfg in self.user_details.get("config_codes", [])]
-            self.ui.selectConfigComboBox.addItems(config_names)
+            self.ui.selectConfigComboBox.setView(QtWidgets.QListView(self.ui.selectConfigComboBox))
+            self.ui.selectConfigComboBox.view().setVerticalScrollBarPolicy(
+                QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded
+            )
+            self.ui.selectConfigComboBox.setMaxVisibleItems(2) 
+
+            configs = self.user_details.get("config_codes", []) or []
+            for cfg in configs:
+                code_full = cfg.get("config_code", "")
+                display_name = code_full.split("#")[1] if "#" in code_full else code_full
+                gb = cfg.get("gb_left") or 0
+                days = cfg.get("days_left") or 0
+                try:
+                    days_val = float(days)
+                except Exception:
+                    days_val = days
+                if isinstance(days_val, (int, float)) and days_val <= 0:
+                    days = "expired"
+                self.ui.selectConfigComboBox.addItem(display_name)
+                i = self.ui.selectConfigComboBox.count() - 1
+                self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+            self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
+            self.ui.selectConfigComboBox.setEditable(False)
         else:
-            self._show_toast(self.user_details,3000)
+            self._show_toast(self.user_details, 3000)
 
         try:
             self.ui.continueProfileLine.hide()
@@ -148,8 +169,29 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             try:
                 self.ui.selectConfigComboBox.clear()
-                config_names = [cfg.get("config_code", "").split("#")[1] for cfg in self.user_details.get("config_codes", []) if "#" in cfg.get("config_code","")]
-                self.ui.selectConfigComboBox.addItems(config_names)
+                self.ui.selectConfigComboBox.setView(QtWidgets.QListView(self.ui.selectConfigComboBox))
+                self.ui.selectConfigComboBox.view().setVerticalScrollBarPolicy(
+                    QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded
+                )
+                self.ui.selectConfigComboBox.setMaxVisibleItems(2) 
+
+                configs = self.user_details.get("config_codes", []) or []
+                for cfg in configs:
+                    code_full = cfg.get("config_code", "")
+                    display_name = code_full.split("#")[1] if "#" in code_full else code_full
+                    gb = cfg.get("gb_left") or 0
+                    days = cfg.get("days_left") or 0
+                    try:
+                        days_val = float(days)
+                    except Exception:
+                        days_val = days
+                    if isinstance(days_val, (int, float)) and days_val <= 0:
+                        days = "expired"
+                    self.ui.selectConfigComboBox.addItem(display_name)
+                    i = self.ui.selectConfigComboBox.count() - 1
+                    self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+                self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
+                self.ui.selectConfigComboBox.setEditable(False)
             except Exception:
                 pass
         else:
