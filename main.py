@@ -123,6 +123,39 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
+    def refresh_user_data(self):
+        try:
+            status, data = api_calls.get_user()
+        except Exception as e:
+            status, data = False, f"Error fetching user: {e}"
+
+        if status and isinstance(data, dict):
+            self.user_details_status = status
+            self.user_details = data
+            username = self.user_details.get("username", "")
+            try:
+                self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
+                self.ui.usernameText.setText(username)
+            except Exception:
+                pass
+
+            try:
+                self.ui.coinNumber.setText(str(self.user_details.get("coin_count", 0)))
+            except Exception:
+                pass
+
+            try:
+                self.ui.selectConfigComboBox.clear()
+                config_names = [cfg.get("config_code", "").split("#")[1] for cfg in self.user_details.get("config_codes", []) if "#" in cfg.get("config_code","")]
+                self.ui.selectConfigComboBox.addItems(config_names)
+            except Exception:
+                pass
+        else:
+            try:
+                self._show_toast(data, 3000)
+            except Exception:
+                pass
+
     def _connect_signals(self):
         try:
             self.ui.powerButton.clicked.connect(self.on_power_clicked)
@@ -239,6 +272,10 @@ class LoginWindow(QtWidgets.QWidget):
         login_window.ui.loginButton.setDisabled(True)
         ok , msg = api_calls.login(username=username,password=password)
         if ok:
+            try:
+                main_window.refresh_user_data()
+            except:
+                pass
             main_window.show()
             return login_window.close()
         self._show_toast(msg, duration=1800)
@@ -304,6 +341,10 @@ class VerifyEmailWindow(QtWidgets.QWidget):
             if ok:
                 ok , msg = api_calls.login(self.username,self.password)
                 if ok:
+                    try:
+                        main_window.refresh_user_data()
+                    except:
+                        pass
                     main_window.show()
                     return email_verify_window.close()
                 self.ui.verifyButton.setDisabled(False)
