@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file './ui/main_window.ui'
+# Form implementation generated from reading ui file 'main_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.9.1
 #
@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
         self.headerText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.headerText.setObjectName("headerText")
         self.horizontalLayoutWidget = QtWidgets.QWidget(parent=self.homeTab)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 110, 65, 26))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(35, 110, 65, 26))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.coinLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.coinLayout.setContentsMargins(0, 0, 0, 0)
@@ -80,7 +80,7 @@ class Ui_MainWindow(object):
         self.coinIcon.setObjectName("coinIcon")
         self.coinLayout.addWidget(self.coinIcon)
         self.usernameText = QtWidgets.QLabel(parent=self.homeTab)
-        self.usernameText.setGeometry(QtCore.QRect(30, 70, 81, 39))
+        self.usernameText.setGeometry(QtCore.QRect(35, 70, 81, 39))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
@@ -150,7 +150,7 @@ class Ui_MainWindow(object):
 "background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))")
         self.powerButton.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icons/icons/power.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/icons/icons/power.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.powerButton.setIcon(icon2)
         self.powerButton.setIconSize(QtCore.QSize(150, 150))
         self.powerButton.setObjectName("powerButton")

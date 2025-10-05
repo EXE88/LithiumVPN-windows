@@ -55,6 +55,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 display_name = code_full.split("#")[1] if "#" in code_full else code_full
                 gb = cfg.get("gb_left") or 0
                 days = cfg.get("days_left") or 0
+
+                config_codes[display_name] = code_full
+
                 try:
                     days_val = float(days)
                 except Exception:
@@ -465,6 +468,8 @@ if __name__ == "__main__":
 
     backaddr_full = manage_db.get_backaddr()
     backaddr_full = f"http://{backaddr_full['sub']}.{backaddr_full['name']}.{backaddr_full['tld']}:{backaddr_full['port']}"
+
+    config_codes = {}
 
     api_calls = ApiCalls(backaddr_full)
 
