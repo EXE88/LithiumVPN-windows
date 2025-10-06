@@ -23,6 +23,8 @@ from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
 
+from core.handlers.manager import XrayClient
+
 class MainAppWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -220,11 +222,18 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.ui.connectionStatusText.setText("Connecting...")
             self.ui.selectConfigComboBox.setDisabled(True)
             QtCore.QTimer.singleShot(2000, self._on_connected)
+
+            self.xray_client = XrayClient(config_codes[self.ui.selectConfigComboBox.currentText()],set_system_proxy=True)
+            self.xray_client.start()
         else:
             self.power_button_fancy.set_state("disconnected")
             self.ui.connectionStatusText.setText("Disconnected")
             self.power_button_fancy.setDisabled(False)
             self.ui.selectConfigComboBox.setDisabled(False)
+            if self.ui.selectConfigComboBox.currentText() != "":
+                self.xray_client.stop()
+            else:
+                pass
 
     def _on_connected(self):
         self.power_button_fancy.set_state("connected")
