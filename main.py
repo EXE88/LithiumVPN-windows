@@ -1,4 +1,6 @@
 import sys
+import threading
+import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 import resources_rc
 from ui_python.main_window import Ui_MainWindow
@@ -26,6 +28,9 @@ from modules.api_calls import ApiCalls
 from core.handlers.manager import XrayClient
 
 class MainAppWindow(QtWidgets.QMainWindow):
+
+    logout_finished = pyqtSignal(bool, str)
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -34,6 +39,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         QtGui.QFontDatabase.addApplicationFont(":/fonts/RobotoMono-Regular.ttf")
         QtGui.QFontDatabase.addApplicationFont(":/fonts/SFProDisplay-Regular.ttf")
 
+        self.logout_finished.connect(self._on_logout_finished)
+
         self._initial_setup()
         self._connect_signals()
 
@@ -41,9 +48,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.user_details_status, self.user_details = api_calls.get_user()
         if self.user_details_status and isinstance(self.user_details, dict):
             username = self.user_details.get("username", "")
+            email = self.user_details.get("email", "")
             self.ui.usernameText.setFixedWidth(len(username) * 10)
             self.ui.usernameText.setText(username)
+            self.ui.accountUsernameText.setText(username)
+            self.ui.accountEmailText.setText(email)
             self.ui.coinNumber.setText(str(self.user_details.get("coin_count", 0)))
+            self.ui.accountCoinsCount.setText(str(self.user_details.get("coin_count", 0)))
             self.ui.selectConfigComboBox.clear()
             self.ui.selectConfigComboBox.setView(QtWidgets.QListView(self.ui.selectConfigComboBox))
             self.ui.selectConfigComboBox.view().setVerticalScrollBarPolicy(
@@ -69,6 +80,20 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self.ui.selectConfigComboBox.addItem(display_name)
                 i = self.ui.selectConfigComboBox.count() - 1
                 self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+
+            all_configs_count = len(configs)
+            expired_configs_count = 0
+            for cfg in configs:
+                days = cfg.get("days_left") or 0
+                try:
+                    days_val = float(days)
+                except Exception:
+                    days_val = None
+                if isinstance(days_val, (int, float)) and days_val <= 0:
+                    expired_configs_count += 1
+            self.ui.accountAllConfigsCount.setText(str(all_configs_count))
+            self.ui.accountExpiredConfigsCount.setText(str(expired_configs_count))
+
             self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
             self.ui.selectConfigComboBox.setEditable(False)
         else:
@@ -86,6 +111,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                                         vertical=True)
 
         self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, "LithiumVPN")
+        self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, "LithiumVPN")
 
         try:
             if hasattr(self.ui, "powerButtonBase") and self.ui.powerButtonBase is not None:
@@ -161,14 +187,18 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.user_details_status = status
             self.user_details = data
             username = self.user_details.get("username", "")
+            email = self.user_details.get("email", "")
             try:
                 self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
                 self.ui.usernameText.setText(username)
+                self.ui.accountUsernameText.setText(username)
+                self.ui.accountEmailText.setText(email)
             except Exception:
                 pass
 
             try:
                 self.ui.coinNumber.setText(str(self.user_details.get("coin_count", 0)))
+                self.ui.accountCoinsCount.setText(str(self.user_details.get("coin_count", 0)))
             except Exception:
                 pass
 
@@ -186,6 +216,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     display_name = code_full.split("#")[1] if "#" in code_full else code_full
                     gb = cfg.get("gb_left") or 0
                     days = cfg.get("days_left") or 0
+                    
+                    config_codes[display_name] = code_full
+
                     try:
                         days_val = float(days)
                     except Exception:
@@ -195,6 +228,20 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     self.ui.selectConfigComboBox.addItem(display_name)
                     i = self.ui.selectConfigComboBox.count() - 1
                     self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+
+                all_configs_count = len(configs)
+                expired_configs_count = 0
+                for cfg in configs:
+                    days = cfg.get("days_left") or 0
+                    try:
+                        days_val = float(days)
+                    except Exception:
+                        days_val = None
+                    if isinstance(days_val, (int, float)) and days_val <= 0:
+                        expired_configs_count += 1
+                self.ui.accountAllConfigsCount.setText(str(all_configs_count))
+                self.ui.accountExpiredConfigsCount.setText(str(expired_configs_count))
+
                 self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
                 self.ui.selectConfigComboBox.setEditable(False)
             except Exception:
@@ -210,9 +257,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.ui.powerButton.clicked.connect(self.on_power_clicked)
         except Exception:
             pass
+
         self.ui.menuButton.clicked.connect(self.on_menu_clicked)
-        self.ui.sideMenuHomeButton.clicked.connect(lambda: self.on_sidebutton_clicked("Home"))
-        self.ui.sideMenuAccountButton.clicked.connect(lambda: self.on_sidebutton_clicked("Account"))
+        self.ui.sideMenuHomeButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
+        self.ui.sideMenuAccountButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
+        self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
 
     def on_power_clicked(self):
         current = self.ui.connectionStatusText.text()
@@ -240,7 +289,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.connectionStatusText.setText("Connected")
         self.power_button_fancy.setDisabled(False)
         self.ui.selectConfigComboBox.setDisabled(True)
-
 
     def on_menu_clicked(self):
         menu_btn = self.ui.menuButton
@@ -286,6 +334,92 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def on_sidebutton_clicked(self, name):
         QtWidgets.QMessageBox.information(self, name, f"{name} clicked")
+
+    def on_logout_clicked(self):
+        try:
+            self.ui.accountlogoutButton.setDisabled(True)
+        except Exception:
+            pass
+
+        try:
+            self._show_toast("Logging out...", 1200)
+        except Exception:
+            pass
+
+        t = threading.Thread(target=self._perform_logout, daemon=True)
+        t.start()
+
+    def _perform_logout(self):
+        ok = True
+        msg = "Logged out"
+        try:
+            try:
+                if hasattr(self, "xray_client") and self.xray_client is not None:
+                    try:
+                        self.xray_client.stop()
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+
+            try:
+                if 'manage_db' in globals() and manage_db is not None:
+                    try:
+                        manage_db.execute_database("DELETE FROM Auth;")
+                    except Exception as e:
+                        try:
+                            conn = sqlite3.connect(manage_db.db_file)
+                            cur = conn.cursor()
+                            cur.execute("DELETE FROM Auth;")
+                            conn.commit()
+                            conn.close()
+                        except Exception:
+                            pass
+            except Exception:
+                pass
+
+            try:
+                global config_codes
+                config_codes.clear()
+            except Exception:
+                pass
+
+            if ok:
+                msg = "Logged out successfully"
+        except Exception as e:
+            ok = False
+            msg = f"Logout error: {e}"
+
+        try:
+            self.logout_finished.emit(ok, str(msg))
+        except Exception:
+            pass
+
+    def _on_logout_finished(self, ok: bool, msg: str):
+        try:
+            self.ui.accountlogoutButton.setDisabled(False)
+        except Exception:
+            pass
+
+        try:
+            self._show_toast(msg, 2000)
+        except Exception:
+            pass
+
+        if ok:
+            try:
+                try:
+                    login_window.show()
+                except Exception:
+                    pass
+                try:
+                    main_window.close()
+                except Exception:
+                    pass
+            except Exception:
+                pass
+        else:
+            pass
 
     def _show_toast(self, text: str, duration: int = 2500):
         toast = PopupToast(self, text=text, duration=duration)
@@ -372,9 +506,10 @@ class LoginWindow(QtWidgets.QWidget):
             except:
                 pass
             main_window.show()
+            login_window.ui.loginButton.setDisabled(False)
             return login_window.close()
-        self._show_toast(msg, duration=1800)
-        return login_window.ui.loginButton.setDisabled(False)
+        login_window.ui.loginButton.setDisabled(False)
+        return self._show_toast(msg, duration=1800)
 
     def on_submit_clicked(self):
         ok, msg = self.validate_submit()
@@ -385,15 +520,16 @@ class LoginWindow(QtWidgets.QWidget):
         username = self.ui.usernameLineEditRegister.text().strip()
         email = self.ui.emailLineEditRegister.text().strip()
         password = self.ui.passwordLineEditRegister.text()
-        login_window.ui.loginButton.setDisabled(True)
+        login_window.ui.submitButton.setDisabled(True)
 
         ok , msg = api_calls.register(username=username,email=email,password=password)
         if ok:
             email_verify_window.set_data(email,username,password)
             email_verify_window.show()
+            login_window.ui.submitButton.setDisabled(False)
             return login_window.close()
-        self._show_toast(msg, duration=1800)
-        return login_window.ui.loginButton.setDisabled(False)
+        login_window.ui.submitButton.setDisabled(False)
+        return self._show_toast(msg, duration=1800)
 
     def _show_toast(self, text: str, duration: int = 2500):
         toast = PopupToast(self, text=text, duration=duration)
@@ -441,6 +577,7 @@ class VerifyEmailWindow(QtWidgets.QWidget):
                     except:
                         pass
                     main_window.show()
+                    self.ui.verifyButton.setDisabled(False)
                     return email_verify_window.close()
                 self.ui.verifyButton.setDisabled(False)
                 return self._show_toast(msg,2000)

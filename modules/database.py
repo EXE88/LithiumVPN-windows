@@ -15,7 +15,7 @@ class ManageDatabase:
         self.DOMAIN_TLD = os.getenv("DOMAIN_TLD")
         self.DOMAIN_PORT = os.getenv("DOMAIN_PORT")
 
-        self.db_file = os.path.join(self.DB_PATH, self.DB_NAME)
+        self.db_file = os.path.join(self.BASE_DIR, self.DB_NAME)
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
