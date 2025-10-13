@@ -1,10 +1,10 @@
 import json
 import os
 import platform
-from . import starter
+from core.handlers import starter
 import tempfile
 from urllib.parse import urlparse, parse_qs, unquote
-from ...modules import path_helpers
+from modules import path_helpers
 
 def parse_vless(url: str):
     u = urlparse(url)

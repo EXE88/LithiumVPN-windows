@@ -3,6 +3,5 @@ CONFIG = {
     "DOMAIN_SUB":"net9",
     "DOMAIN_NAME":"fast-pro",
     "DOMAIN_TLD":"ir",
-    "DOMAIN_PORT":8000,
-    "DEVMODE":True
+    "DOMAIN_PORT":8000
 }

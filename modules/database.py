@@ -1,6 +1,6 @@
 import sqlite3
-import path_helpers
-from ..configuratio import CONFIG
+from modules import path_helpers
+from configuration import CONFIG
 
 class ManageDatabase:
     def __init__(self):
@@ -11,7 +11,7 @@ class ManageDatabase:
         self.DOMAIN_TLD = CONFIG["DOMAIN_TLD"]
         self.DOMAIN_PORT = CONFIG["DOMAIN_PORT"]
 
-        self.db_file = path_helpers.get_path(self.db_file)
+        self.db_file = path_helpers.get_path(self.DB_NAME)
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
