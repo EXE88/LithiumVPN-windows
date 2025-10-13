@@ -1,19 +1,13 @@
 from __future__ import annotations
 import subprocess
-import tempfile
-import os
 from typing import Optional
-from dotenv import load_dotenv
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-load_dotenv(BASE_DIR / ".env")
+from modules import path_helpers 
 
 _proc: Optional[subprocess.Popen] = None
 _last_cfg_path: Optional[str] = None
 
 def _default_xray_path() -> str:
-    return os.getenv("XRAY_PATH", f"{BASE_DIR}\\core\\binding\\xray.exe")
+    return path_helpers.get_path("core","binding","xray.exe")
 
 def startFromJSON(cfg_path, cfg_json: str, xray_path: Optional[str] = None) -> subprocess.Popen:
     global _proc, _last_cfg_path
@@ -26,7 +20,6 @@ def startFromJSON(cfg_path, cfg_json: str, xray_path: Optional[str] = None) -> s
         xray_path = _default_xray_path()
 
     cmd = [xray_path, "-c", _last_cfg_path]
-    env = os.environ.copy()
-    _proc = subprocess.Popen(cmd, env=env)
+    _proc = subprocess.Popen(cmd)
     return _proc
 

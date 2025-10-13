@@ -4,7 +4,7 @@ import platform
 from . import starter
 import tempfile
 from urllib.parse import urlparse, parse_qs, unquote
-from pathlib import Path
+from ...modules import path_helpers
 
 def parse_vless(url: str):
     u = urlparse(url)
@@ -137,8 +137,7 @@ def generate_xray_config(parsed, http_port=10809, enable_geosite=False, dns_serv
     return cfg
 
 def write_temp_config(cfg):
-    base_dir = Path(__file__).resolve().parent.parent.parent
-    temp_dir = os.path.join(base_dir, "core", "temp")
+    temp_dir = path_helpers.get_path("core","temp")
     tf = tempfile.NamedTemporaryFile(delete=False, suffix=".json", prefix="xray_conf_", dir=temp_dir)
     tf.write(json.dumps(cfg, indent=2).encode("utf-8"))
     tf.flush()

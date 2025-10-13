@@ -1,21 +1,17 @@
-import os
 import sqlite3
-from dotenv import load_dotenv
-from pathlib import Path
+import path_helpers
+from ..configuratio import CONFIG
 
 class ManageDatabase:
     def __init__(self):
-        self.BASE_DIR = Path(__file__).resolve().parent.parent
-        load_dotenv(self.BASE_DIR / ".env")
 
-        self.DB_PATH = os.getenv("DATABASE_PATH")
-        self.DB_NAME = os.getenv("DATABASE_NAME")
-        self.DOMAIN_SUB = os.getenv("DOMAIN_SUB")
-        self.DOMAIN_NAME = os.getenv("DOMAIN_NAME")
-        self.DOMAIN_TLD = os.getenv("DOMAIN_TLD")
-        self.DOMAIN_PORT = os.getenv("DOMAIN_PORT")
+        self.DB_NAME = CONFIG["DATABASE_NAME"]
+        self.DOMAIN_SUB = CONFIG["DOMAIN_SUB"]
+        self.DOMAIN_NAME = CONFIG["DOMAIN_NAME"]
+        self.DOMAIN_TLD = CONFIG["DOMAIN_TLD"]
+        self.DOMAIN_PORT = CONFIG["DOMAIN_PORT"]
 
-        self.db_file = os.path.join(self.BASE_DIR, self.DB_NAME)
+        self.db_file = path_helpers.get_path(self.db_file)
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
