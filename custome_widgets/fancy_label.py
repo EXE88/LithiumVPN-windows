@@ -1,7 +1,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 class FancyLabel:
-    def __init__(self, parent, target_label, text="LithiumVPN", font_size=28):
+    def __init__(self, parent, target_label, text="", font_size=28):
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(font_size)

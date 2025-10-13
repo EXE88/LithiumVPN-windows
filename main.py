@@ -27,6 +27,8 @@ from modules.api_calls import ApiCalls
 
 from core.handlers.manager import XrayClient
 
+from configuration import CONFIG
+
 class MainAppWindow(QtWidgets.QMainWindow):
 
     logout_finished = pyqtSignal(bool, str)
@@ -41,10 +43,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.logout_finished.connect(self._on_logout_finished)
 
+        self.product_name = CONFIG['PRODUCT_NAME']
+        self.admin_telegram = CONFIG['ADMIN_TELEGRAM_ID']
+        self.coin_price = CONFIG['COIN_PRICE']
+
         self._initial_setup()
         self._connect_signals()
 
     def _initial_setup(self):
+        self.setWindowTitle(self.product_name)
+
         self.user_details_status, self.user_details = api_calls.get_user()
         if self.user_details_status and isinstance(self.user_details, dict):
             username = self.user_details.get("username", "")
@@ -110,8 +118,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
                                         color=QtGui.QColor(230, 230, 230),
                                         vertical=True)
 
-        self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, "LithiumVPN")
-        self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, "LithiumVPN")
+        self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, self.product_name)
+        self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, self.product_name)
 
         try:
             if hasattr(self.ui, "powerButtonBase") and self.ui.powerButtonBase is not None:
@@ -431,6 +439,10 @@ class LoginWindow(QtWidgets.QWidget):
         self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
 
+        self.product_name = CONFIG['PRODUCT_NAME']
+
+        self.setWindowTitle(f"{self.product_name} - Login")
+
         QtGui.QFontDatabase.addApplicationFont(":/fonts/RobotoMono-Regular.ttf")
         QtGui.QFontDatabase.addApplicationFont(":/fonts/SFProDisplay-Regular.ttf")
 
@@ -454,12 +466,12 @@ class LoginWindow(QtWidgets.QWidget):
 
     def _apply_header_with_fancylabel(self):
         try:
-            FancyLabel(parent=self.ui.userLogin, target_label=self.ui.headerText, text=self.ui.headerText.text())
+            FancyLabel(parent=self.ui.userLogin, target_label=self.ui.headerText, text=self.product_name)
             FancyLabel(parent=self.ui.userLogin, target_label=self.ui.pTextLogin, text=self.ui.pTextLogin.text(), font_size=12)
         except Exception:
             pass
         try:
-            FancyLabel(parent=self.ui.userRegister, target_label=self.ui.headerTextRegister, text=self.ui.headerTextRegister.text())
+            FancyLabel(parent=self.ui.userRegister, target_label=self.ui.headerTextRegister, text=self.product_name)
             FancyLabel(parent=self.ui.userRegister, target_label=self.ui.pTextRegister, text=self.ui.pTextRegister.text(), font_size=13)
         except Exception:
             pass
@@ -543,13 +555,19 @@ class VerifyEmailWindow(QtWidgets.QWidget):
 
         self._apply_header_with_fancylabel()
 
+        self.product_name = CONFIG['PRODUCT_NAME']
+
+        self.setWindowTitle(f"{self.product_name} - verify your email address")
+
         self.ui.verifyButton.clicked.connect(self.on_verify_clicked)
         self.ui.backToLoginButton.clicked.connect(self.on_back_to_login_clicked)
         self.ui.resendCodeButton.clicked.connect(self.on_resend_code_clicked)
 
+        self.ui.headerText.setText(self.product_name)
+
     def _apply_header_with_fancylabel(self):
         try:
-            FancyLabel(parent=self, target_label=self.ui.headerText, text=self.ui.headerText.text())
+            FancyLabel(parent=self, target_label=self.ui.headerText, text=self.product_name)
         except Exception:
             pass
         try:

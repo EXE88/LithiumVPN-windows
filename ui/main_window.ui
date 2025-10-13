@@ -661,6 +661,11 @@ QPushButton#accountlogoutButton:pressed {
       <string>Page</string>
      </attribute>
     </widget>
+    <widget class="QWidget" name="buyCoinsTab">
+     <attribute name="title">
+      <string>Page</string>
+     </attribute>
+    </widget>
     <widget class="QWidget" name="settingsTab">
      <attribute name="title">
       <string>Page</string>
