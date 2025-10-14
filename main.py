@@ -58,6 +58,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.user_details_status, self.user_details = api_calls.get_user()
         if self.user_details_status and isinstance(self.user_details, dict):
+            self.coin_count = str(self.user_details.get("coin_count", 0))
             username = self.user_details.get("username", "")
             email = self.user_details.get("email", "")
             self.ui.usernameText.setFixedWidth(len(username) * 10)
@@ -108,6 +109,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
             self.ui.selectConfigComboBox.setEditable(False)
         else:
+            self.coin_count = 0
             self._show_toast(self.user_details, 3000)
 
         try:
@@ -139,7 +141,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                                                     glow_color=(255, 255, 255, 220), shadow_color=(255, 255, 255, 120), 
                                                     header_color_stop0=(255, 255, 255, 255), header_color_stop1=(230, 230, 230, 255))
 
-        self.ui.buyCoinsYourCoinsText.setText(f"You Have : {self.user_details.get("coin_count", 0)} Coins")
+        self.ui.buyCoinsYourCoinsText.setText(f"You Have : {self.coin_count} Coins")
         self.buycoin_your_coins = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsYourCoinsText, self.ui.buyCoinsYourCoinsText.text(),
                                                     glow_color=(255, 255, 255, 220), shadow_color=(255, 255, 255, 120), 
                                                     header_color_stop0=(255, 255, 255, 255), header_color_stop1=(230, 230, 230, 255))
