@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'main_window.ui'
+# Form implementation generated from reading ui file 'ui/main_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.9.1
 #
@@ -281,6 +281,158 @@ class Ui_MainWindow(object):
         self.buyConfigsTab = QtWidgets.QWidget()
         self.buyConfigsTab.setObjectName("buyConfigsTab")
         self.tabWidget.addTab(self.buyConfigsTab, "")
+        self.buyCoinsTab = QtWidgets.QWidget()
+        self.buyCoinsTab.setObjectName("buyCoinsTab")
+        self.buyCoinsHeaderText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsHeaderText.setGeometry(QtCore.QRect(80, 20, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.buyCoinsHeaderText.setFont(font)
+        self.buyCoinsHeaderText.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))")
+        self.buyCoinsHeaderText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsHeaderText.setObjectName("buyCoinsHeaderText")
+        self.buyCoinsAdminID = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsAdminID.setGeometry(QtCore.QRect(0, 175, 393, 51))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(28)
+        self.buyCoinsAdminID.setFont(font)
+        self.buyCoinsAdminID.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsAdminID.setObjectName("buyCoinsAdminID")
+        self.buyCoinsDescription = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsDescription.setGeometry(QtCore.QRect(74, 235, 251, 21))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(12)
+        self.buyCoinsDescription.setFont(font)
+        self.buyCoinsDescription.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsDescription.setObjectName("buyCoinsDescription")
+        self.buyCoinsCoinIcon = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsCoinIcon.setGeometry(QtCore.QRect(330, 237, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(12)
+        self.buyCoinsCoinIcon.setFont(font)
+        self.buyCoinsCoinIcon.setText("")
+        self.buyCoinsCoinIcon.setPixmap(QtGui.QPixmap(":/icons/icons/coin.png"))
+        self.buyCoinsCoinIcon.setScaledContents(True)
+        self.buyCoinsCoinIcon.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsCoinIcon.setObjectName("buyCoinsCoinIcon")
+        self.buyCoinsCoinPriceText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsCoinPriceText.setGeometry(QtCore.QRect(0, 297, 391, 41))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsCoinPriceText.setFont(font)
+        self.buyCoinsCoinPriceText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsCoinPriceText.setObjectName("buyCoinsCoinPriceText")
+        self.buyCoinsUserIcon = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsUserIcon.setGeometry(QtCore.QRect(168, 110, 64, 64))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsUserIcon.setFont(font)
+        self.buyCoinsUserIcon.setText("")
+        self.buyCoinsUserIcon.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+        self.buyCoinsUserIcon.setScaledContents(True)
+        self.buyCoinsUserIcon.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsUserIcon.setObjectName("buyCoinsUserIcon")
+        self.buyCoinsYourCoinsText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsYourCoinsText.setGeometry(QtCore.QRect(0, 337, 391, 31))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsYourCoinsText.setFont(font)
+        self.buyCoinsYourCoinsText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsYourCoinsText.setObjectName("buyCoinsYourCoinsText")
+        self.buyCoinsCounter = QtWidgets.QSpinBox(parent=self.buyCoinsTab)
+        self.buyCoinsCounter.setGeometry(QtCore.QRect(50, 415, 81, 30))
+        self.buyCoinsCounter.setStyleSheet("")
+        self.buyCoinsCounter.setMinimum(1)
+        self.buyCoinsCounter.setMaximum(999999999)
+        self.buyCoinsCounter.setObjectName("buyCoinsCounter")
+        self.buyCoinsCoinUnitText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsCoinUnitText.setGeometry(QtCore.QRect(140, 419, 41, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsCoinUnitText.setFont(font)
+        self.buyCoinsCoinUnitText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsCoinUnitText.setObjectName("buyCoinsCoinUnitText")
+        self.buyCoinsEqualSymbolText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsEqualSymbolText.setGeometry(QtCore.QRect(190, 419, 21, 16))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsEqualSymbolText.setFont(font)
+        self.buyCoinsEqualSymbolText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsEqualSymbolText.setObjectName("buyCoinsEqualSymbolText")
+        self.buyCoinsEqualMoneyNumber = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsEqualMoneyNumber.setGeometry(QtCore.QRect(220, 419, 41, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsEqualMoneyNumber.setFont(font)
+        self.buyCoinsEqualMoneyNumber.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsEqualMoneyNumber.setObjectName("buyCoinsEqualMoneyNumber")
+        self.buyCoinsTomanUnitText = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsTomanUnitText.setGeometry(QtCore.QRect(270, 419, 61, 21))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(12)
+        self.buyCoinsTomanUnitText.setFont(font)
+        self.buyCoinsTomanUnitText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsTomanUnitText.setObjectName("buyCoinsTomanUnitText")
+        self.buyCoinsBuyButton = QtWidgets.QPushButton(parent=self.buyCoinsTab)
+        self.buyCoinsBuyButton.setGeometry(QtCore.QRect(70, 500, 251, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(14)
+        font.setBold(True)
+        self.buyCoinsBuyButton.setFont(font)
+        self.buyCoinsBuyButton.setStyleSheet("QPushButton#buyCoinsBuyButton {\n"
+"    background-color: #059669;        /* سبز آبی اصلی (primary) */\n"
+"    color: #f8fafc;                   /* متن روشن */\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"\n"
+"    /* عمق و برجستگی */\n"
+"    border: 2px solid #047857;        /* خط دور کمی تیره‌تر */\n"
+"    border-bottom: 4px solid #065f46; /* سایه پایین برای حجم دادن */\n"
+"\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"/* Hover - روشن‌تر و زنده‌تر */\n"
+"QPushButton#buyCoinsBuyButton:hover {\n"
+"    background-color: #10b981;        /* سبز روشن‌تر هنگام hover */\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"/* Pressed - کمی تیره‌تر و با حرکت جزئی */\n"
+"QPushButton#buyCoinsBuyButton:pressed {\n"
+"    background-color: #047857;        /* سبز تیره‌تر */\n"
+"    border: 2px solid #065f46;\n"
+"    border-top: 4px solid #065f46;    /* سایه بالا برای حس فرو رفتن */\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
+        self.buyCoinsBuyButton.setObjectName("buyCoinsBuyButton")
+        self.buyCoinsCoinIcon_2 = QtWidgets.QLabel(parent=self.buyCoinsTab)
+        self.buyCoinsCoinIcon_2.setGeometry(QtCore.QRect(53, 237, 16, 16))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(12)
+        self.buyCoinsCoinIcon_2.setFont(font)
+        self.buyCoinsCoinIcon_2.setText("")
+        self.buyCoinsCoinIcon_2.setPixmap(QtGui.QPixmap(":/icons/icons/coin.png"))
+        self.buyCoinsCoinIcon_2.setScaledContents(True)
+        self.buyCoinsCoinIcon_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyCoinsCoinIcon_2.setObjectName("buyCoinsCoinIcon_2")
+        self.tabWidget.addTab(self.buyCoinsTab, "")
         self.settingsTab = QtWidgets.QWidget()
         self.settingsTab.setObjectName("settingsTab")
         self.tabWidget.addTab(self.settingsTab, "")
@@ -395,6 +547,17 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.accountTab), _translate("MainWindow", "Tab 2"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.configsTab), _translate("MainWindow", "Page"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyConfigsTab), _translate("MainWindow", "Page"))
+        self.buyCoinsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
+        self.buyCoinsAdminID.setText(_translate("MainWindow", "@MibroAdmin"))
+        self.buyCoinsDescription.setText(_translate("MainWindow", "Message in telegram for buying coins"))
+        self.buyCoinsCoinPriceText.setText(_translate("MainWindow", "Price of Each Coin : 1000 Tomans"))
+        self.buyCoinsYourCoinsText.setText(_translate("MainWindow", "You Have : 50 Coins"))
+        self.buyCoinsCoinUnitText.setText(_translate("MainWindow", "Coin"))
+        self.buyCoinsEqualSymbolText.setText(_translate("MainWindow", "="))
+        self.buyCoinsEqualMoneyNumber.setText(_translate("MainWindow", "1000"))
+        self.buyCoinsTomanUnitText.setText(_translate("MainWindow", "Tomans"))
+        self.buyCoinsBuyButton.setText(_translate("MainWindow", "Buy"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyCoinsTab), _translate("MainWindow", "Page"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingsTab), _translate("MainWindow", "Page"))
         self.sideMenuHomeButton.setText(_translate("MainWindow", "Home"))
         self.sideMenuAccountButton.setText(_translate("MainWindow", "Account"))

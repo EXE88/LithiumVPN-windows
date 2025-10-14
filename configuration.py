@@ -6,5 +6,5 @@ CONFIG = {
     "DOMAIN_PORT":8000,
     "PRODUCT_NAME":"LithiumVPN",
     "ADMIN_TELEGRAM_ID":"@MibroAdmin",
-    "COIN_PRICE":1000 #price of a coin in unit of Toman
+    "COIN_PRICE":800 #price of a coin in unit of Toman
 }
