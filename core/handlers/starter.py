@@ -20,6 +20,13 @@ def startFromJSON(cfg_path, cfg_json: str, xray_path: Optional[str] = None) -> s
         xray_path = _default_xray_path()
 
     cmd = [xray_path, "-c", _last_cfg_path]
-    _proc = subprocess.Popen(cmd)
+    _proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        stdin=subprocess.DEVNULL,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+        shell=False
+    )
     return _proc
 
