@@ -168,5 +168,53 @@ class ApiCalls:
             return False, "Unauthorized. Please log in again."
         else:
             return False, "Server error."
+        
+    def get_plans(self):
+        tokens = self.managedb.get_auth()
+        
+        if not tokens or not tokens.get('access'):
+            return False, "Tokens not found."
+        
+        headers = {"Authorization": f"Bearer {tokens['access']}"}
+        try:
+            response = requests.get(
+                self.base_url + "/plans/",
+                headers=headers
+            )
+        except requests.exceptions.RequestException:
+            return False, "Network error."
+        
+        if response.status_code == 200:
+            return True, response.json()
+        elif response.status_code == 401:
+            return False, "Unauthorized. Please log in again."
+        else:
+            return False, "Server error."
+        
+    def buy_plan(self, plan_id):
+        tokens = self.managedb.get_auth()
+        
+        if not tokens or not tokens.get('access'):
+            return False, "Tokens not found."
+        
+        headers = {"Authorization": f"Bearer {tokens['access']}"}
+        data = {"plan_id":plan_id}
+        try:
+            response = requests.post(
+                self.base_url + "/plans/buy/",
+                headers=headers,
+                data=data
+            )
+        except requests.exceptions.RequestException:
+            return False, "Network error."
+        
+        if response.status_code == 200:
+            return True, response.json()
+        elif response.status_code == 401:
+            return False, "Unauthorized. Please log in again."
+        elif response.status_code == 400:
+            return False , response.json()['error']
+        else:
+            return False, "Server error."
 
         

@@ -126,6 +126,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.header = FancyLabel(self.ui.homeTab, self.ui.headerText, self.product_name)
         self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, self.product_name)
         self.buycoin_header = FancyLabel(self.ui.buyCoinsTab, self.ui.buyCoinsHeaderText, self.product_name)
+        self.buyconfig_header = FancyLabel(self.ui.buyConfigsTab, self.ui.buyConfigsHeaderText, self.product_name)
 
         self.ui.buyCoinsAdminID.setText(CONFIG['ADMIN_TELEGRAM_ID'])
         self.buycoin_adminid = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, self.ui.buyCoinsAdminID.text(),
@@ -207,10 +208,118 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.power_button_fancy.set_state("disconnected")
 
+        request_plans_success , request_plans_content = api_calls.get_plans()
+        if request_plans_success:
+            self.populate_buyconfigs_from_data(request_plans_content)
+        else:
+            self._show_toast(request_plans_content,3000)
+
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
         self.menu_toggle = False
+
+    def populate_buyconfigs_from_data(self, data: list):
+
+        frame_stylesheet = """
+    QFrame {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(255,255,255,6),
+        stop:0.55 rgba(255,255,255,3),
+        stop:1 rgba(0,0,0,14));
+    border: 1px solid rgba(17,186,189,140); 
+    border-radius: 12px;
+    padding: 0px;
+    color:white;
+    }
+    QFrame::indicator {}
+    QLabel { 
+    border: 1px solid rgba(17, 186, 189, 255);
+    border-radius: 8px;
+    font-weight: 600; font-size: 13px; 
+    }
+    QPushButton {
+        background-color: #059669;
+        color: #f8fafc;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: bold;
+        border: 2px solid #047857; 
+        border-bottom: 4px solid #065f46;
+        outline: none;
+    }
+    QPushButton:hover {
+        background-color: #10b981;
+        color: white;
+    }
+    QPushButton:pressed {
+        background-color: #047857;
+        border: 2px solid #065f46;
+        border-top: 4px solid #065f46;
+        padding-top: 12px;
+        padding-bottom: 8px;
+    }
+    """ 
+        for idx in range(len(data['plans'])):
+            plan_id = data['plans'][idx].get("id", idx)
+            plan_name = data['plans'][idx].get("plan_name", "Unknown Plan")
+            plan_usage = data['plans'][idx].get("usage", "")
+            plan_time = data['plans'][idx].get("time", "")
+            plan_price = data['plans'][idx].get("price", "")
+            number_of_users = data['plans'][idx].get("number_of_users","")
+
+            frame = QtWidgets.QFrame(self.ui.scrollAreaWidgetContents)
+            frame.setObjectName(f"buy_frame_{plan_id}")
+            frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+            frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+            frame.setMinimumHeight(250)
+            frame.setMinimumWidth(100)
+            frame.setSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed)
+            frame.setStyleSheet(frame_stylesheet)
+
+            vbox = QtWidgets.QVBoxLayout(frame)
+            vbox.setContentsMargins(10, 8, 10, 8)
+            vbox.setSpacing(6)
+
+            name_lbl = QtWidgets.QLabel(frame)
+            name_lbl.setObjectName(f"plan_name_lbl_{plan_id}")
+            name_lbl.setText(f"Plan Name : {plan_name}")
+            name_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            price_lbl = QtWidgets.QLabel(frame)
+            price_lbl.setObjectName(f"plan_price_lbl_{plan_id}")
+            price_lbl.setText(f"Plan Price : {plan_price}")
+            price_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            usage_lbl = QtWidgets.QLabel(frame)
+            usage_lbl.setObjectName(f"plan_usage_lbl_{plan_id}")
+            usage_lbl.setText(f"Plan Usage : {plan_usage}GB")
+            usage_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            time_lbl = QtWidgets.QLabel(frame)
+            time_lbl.setObjectName(f"plan_time_lbl_{plan_id}")
+            time_lbl.setText(f"Plan Time : {plan_time} month")
+            time_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            usersnum_lbl = QtWidgets.QLabel(frame)
+            usersnum_lbl.setObjectName(f"plan_usersnum_lbl_{plan_id}")
+            usersnum_lbl.setText(f"Plan Number Of Users : {number_of_users}")
+            usersnum_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            buy_btn = QtWidgets.QPushButton(frame)
+            buy_btn.setObjectName(f"buy_btn_{plan_id}")
+            buy_btn.setText("Buy")
+            buy_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+            buy_btn.clicked.connect(lambda _checked, plan=data['plans'][idx]: self.on_buyconfig_clicked(plan))
+
+            vbox.addWidget(name_lbl)
+            vbox.addWidget(price_lbl)
+            vbox.addWidget(usage_lbl)
+            vbox.addWidget(time_lbl)
+            vbox.addWidget(usersnum_lbl)
+            vbox.addWidget(buy_btn)
+
+            self.ui.verticalLayout.addWidget(frame)
 
     def refresh_user_data(self):
         try:
@@ -297,9 +406,68 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.sideMenuHomeButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.sideMenuAccountButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
         self.ui.sideMenuBuyCoinsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
+        self.ui.sideMenuBuyConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
         self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
         self.ui.buyCoinsCounter.valueChanged.connect(self.on_counter_change)
         self.ui.buyCoinsBuyButton.clicked.connect(self.on_buycoin_clicked)
+
+    def on_buyconfig_clicked(self, plan: dict):
+        try:
+            plan_id = plan.get("id", plan.get("plan_id", "Unknown"))
+            name = plan.get("plan_name", plan.get("name", "Unknown"))
+            usage = plan.get("plan_usage", plan.get("usage", "N/A"))
+            time_days = plan.get("plan_time", plan.get("time", "N/A"))
+            price = plan.get("plan_price", plan.get("price", "N/A"))
+            number_of_users = plan.get("number_of_users", "")
+
+            lines = [
+                f"📦  Name: {name}",
+                f"📊  Usage: {usage} GB",
+                f"⏳  Time: {time_days} month",
+                f"💰  Price: {price} coins",
+            ]
+            if number_of_users not in (None, "", "N/A"):
+                lines.append(f"👥  Users: {number_of_users}")
+
+            body = "\n".join(lines)
+            body += "\n\nAre you sure you want to buy this plan?"
+
+            resp = QtWidgets.QMessageBox.question(
+                self,
+                "Confirm Purchase",
+                body,
+                QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No,
+                QtWidgets.QMessageBox.StandardButton.No
+            )
+
+            if resp == QtWidgets.QMessageBox.StandardButton.Yes:
+                purchase_plan_status, purchase_plan_result = api_calls.buy_plan(plan_id)
+                if purchase_plan_status:
+                    code_full = purchase_plan_result['details'].get("config_code", "")
+                    display_name = code_full.split("#")[1] if "#" in code_full else code_full
+                    gb = purchase_plan_result['details'].get("usage") or 0
+                    days = purchase_plan_result['details'].get("time")*30 or 0
+                    config_codes[display_name] = code_full
+
+                    try:
+                        days_val = float(days)
+                    except Exception:
+                        days_val = days
+                    if isinstance(days_val, (int, float)) and days_val <= 0:
+                        days = "expired"
+
+                    self.ui.selectConfigComboBox.addItem(display_name)
+                    i = self.ui.selectConfigComboBox.count() - 1
+                    self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+
+                    self.ui.coinNumber.setText(str(int(self.ui.coinNumber.text())-purchase_plan_result['details'].get("price")))
+                    self.ui.accountCoinsCount.setText(str(int(self.ui.accountCoinsCount.text())-purchase_plan_result['details'].get("price")))
+
+                    return self._show_toast("Plan Successfully purchased ✅")
+                return self._show_toast(purchase_plan_result)
+            
+        except Exception as e:
+            QtWidgets.QMessageBox.warning(self, "Error", f"Error in on_buyconfig_clicked:\n{e}")
 
     def on_buycoin_clicked(self):
         url = f"https://t.me/{CONFIG['ADMIN_TELEGRAM_ID']}"

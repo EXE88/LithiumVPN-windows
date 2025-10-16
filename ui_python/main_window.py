@@ -57,6 +57,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.coinNumber.setFont(font)
+        self.coinNumber.setStyleSheet("color:white;")
         self.coinNumber.setObjectName("coinNumber")
         self.coinLayout.addWidget(self.coinNumber)
         self.coinIcon = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
@@ -76,6 +77,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.usernameText.setFont(font)
+        self.usernameText.setStyleSheet("color:white;")
         self.usernameText.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.usernameText.setObjectName("usernameText")
         self.selectConfigComboBox = QtWidgets.QComboBox(parent=self.homeTab)
@@ -103,6 +105,9 @@ class Ui_MainWindow(object):
 "QScrollBar::add-line:vertical,\n"
 "QScrollBar::sub-line:vertical {\n"
 "    background: none;      /* دکمه‌های بالا/پایین رو حذف میکنه */\n"
+"}\n"
+"QComboBox{\n"
+"color:white;\n"
 "}\n"
 "")
         self.selectConfigComboBox.setMaxVisibleItems(3)
@@ -160,6 +165,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.accountUsernameText.setFont(font)
+        self.accountUsernameText.setStyleSheet("color:white;")
         self.accountUsernameText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountUsernameText.setObjectName("accountUsernameText")
         self.accountCoinsCount = QtWidgets.QLabel(parent=self.accountTab)
@@ -168,6 +174,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountCoinsCount.setFont(font)
+        self.accountCoinsCount.setStyleSheet("color:white;")
         self.accountCoinsCount.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountCoinsCount.setObjectName("accountCoinsCount")
         self.accountCoinsIcon = QtWidgets.QLabel(parent=self.accountTab)
@@ -183,6 +190,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.accountEmailText.setFont(font)
+        self.accountEmailText.setStyleSheet("color:white;")
         self.accountEmailText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountEmailText.setObjectName("accountEmailText")
         self.accountCoinsText = QtWidgets.QLabel(parent=self.accountTab)
@@ -191,6 +199,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountCoinsText.setFont(font)
+        self.accountCoinsText.setStyleSheet("color:white;")
         self.accountCoinsText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountCoinsText.setObjectName("accountCoinsText")
         self.accountAllConfigsText = QtWidgets.QLabel(parent=self.accountTab)
@@ -199,6 +208,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountAllConfigsText.setFont(font)
+        self.accountAllConfigsText.setStyleSheet("color:white;")
         self.accountAllConfigsText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountAllConfigsText.setObjectName("accountAllConfigsText")
         self.accountAllConfigsCount = QtWidgets.QLabel(parent=self.accountTab)
@@ -207,6 +217,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountAllConfigsCount.setFont(font)
+        self.accountAllConfigsCount.setStyleSheet("color:white;")
         self.accountAllConfigsCount.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountAllConfigsCount.setObjectName("accountAllConfigsCount")
         self.accountSpacer = QtWidgets.QFrame(parent=self.accountTab)
@@ -220,6 +231,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountExpiredConfigsText.setFont(font)
+        self.accountExpiredConfigsText.setStyleSheet("color:white;")
         self.accountExpiredConfigsText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountExpiredConfigsText.setObjectName("accountExpiredConfigsText")
         self.accountExpiredConfigsCount = QtWidgets.QLabel(parent=self.accountTab)
@@ -228,6 +240,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.accountExpiredConfigsCount.setFont(font)
+        self.accountExpiredConfigsCount.setStyleSheet("color:white;")
         self.accountExpiredConfigsCount.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.accountExpiredConfigsCount.setObjectName("accountExpiredConfigsCount")
         self.accountlogoutButton = QtWidgets.QPushButton(parent=self.accountTab)
@@ -280,6 +293,102 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.configsTab, "")
         self.buyConfigsTab = QtWidgets.QWidget()
         self.buyConfigsTab.setObjectName("buyConfigsTab")
+        self.buyConfigsHeaderText = QtWidgets.QLabel(parent=self.buyConfigsTab)
+        self.buyConfigsHeaderText.setGeometry(QtCore.QRect(80, 20, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.buyConfigsHeaderText.setFont(font)
+        self.buyConfigsHeaderText.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))")
+        self.buyConfigsHeaderText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.buyConfigsHeaderText.setObjectName("buyConfigsHeaderText")
+        self.scrollArea = QtWidgets.QScrollArea(parent=self.buyConfigsTab)
+        self.scrollArea.setGeometry(QtCore.QRect(0, 80, 391, 521))
+        self.scrollArea.setStyleSheet("/* ===== پایه - برای همه‌ی QScrollBar ها ===== */\n"
+"QScrollBar:vertical {\n"
+"    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */\n"
+"    width: 12px;                    /* ضخامت اسکرول‌بار */\n"
+"    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */\n"
+"}\n"
+"\n"
+"/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:\n"
+"   QScrollArea QScrollBar:vertical { ... }\n"
+"*/\n"
+"\n"
+"/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */\n"
+"QScrollBar::groove:vertical {\n"
+"    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */\n"
+"    border-radius: 7px;\n"
+"    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */\n"
+"}\n"
+"\n"
+"/* handle — همان دکمه‌ای که حرکت می‌کند */\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */\n"
+"    min-height: 36px;                     /* حداقل اندازه‌ی handle */\n"
+"    border-radius: 999px;                 /* خیلی بزرگ => همیشه گرد */\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */\n"
+"}\n"
+"\n"
+"/* وقتی ماوس روشه کمی برجسته‌ترش کن */\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background: rgba(255,255,255,0.95);\n"
+"}\n"
+"\n"
+"/* وقتی کلیک می‌کنن ــ حس فشرده شدن */\n"
+"QScrollBar::handle:vertical:pressed {\n"
+"    background: rgba(255,255,255,1.0);\n"
+"    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */\n"
+"}\n"
+"\n"
+"/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */\n"
+"QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
+"    height: 0px;\n"
+"    subcontrol-origin: padding;\n"
+"}\n"
+"\n"
+"/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */\n"
+"QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */\n"
+"QScrollBar:horizontal {\n"
+"    background: transparent;\n"
+"    height: 12px;\n"
+"    margin: 0px 6px 0px 6px;\n"
+"}\n"
+"QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-width: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 2px 4px 2px 4px;\n"
+"}\n"
+"QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }\n"
+"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }\n"
+"QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }\n"
+"QScrollBar{\n"
+"border-radius: 12px;\n"
+"border: 1px solid #555;\n"
+"}")
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 389, 519))
+        self.scrollAreaWidgetContents.setStyleSheet("")
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(12, 12, 12, 12)
+        self.verticalLayout.setSpacing(16)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.tabWidget.addTab(self.buyConfigsTab, "")
         self.buyCoinsTab = QtWidgets.QWidget()
         self.buyCoinsTab.setObjectName("buyCoinsTab")
@@ -348,7 +457,7 @@ class Ui_MainWindow(object):
         self.buyCoinsYourCoinsText.setObjectName("buyCoinsYourCoinsText")
         self.buyCoinsCounter = QtWidgets.QSpinBox(parent=self.buyCoinsTab)
         self.buyCoinsCounter.setGeometry(QtCore.QRect(50, 415, 81, 30))
-        self.buyCoinsCounter.setStyleSheet("")
+        self.buyCoinsCounter.setStyleSheet("color:white;")
         self.buyCoinsCounter.setMinimum(1)
         self.buyCoinsCounter.setMaximum(999999999)
         self.buyCoinsCounter.setObjectName("buyCoinsCounter")
@@ -358,6 +467,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.buyCoinsCoinUnitText.setFont(font)
+        self.buyCoinsCoinUnitText.setStyleSheet("color:white;")
         self.buyCoinsCoinUnitText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.buyCoinsCoinUnitText.setObjectName("buyCoinsCoinUnitText")
         self.buyCoinsEqualSymbolText = QtWidgets.QLabel(parent=self.buyCoinsTab)
@@ -366,6 +476,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.buyCoinsEqualSymbolText.setFont(font)
+        self.buyCoinsEqualSymbolText.setStyleSheet("color:white;")
         self.buyCoinsEqualSymbolText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.buyCoinsEqualSymbolText.setObjectName("buyCoinsEqualSymbolText")
         self.buyCoinsEqualMoneyNumber = QtWidgets.QLabel(parent=self.buyCoinsTab)
@@ -374,6 +485,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.buyCoinsEqualMoneyNumber.setFont(font)
+        self.buyCoinsEqualMoneyNumber.setStyleSheet("color:white;")
         self.buyCoinsEqualMoneyNumber.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.buyCoinsEqualMoneyNumber.setObjectName("buyCoinsEqualMoneyNumber")
         self.buyCoinsTomanUnitText = QtWidgets.QLabel(parent=self.buyCoinsTab)
@@ -382,6 +494,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.buyCoinsTomanUnitText.setFont(font)
+        self.buyCoinsTomanUnitText.setStyleSheet("color:white;")
         self.buyCoinsTomanUnitText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.buyCoinsTomanUnitText.setObjectName("buyCoinsTomanUnitText")
         self.buyCoinsBuyButton = QtWidgets.QPushButton(parent=self.buyCoinsTab)
@@ -546,6 +659,7 @@ class Ui_MainWindow(object):
         self.accountHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.accountTab), _translate("MainWindow", "Tab 2"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.configsTab), _translate("MainWindow", "Page"))
+        self.buyConfigsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyConfigsTab), _translate("MainWindow", "Page"))
         self.buyCoinsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.buyCoinsAdminID.setText(_translate("MainWindow", "@MibroAdmin"))

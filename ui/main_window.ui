@@ -121,6 +121,9 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color:white;</string>
+         </property>
          <property name="text">
           <string>160</string>
          </property>
@@ -164,6 +167,9 @@
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>Username</string>
       </property>
@@ -206,6 +212,9 @@ QScrollBar::handle:vertical:hover {
 QScrollBar::add-line:vertical,
 QScrollBar::sub-line:vertical {
     background: none;      /* دکمه‌های بالا/پایین رو حذف میکنه */
+}
+QComboBox{
+color:white;
 }
 </string>
       </property>
@@ -377,6 +386,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>username</string>
       </property>
@@ -398,6 +410,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <family>Roboto Mono</family>
         <pointsize>11</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>999</string>
@@ -443,6 +458,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>email@gmail.com</string>
       </property>
@@ -464,6 +482,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <family>Roboto Mono</family>
         <pointsize>11</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>coins left :</string>
@@ -487,6 +508,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <pointsize>11</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>all configs :</string>
       </property>
@@ -508,6 +532,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <family>Roboto Mono</family>
         <pointsize>11</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>20</string>
@@ -547,6 +574,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <pointsize>11</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>expired configs :</string>
       </property>
@@ -568,6 +598,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <family>Roboto Mono</family>
         <pointsize>11</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>19</string>
@@ -660,6 +693,153 @@ QPushButton#accountlogoutButton:pressed {
      <attribute name="title">
       <string>Page</string>
      </attribute>
+     <widget class="QLabel" name="buyConfigsHeaderText">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>20</y>
+        <width>241</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Roboto Mono</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+      </property>
+      <property name="text">
+       <string>LithiumVPN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>80</y>
+        <width>391</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ===== پایه - برای همه‌ی QScrollBar ها ===== */
+QScrollBar:vertical {
+    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */
+    width: 12px;                    /* ضخامت اسکرول‌بار */
+    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */
+}
+
+/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:
+   QScrollArea QScrollBar:vertical { ... }
+*/
+
+/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */
+QScrollBar::groove:vertical {
+    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */
+    border-radius: 7px;
+    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */
+}
+
+/* handle — همان دکمه‌ای که حرکت می‌کند */
+QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */
+    min-height: 36px;                     /* حداقل اندازه‌ی handle */
+    border-radius: 999px;                 /* خیلی بزرگ =&gt; همیشه گرد */
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */
+}
+
+/* وقتی ماوس روشه کمی برجسته‌ترش کن */
+QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+
+/* وقتی کلیک می‌کنن ــ حس فشرده شدن */
+QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */
+}
+
+/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-origin: padding;
+}
+
+/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */
+QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
+    background: transparent;
+}
+
+/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */
+QScrollBar:horizontal {
+    background: transparent;
+    height: 12px;
+    margin: 0px 6px 0px 6px;
+}
+QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
+QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}
+QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
+QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
+QScrollBar{
+border-radius: 12px;
+border: 1px solid #555;
+}</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>389</width>
+         <height>519</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>16</number>
+          </property>
+          <property name="leftMargin">
+           <number>12</number>
+          </property>
+          <property name="topMargin">
+           <number>12</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="buyCoinsTab">
      <attribute name="title">
@@ -844,7 +1024,7 @@ QPushButton#accountlogoutButton:pressed {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">color:white;</string>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -868,6 +1048,9 @@ QPushButton#accountlogoutButton:pressed {
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>Coin</string>
       </property>
@@ -889,6 +1072,9 @@ QPushButton#accountlogoutButton:pressed {
         <family>Roboto Mono</family>
         <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>=</string>
@@ -912,6 +1098,9 @@ QPushButton#accountlogoutButton:pressed {
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
+      </property>
       <property name="text">
        <string>1000</string>
       </property>
@@ -933,6 +1122,9 @@ QPushButton#accountlogoutButton:pressed {
         <family>Roboto Mono</family>
         <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;</string>
       </property>
       <property name="text">
        <string>Tomans</string>
