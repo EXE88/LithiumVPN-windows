@@ -16,6 +16,7 @@ class ManageDatabase:
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
         self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER);")
+        self.execute_database("CREATE TABLE IF NOT EXISTS Exclusives (address TEXT);")
 
         try:
             with sqlite3.connect(self.db_file) as conn:
@@ -82,6 +83,38 @@ class ManageDatabase:
         except sqlite3.Error as e:
             print(f"Database error in get_backaddr: {e}")
             return None
+        finally:
+            if conn:
+                conn.close()
+
+    def get_exclusive_addresses(self):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute("SELECT address FROM Exclusives;")
+            rows = cursor.fetchall()
+            if rows:
+                return [row[0] for row in rows]
+            return None
+        except sqlite3.Error as e:
+            print(f"Database error in get_exclusives: {e}")
+            return None
+        finally:
+            if conn:
+                conn.close()
+            
+    def set_exclusive_addresses(self, address_list):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM Exclusives;")
+            cursor.executemany(
+                "INSERT INTO Exclusives (address) VALUES (?);",
+                [(addr,) for addr in address_list]
+            )
+            conn.commit()
+        except sqlite3.Error as e:
+            print(f"Database error in set_exclusive_addresses: {e}")
         finally:
             if conn:
                 conn.close()

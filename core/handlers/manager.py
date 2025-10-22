@@ -1,10 +1,18 @@
 import json
 import os
 import platform
+import winreg
+import ctypes
+from typing import List, Iterable
 from core.handlers import starter
 import tempfile
 from urllib.parse import urlparse, parse_qs, unquote
 from modules import path_helpers
+
+REG_PATH_EXLUSIVE_PROXY = r"Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+VALUE_NAME_EXCLUSIVE_PROXY = "ProxyOverride"
+INTERNET_OPTION_SETTINGS_CHANGED = 39
+INTERNET_OPTION_REFRESH = 37
 
 def parse_vless(url: str):
     u = urlparse(url)
@@ -167,6 +175,50 @@ def unset_windows_system_proxy():
     except Exception:
         pass
     reg.CloseKey(k)
+
+def _notify_windows():
+    try:
+        ctypes.windll.Wininet.InternetSetOptionW(None, INTERNET_OPTION_SETTINGS_CHANGED, None, 0)
+        ctypes.windll.Wininet.InternetSetOptionW(None, INTERNET_OPTION_REFRESH, None, 0)
+    except Exception:
+        pass
+
+def _normalize_entries(entries: Iterable[str]) -> List[str]:
+    out = []
+    for e in entries:
+        if e is None:
+            continue
+        s = str(e).strip()
+        if s == "":
+            continue
+        if s.endswith(";"):
+            s = s[:-1].strip()
+        if s and s not in out:
+            out.append(s)
+    return out
+
+def _write_proxy_override_string(value_str: str):
+    try:
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_PATH_EXLUSIVE_PROXY, 0, winreg.KEY_SET_VALUE)
+        try:
+            winreg.SetValueEx(key, VALUE_NAME_EXCLUSIVE_PROXY, 0, winreg.REG_SZ, value_str)
+        finally:
+            winreg.CloseKey(key)
+    except FileNotFoundError:
+        key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, REG_PATH_EXLUSIVE_PROXY)
+        try:
+            winreg.SetValueEx(key, VALUE_NAME_EXCLUSIVE_PROXY, 0, winreg.REG_SZ, value_str)
+        finally:
+            winreg.CloseKey(key)
+    except OSError as e:
+        raise RuntimeError(f"exception in writing registery : {e}") from e
+
+def set_proxy_exceptions(entries: Iterable[str]) -> List[str]:
+    normalized = _normalize_entries(entries)
+    value_str = ";".join(normalized)
+    _write_proxy_override_string(value_str)
+    _notify_windows()
+    return normalized
 
 class XrayClient:
     def __init__(self, config_code, xray_path=None, http_port=10809, set_system_proxy=False):

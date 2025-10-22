@@ -25,6 +25,10 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(parent=self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, -30, 400, 631))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(10)
+        self.tabWidget.setFont(font)
         self.tabWidget.setObjectName("tabWidget")
         self.homeTab = QtWidgets.QWidget()
         self.homeTab.setObjectName("homeTab")
@@ -548,6 +552,132 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.buyCoinsTab, "")
         self.settingsTab = QtWidgets.QWidget()
         self.settingsTab.setObjectName("settingsTab")
+        self.settingsHeaderText = QtWidgets.QLabel(parent=self.settingsTab)
+        self.settingsHeaderText.setGeometry(QtCore.QRect(80, 20, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.settingsHeaderText.setFont(font)
+        self.settingsHeaderText.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))")
+        self.settingsHeaderText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.settingsHeaderText.setObjectName("settingsHeaderText")
+        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.settingsTab)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(7, 110, 381, 261))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.settingsProxyExclusivesLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.settingsProxyExclusivesLayout.setContentsMargins(12, 12, 12, 12)
+        self.settingsProxyExclusivesLayout.setSpacing(10)
+        self.settingsProxyExclusivesLayout.setObjectName("settingsProxyExclusivesLayout")
+        self.settingsProxyExclusivesTopicText = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        self.settingsProxyExclusivesTopicText.setFont(font)
+        self.settingsProxyExclusivesTopicText.setToolTip("")
+        self.settingsProxyExclusivesTopicText.setStatusTip("")
+        self.settingsProxyExclusivesTopicText.setWhatsThis("")
+        self.settingsProxyExclusivesTopicText.setStyleSheet("color:rgb(125, 200, 255);")
+        self.settingsProxyExclusivesTopicText.setObjectName("settingsProxyExclusivesTopicText")
+        self.settingsProxyExclusivesLayout.addWidget(self.settingsProxyExclusivesTopicText)
+        self.settingsProxyExclusivesTextEdit = QtWidgets.QPlainTextEdit(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(1)
+        self.settingsProxyExclusivesTextEdit.setFont(font)
+        self.settingsProxyExclusivesTextEdit.setToolTip("")
+        self.settingsProxyExclusivesTextEdit.setStyleSheet("QPlainTextEdit#settingsProxyExclusivesTextEdit {\n"
+"    background-color: rgb(19, 28, 44);\n"
+"    color: #e6eef6;\n"
+"    border: 1px solid rgba(17,186,189,160);\n"
+"    border-radius: 12px;\n"
+"    padding: 12px;\n"
+"    font-family: Consolas, \"Courier New\", monospace;\n"
+"    font-size: 13px;\n"
+"    selection-background-color: rgba(59,130,246,0.25);\n"
+"    selection-color: white;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit:focus {\n"
+"    border: 1px solid rgba(59,130,246,220);\n"
+"    background-color: rgb(21, 34, 58);\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:vertical {\n"
+"    background: transparent;\n"
+"    width: 12px;\n"
+"    margin: 6px 0px 6px 0px;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::groove:vertical {\n"
+"    background: rgba(255,255,255,0.02);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-height: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 4px 2px 4px 2px;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:hover {\n"
+"    background: rgba(255,255,255,0.95);\n"
+"}\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:pressed {\n"
+"    background: rgba(255,255,255,1.0);\n"
+"    margin-top: 5px;\n"
+"}\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-line:vertical,\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-line:vertical {\n"
+"    height: 0px;\n"
+"}\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-page:vertical,\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-page:vertical {\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:horizontal { height: 12px; margin: 0px 6px; }\n"
+"QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-width: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 2px 4px 2px 4px;\n"
+"}")
+        self.settingsProxyExclusivesTextEdit.setObjectName("settingsProxyExclusivesTextEdit")
+        self.settingsProxyExclusivesLayout.addWidget(self.settingsProxyExclusivesTextEdit)
+        self.settingsProxyExclusivesApplyButton = QtWidgets.QPushButton(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        font.setBold(True)
+        self.settingsProxyExclusivesApplyButton.setFont(font)
+        self.settingsProxyExclusivesApplyButton.setStyleSheet("QPushButton#settingsProxyExclusivesApplyButton {\n"
+"    /* رنگِ تنظیمات: یک آبی-سرد ملایم (هماهنگ با selection و focus) */\n"
+"    background-color: #2563EB;   /* blue-600 */\n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"    border: 2px solid #1e40af;   /* آبی تیره‌تر برای کنتراست */\n"
+"    border-bottom: 4px solid #122055;\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"/* hover و pressed — از استایل قبلی استفاده می‌کنیم ولی با همان رنگ‌بندی آبی */\n"
+"QPushButton#settingsProxyExclusivesApplyButton:hover {\n"
+"    background-color: #3b82f6;\n"
+"}\n"
+"QPushButton#settingsProxyExclusivesApplyButton:pressed {\n"
+"    background-color: #1e40af;\n"
+"    border: 2px solid #122055;\n"
+"    border-top: 4px solid #122055;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}")
+        self.settingsProxyExclusivesApplyButton.setObjectName("settingsProxyExclusivesApplyButton")
+        self.settingsProxyExclusivesLayout.addWidget(self.settingsProxyExclusivesApplyButton)
         self.tabWidget.addTab(self.settingsTab, "")
         self.sideMenu = QtWidgets.QWidget(parent=self.centralwidget)
         self.sideMenu.setGeometry(QtCore.QRect(400, 20, 111, 341))
@@ -672,6 +802,9 @@ class Ui_MainWindow(object):
         self.buyCoinsTomanUnitText.setText(_translate("MainWindow", "Tomans"))
         self.buyCoinsBuyButton.setText(_translate("MainWindow", "Buy"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyCoinsTab), _translate("MainWindow", "Page"))
+        self.settingsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
+        self.settingsProxyExclusivesTopicText.setText(_translate("MainWindow", "Exclusive addresses : "))
+        self.settingsProxyExclusivesApplyButton.setText(_translate("MainWindow", "Apply"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingsTab), _translate("MainWindow", "Page"))
         self.sideMenuHomeButton.setText(_translate("MainWindow", "Home"))
         self.sideMenuAccountButton.setText(_translate("MainWindow", "Account"))

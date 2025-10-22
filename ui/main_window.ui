@@ -47,6 +47,12 @@
       <height>631</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Roboto Mono</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
@@ -1217,6 +1223,197 @@ QPushButton#buyCoinsBuyButton:pressed {
      <attribute name="title">
       <string>Page</string>
      </attribute>
+     <widget class="QLabel" name="settingsHeaderText">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>20</y>
+        <width>241</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Roboto Mono</family>
+        <pointsize>28</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+      </property>
+      <property name="text">
+       <string>LithiumVPN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>110</y>
+        <width>381</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="settingsProxyExclusivesLayout">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="settingsProxyExclusivesTopicText">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="statusTip">
+          <string/>
+         </property>
+         <property name="whatsThis">
+          <string/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(125, 200, 255);</string>
+         </property>
+         <property name="text">
+          <string>Exclusive addresses : </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="settingsProxyExclusivesTextEdit">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPlainTextEdit#settingsProxyExclusivesTextEdit {
+    background-color: rgb(19, 28, 44);
+    color: #e6eef6;
+    border: 1px solid rgba(17,186,189,160);
+    border-radius: 12px;
+    padding: 12px;
+    font-family: Consolas, &quot;Courier New&quot;, monospace;
+    font-size: 13px;
+    selection-background-color: rgba(59,130,246,0.25);
+    selection-color: white;
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit:focus {
+    border: 1px solid rgba(59,130,246,220);
+    background-color: rgb(21, 34, 58);
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::groove:vertical {
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;
+}
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-line:vertical,
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-line:vertical {
+    height: 0px;
+}
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-page:vertical,
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-page:vertical {
+    background: transparent;
+}
+
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
+QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="settingsProxyExclusivesApplyButton">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+           <pointsize>11</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#settingsProxyExclusivesApplyButton {
+    /* رنگِ تنظیمات: یک آبی-سرد ملایم (هماهنگ با selection و focus) */
+    background-color: #2563EB;   /* blue-600 */
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: 2px solid #1e40af;   /* آبی تیره‌تر برای کنتراست */
+    border-bottom: 4px solid #122055;
+    outline: none;
+}
+
+/* hover و pressed — از استایل قبلی استفاده می‌کنیم ولی با همان رنگ‌بندی آبی */
+QPushButton#settingsProxyExclusivesApplyButton:hover {
+    background-color: #3b82f6;
+}
+QPushButton#settingsProxyExclusivesApplyButton:pressed {
+    background-color: #1e40af;
+    border: 2px solid #122055;
+    border-top: 4px solid #122055;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Apply</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="sideMenu" native="true">

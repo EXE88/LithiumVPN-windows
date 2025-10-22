@@ -26,7 +26,7 @@ from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
 
-from core.handlers.manager import XrayClient
+from core.handlers.manager import XrayClient, set_proxy_exceptions
 
 from configuration import CONFIG
 
@@ -127,6 +127,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, self.product_name)
         self.buycoin_header = FancyLabel(self.ui.buyCoinsTab, self.ui.buyCoinsHeaderText, self.product_name)
         self.buyconfig_header = FancyLabel(self.ui.buyConfigsTab, self.ui.buyConfigsHeaderText, self.product_name)
+        self.settings_header = FancyLabel(self.ui.settingsTab, self.ui.settingsHeaderText, self.product_name)
 
         self.ui.buyCoinsAdminID.setText(CONFIG['ADMIN_TELEGRAM_ID'])
         self.buycoin_adminid = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, self.ui.buyCoinsAdminID.text(),
@@ -213,6 +214,12 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.populate_buyconfigs_from_data(request_plans_content)
         else:
             self._show_toast(request_plans_content,3000)
+
+        addresses = manage_db.get_exclusive_addresses()
+        if addresses is not None:
+            init_content = "\n".join(addresses)
+            self.ui.settingsProxyExclusivesTextEdit.setPlainText(init_content)
+            set_proxy_exceptions(addresses)  
 
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
@@ -407,9 +414,20 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.sideMenuAccountButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
         self.ui.sideMenuBuyCoinsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.sideMenuBuyConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
+        self.ui.sideMenuSettingsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
         self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
         self.ui.buyCoinsCounter.valueChanged.connect(self.on_counter_change)
         self.ui.buyCoinsBuyButton.clicked.connect(self.on_buycoin_clicked)
+        self.ui.settingsProxyExclusivesApplyButton.clicked.connect(self.settings_exclusive_proxy_apply_clicked)
+
+    def settings_exclusive_proxy_apply_clicked(self):
+        addresses = self.ui.settingsProxyExclusivesTextEdit.toPlainText().split("\n")
+        manage_db.set_exclusive_addresses(addresses)
+        addresses = manage_db.get_exclusive_addresses()
+        if addresses is not None:
+            set_proxy_exceptions(addresses)
+            return self._show_toast("Exclusive addresses applyed successfully ✅")
+        return self._show_toast("There is no address to  set as exlusive", 3000)
 
     def on_buyconfig_clicked(self, plan: dict):
         try:
@@ -462,6 +480,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
                     self.ui.coinNumber.setText(str(int(self.ui.coinNumber.text())-purchase_plan_result['details'].get("price")))
                     self.ui.accountCoinsCount.setText(str(int(self.ui.accountCoinsCount.text())-purchase_plan_result['details'].get("price")))
+                    self.ui.accountAllConfigsCount.setText(str(int(self.ui.accountAllConfigsCount.text())+1))
 
                     return self._show_toast("Plan Successfully purchased ✅")
                 return self._show_toast(purchase_plan_result)
