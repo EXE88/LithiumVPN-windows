@@ -109,6 +109,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
             self.ui.selectConfigComboBox.setEditable(False)
         else:
+            configs = []
             self.coin_count = 0
             self._show_toast(self.user_details, 3000)
 
@@ -128,6 +129,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.buycoin_header = FancyLabel(self.ui.buyCoinsTab, self.ui.buyCoinsHeaderText, self.product_name)
         self.buyconfig_header = FancyLabel(self.ui.buyConfigsTab, self.ui.buyConfigsHeaderText, self.product_name)
         self.settings_header = FancyLabel(self.ui.settingsTab, self.ui.settingsHeaderText, self.product_name)
+        self.myconfigs_header = FancyLabel(self.ui.configsTab, self.ui.myConfigsHeaderText, self.product_name)
 
         self.ui.buyCoinsAdminID.setText(CONFIG['ADMIN_TELEGRAM_ID'])
         self.buycoin_adminid = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, self.ui.buyCoinsAdminID.text(),
@@ -219,54 +221,263 @@ class MainAppWindow(QtWidgets.QMainWindow):
         if addresses is not None:
             init_content = "\n".join(addresses)
             self.ui.settingsProxyExclusivesTextEdit.setPlainText(init_content)
-            set_proxy_exceptions(addresses)  
+            set_proxy_exceptions(addresses)
+            
+        self.init_myconfigs(configs)
 
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
         self.menu_toggle = False
 
+    def init_myconfigs(self,data):
+
+        configs = data if isinstance(data, (list, tuple)) else (data or [])
+
+        for cfg in configs:
+            try:
+                code_full = cfg.get("config_code") if isinstance(cfg, dict) else None
+                display_name = cfg.get("display_name") if isinstance(cfg, dict) else None
+                if not display_name and code_full:
+                    display_name = code_full.split("#")[1] if "#" in code_full else code_full
+                if not display_name:
+                    display_name = cfg.get("name") if isinstance(cfg, dict) else str(cfg)
+
+                days = cfg.get("days_left", 0) if isinstance(cfg, dict) else 0
+                try:
+                    days_val = float(days)
+                except Exception:
+                    days_val = days
+                if isinstance(days_val, (int, float)) and days_val <= 0:
+                    days = "expired"
+                gb = cfg.get("gb_left", 0) if isinstance(cfg, dict) else 0
+                config_code_for_button = code_full or cfg.get("config_code") if isinstance(cfg, dict) else None
+
+                safe_name = self._sanitize_name(display_name)
+                frame_obj_name = f"myconfigs_frame_{safe_name}"
+
+                frame = QtWidgets.QFrame(self.ui.myconfigs_mainContainer.parentWidget())
+                self.ui.myconfigs_mainContainer.addWidget(frame)
+                frame.setObjectName(frame_obj_name)
+                frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+                frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+                frame.setMinimumHeight(150)
+                frame.setSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed)
+
+                root_layout = QtWidgets.QVBoxLayout(frame)
+                root_layout.setSpacing(8)
+
+                label_container = QtWidgets.QHBoxLayout()
+                label_container.setSpacing(6)
+
+                lbl_name = QtWidgets.QLabel(frame)
+                lbl_name.setObjectName(f"myconfigs_frame_{safe_name}_configName")
+                lbl_name.setText(str(display_name))
+                lbl_name.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+
+                lbl_days = QtWidgets.QLabel(frame)
+                lbl_days.setObjectName(f"myconfigs_frame_{safe_name}_daysLeft")
+                lbl_days.setText(f"Days Left: {days}")
+                lbl_days.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+
+                lbl_gb = QtWidgets.QLabel(frame)
+                lbl_gb.setObjectName(f"myconfigs_frame_{safe_name}_gbLeft")
+                lbl_gb.setText(f"GB Left: {gb}")
+                lbl_gb.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+
+                try:
+                    cons_font = QtGui.QFont("Consolas", 9)
+                    cons_font.setBold(True)
+                    lbl_name.setFont(cons_font)
+                    lbl_days.setFont(cons_font)
+                    lbl_gb.setFont(cons_font)
+                except Exception:
+                    pass
+
+                label_container.addWidget(lbl_name)
+                label_container.addWidget(lbl_days)
+                label_container.addWidget(lbl_gb)
+
+                button_container = QtWidgets.QHBoxLayout()
+                button_container.setSpacing(6)
+
+                connect_btn = QtWidgets.QPushButton(frame)
+                connect_btn.setObjectName(f"myconfigs_frame_{safe_name}_connectBtn")
+                connect_btn.setText("Connect")
+                connect_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+                connect_btn.clicked.connect(lambda _checked, display_name=display_name, code=config_codes[display_name]: self._myconfigs_connect(display_name, code))
+
+                #delete_btn = QtWidgets.QPushButton(frame)
+                #delete_btn.setObjectName(f"myconfigs_frame_{safe_name}_deleteBtn")
+                #delete_btn.setText("Delete")
+                #delete_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+
+                button_container.addWidget(connect_btn)
+                #button_container.addWidget(delete_btn)
+
+                root_layout.addLayout(label_container)
+                root_layout.addLayout(button_container)
+
+                connect_id=connect_btn.objectName()
+                delete_id="None"#delete_btn.objectName()
+
+                style = f"""
+                    QFrame {{
+                        background-color: #0f172a;
+                        border-radius: 12px;
+                        border: 1px solid rgba(94, 234, 212, 0.6);
+                        min-height:150px;
+                    }}
+
+                    QFrame:hover{{
+                        background-color: rgb(21, 34, 58);
+                        border: 1px solid rgba(59,130,246,220);
+                    }}
+
+                    QLabel{{
+                        min-height:65px;
+                        max-height:65px;
+                    }}
+
+                    QPushButton#{connect_id} {{
+                        background-color: #059669;
+                        color: #f8fafc;
+                        border-radius: 10px;
+                        padding: 10px 18px;
+                        font-weight: bold;
+                        border: 2px solid #047857;
+                        border-bottom: 4px solid #065f46;
+                        outline: none;
+                        min-width: 90px;
+                        max-height: 20px;
+                    }}
+                    QPushButton#{connect_id}:hover {{
+                        background-color: #10b981;
+                        color: white;
+                    }}
+                    QPushButton#{connect_id}:pressed {{
+                        background-color: #047857;
+                        border: 2px solid #065f46;
+                        border-top: 4px solid #065f46;
+                        padding-top: 12px;
+                        padding-bottom: 8px;
+                    }}
+
+                    QPushButton#{delete_id} {{
+                        background-color: #b91c1c;
+                        color: #f8fafc;
+                        border-radius: 10px;
+                        padding: 10px 18px;
+                        font-weight: bold;
+                        border: 2px solid #7f1d1d;
+                        border-bottom: 4px solid #450a0a;
+                        outline: none;
+                        min-width: 90px;
+                        max-height: 20px;
+                    }}
+                    QPushButton#{delete_id}:hover {{
+                        background-color: #dc2626;
+                        color: white;
+                    }}
+                    QPushButton#{delete_id}:pressed {{
+                        background-color: #991b1b;
+                        border: 2px solid #450a0a;
+                        border-top: 4px solid #450a0a;
+                        padding-top: 12px;
+                        padding-bottom: 8px;
+                    }}
+                """
+                try:
+                    frame.setStyleSheet(style)
+                except Exception:
+                    pass
+
+                self.ui.myconfigs_mainContainer.addWidget(frame)
+
+            except Exception as e:
+                print(e)
+                try:
+                    self._show_toast(f"Error creating config frame: {e}", 20000)
+                except Exception:
+                    pass
+
+    def _myconfigs_connect(self, display_name: str, config_code: str):
+        try:
+            if not config_code:
+                return self._show_toast("No config code available", 1800)
+
+            current = self.ui.connectionStatusText.text()
+            if current in ("Not Connected", "Disconnected"):
+                self.power_button_fancy.set_state("connecting")
+                self.power_button_fancy.setDisabled(True)
+                self.ui.connectionStatusText.setText("Connecting...")
+                self.ui.selectConfigComboBox.setDisabled(True)
+                index = self.ui.selectConfigComboBox.findText(display_name, QtCore.Qt.MatchFlag.MatchExactly)
+                if index != -1:
+                    self.ui.selectConfigComboBox.setCurrentIndex(index)
+                QtCore.QTimer.singleShot(2000, self._on_connected)
+                try:
+                    self.xray_client = XrayClient(config_code, set_system_proxy=True)
+                    self.xray_client.start()
+                except Exception:
+                    pass
+                return self.ui.tabWidget.setCurrentIndex(0)
+            else:
+                return self._show_toast("You already connected. Please disconnect first.")
+        except Exception as e:
+            try:
+                self._show_toast(f"Connect error: {e}", 2000)
+            except Exception:
+                pass
+
+    def _sanitize_name(self, name: str) -> str:
+        import re
+        if not name:
+            return "unnamed"
+        s = re.sub(r"[^0-9a-zA-Z]+", "_", str(name))
+        return s.strip("_") or "unnamed"
+
     def populate_buyconfigs_from_data(self, data: list):
 
         frame_stylesheet = """
-    QFrame {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 rgba(255,255,255,6),
-        stop:0.55 rgba(255,255,255,3),
-        stop:1 rgba(0,0,0,14));
-    border: 1px solid rgba(17,186,189,140); 
-    border-radius: 12px;
-    padding: 0px;
-    color:white;
-    }
-    QFrame::indicator {}
-    QLabel { 
-    border: 1px solid rgba(17, 186, 189, 255);
-    border-radius: 8px;
-    font-weight: 600; font-size: 13px; 
-    }
-    QPushButton {
-        background-color: #059669;
-        color: #f8fafc;
-        border-radius: 10px;
-        padding: 10px 18px;
-        font-weight: bold;
-        border: 2px solid #047857; 
-        border-bottom: 4px solid #065f46;
-        outline: none;
-    }
-    QPushButton:hover {
-        background-color: #10b981;
-        color: white;
-    }
-    QPushButton:pressed {
-        background-color: #047857;
-        border: 2px solid #065f46;
-        border-top: 4px solid #065f46;
-        padding-top: 12px;
-        padding-bottom: 8px;
-    }
-    """ 
+            QFrame {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(255,255,255,6),
+                    stop:0.55 rgba(255,255,255,3),
+                    stop:1 rgba(0,0,0,14));
+                border: 1px solid rgba(17,186,189,140); 
+                border-radius: 12px;
+                padding: 0px;
+                color:white;
+            }
+            QFrame::indicator {}
+            QLabel { 
+                border: 1px solid rgba(17, 186, 189, 255);
+                border-radius: 8px;
+                font-weight: 600; font-size: 13px; 
+            }
+            QPushButton {
+                background-color: #059669;
+                color: #f8fafc;
+                border-radius: 10px;
+                padding: 10px 18px;
+                font-weight: bold;
+                border: 2px solid #047857; 
+                border-bottom: 4px solid #065f46;
+                outline: none;
+            }
+            QPushButton:hover {
+                background-color: #10b981;
+                color: white;
+            }
+            QPushButton:pressed {
+                background-color: #047857;
+                border: 2px solid #065f46;
+                border-top: 4px solid #065f46;
+                padding-top: 12px;
+                padding-bottom: 8px;
+            }
+        """ 
         for idx in range(len(data['plans'])):
             plan_id = data['plans'][idx].get("id", idx)
             plan_name = data['plans'][idx].get("plan_name", "Unknown Plan")
@@ -415,6 +626,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.sideMenuBuyCoinsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
         self.ui.sideMenuBuyConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
         self.ui.sideMenuSettingsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
+        self.ui.sideMenuConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
         self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
         self.ui.buyCoinsCounter.valueChanged.connect(self.on_counter_change)
         self.ui.buyCoinsBuyButton.clicked.connect(self.on_buycoin_clicked)

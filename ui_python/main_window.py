@@ -294,6 +294,101 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.accountTab, "")
         self.configsTab = QtWidgets.QWidget()
         self.configsTab.setObjectName("configsTab")
+        self.myConfigsHeaderText = QtWidgets.QLabel(parent=self.configsTab)
+        self.myConfigsHeaderText.setGeometry(QtCore.QRect(80, 20, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.myConfigsHeaderText.setFont(font)
+        self.myConfigsHeaderText.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))")
+        self.myConfigsHeaderText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.myConfigsHeaderText.setObjectName("myConfigsHeaderText")
+        self.myconfigs_scrollArea = QtWidgets.QScrollArea(parent=self.configsTab)
+        self.myconfigs_scrollArea.setGeometry(QtCore.QRect(0, 80, 395, 521))
+        self.myconfigs_scrollArea.setStyleSheet("/* ===== پایه - برای همه‌ی QScrollBar ها ===== */\n"
+"QScrollBar:vertical {\n"
+"    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */\n"
+"    width: 12px;                    /* ضخامت اسکرول‌بار */\n"
+"    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */\n"
+"}\n"
+"\n"
+"/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:\n"
+"   QScrollArea QScrollBar:vertical { ... }\n"
+"*/\n"
+"\n"
+"/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */\n"
+"QScrollBar::groove:vertical {\n"
+"    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */\n"
+"    border-radius: 7px;\n"
+"    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */\n"
+"}\n"
+"\n"
+"/* handle — همان دکمه‌ای که حرکت می‌کند */\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */\n"
+"    min-height: 36px;                     /* حداقل اندازه‌ی handle */\n"
+"    border-radius: 999px;                 /* خیلی بزرگ => همیشه گرد */\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */\n"
+"}\n"
+"\n"
+"/* وقتی ماوس روشه کمی برجسته‌ترش کن */\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background: rgba(255,255,255,0.95);\n"
+"}\n"
+"\n"
+"/* وقتی کلیک می‌کنن ــ حس فشرده شدن */\n"
+"QScrollBar::handle:vertical:pressed {\n"
+"    background: rgba(255,255,255,1.0);\n"
+"    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */\n"
+"}\n"
+"\n"
+"/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */\n"
+"QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
+"    height: 0px;\n"
+"    subcontrol-origin: padding;\n"
+"}\n"
+"\n"
+"/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */\n"
+"QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */\n"
+"QScrollBar:horizontal {\n"
+"    background: transparent;\n"
+"    height: 12px;\n"
+"    margin: 0px 6px 0px 6px;\n"
+"}\n"
+"QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-width: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 2px 4px 2px 4px;\n"
+"}\n"
+"QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }\n"
+"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }\n"
+"QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }\n"
+"QScrollBar{\n"
+"border-radius: 12px;\n"
+"border: 1px solid #555;\n"
+"}")
+        self.myconfigs_scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.myconfigs_scrollArea.setWidgetResizable(True)
+        self.myconfigs_scrollArea.setObjectName("myconfigs_scrollArea")
+        self.myconfigs_scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.myconfigs_scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 393, 519))
+        self.myconfigs_scrollAreaWidgetContents.setObjectName("myconfigs_scrollAreaWidgetContents")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.myconfigs_scrollAreaWidgetContents)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.myconfigs_mainContainer = QtWidgets.QVBoxLayout()
+        self.myconfigs_mainContainer.setContentsMargins(8, 8, 8, 8)
+        self.myconfigs_mainContainer.setSpacing(8)
+        self.myconfigs_mainContainer.setObjectName("myconfigs_mainContainer")
+        self.verticalLayout_4.addLayout(self.myconfigs_mainContainer)
+        self.myconfigs_scrollArea.setWidget(self.myconfigs_scrollAreaWidgetContents)
         self.tabWidget.addTab(self.configsTab, "")
         self.buyConfigsTab = QtWidgets.QWidget()
         self.buyConfigsTab.setObjectName("buyConfigsTab")
@@ -788,6 +883,7 @@ class Ui_MainWindow(object):
         self.accountlogoutButton.setText(_translate("MainWindow", "Logout"))
         self.accountHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.accountTab), _translate("MainWindow", "Tab 2"))
+        self.myConfigsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.configsTab), _translate("MainWindow", "Page"))
         self.buyConfigsHeaderText.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyConfigsTab), _translate("MainWindow", "Page"))
@@ -808,7 +904,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingsTab), _translate("MainWindow", "Page"))
         self.sideMenuHomeButton.setText(_translate("MainWindow", "Home"))
         self.sideMenuAccountButton.setText(_translate("MainWindow", "Account"))
-        self.sideMenuConfigsButton.setText(_translate("MainWindow", "Configs"))
+        self.sideMenuConfigsButton.setText(_translate("MainWindow", "My Configs"))
         self.sideMenuBuyConfigsButton.setText(_translate("MainWindow", "Buy Configs"))
         self.sideMenuSettingsButton.setText(_translate("MainWindow", "Settings"))
         self.sideMenuBuyCoinsButton.setText(_translate("MainWindow", "Buy Coins"))
