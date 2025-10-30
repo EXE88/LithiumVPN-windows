@@ -661,8 +661,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
         if status and isinstance(data, dict):
             self.user_details_status = status
             self.user_details = data
+
             username = self.user_details.get("username", "")
             email = self.user_details.get("email", "")
+            coin_count = str(self.user_details.get("coin_count", 0))
             try:
                 self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
                 self.ui.usernameText.setText(username)
@@ -672,26 +674,32 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 pass
 
             try:
-                self.ui.coinNumber.setText(str(self.user_details.get("coin_count", 0)))
-                self.ui.accountCoinsCount.setText(str(self.user_details.get("coin_count", 0)))
+                self.ui.coinNumber.setText(coin_count)
+                self.ui.accountCoinsCount.setText(coin_count)
+                self.ui.buyCoinsYourCoinsText.setText(f"You Have : {coin_count} Coins")
+                if hasattr(self, "buycoin_your_coins"):
+                    self.buycoin_your_coins.setText(f"You Have : {coin_count} Coins")
             except Exception:
                 pass
 
+            # Update selectConfigComboBox
             try:
                 self.ui.selectConfigComboBox.clear()
                 self.ui.selectConfigComboBox.setView(QtWidgets.QListView(self.ui.selectConfigComboBox))
                 self.ui.selectConfigComboBox.view().setVerticalScrollBarPolicy(
                     QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded
                 )
-                self.ui.selectConfigComboBox.setMaxVisibleItems(2) 
+                self.ui.selectConfigComboBox.setMaxVisibleItems(2)
 
                 configs = self.user_details.get("config_codes", []) or []
+                global config_codes
+                config_codes.clear()
                 for cfg in configs:
                     code_full = cfg.get("config_code", "")
                     display_name = code_full.split("#")[1] if "#" in code_full else code_full
                     gb = cfg.get("gb_left") or 0
                     days = cfg.get("days_left") or 0
-                    
+
                     config_codes[display_name] = code_full
 
                     try:
@@ -721,6 +729,33 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self.ui.selectConfigComboBox.setEditable(False)
             except Exception:
                 pass
+
+            try:
+                container = self.ui.myconfigs_mainContainer
+                while container.count():
+                    item = container.takeAt(0)
+                    widget = item.widget()
+                    if widget is not None:
+                        widget.setParent(None)
+                        widget.deleteLater()
+                self.init_myconfigs(configs)
+            except Exception:
+                pass
+
+            try:
+                plans_ok, plans_data = api_calls.get_plans()
+                if plans_ok:
+                    vlayout = self.ui.verticalLayout
+                    while vlayout.count():
+                        item = vlayout.takeAt(0)
+                        widget = item.widget()
+                        if widget is not None:
+                            widget.setParent(None)
+                            widget.deleteLater()
+                    self.populate_buyconfigs_from_data(plans_data)
+            except Exception:
+                pass
+
         else:
             try:
                 self._show_toast(data, 3000)
