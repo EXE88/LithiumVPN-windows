@@ -8,7 +8,8 @@ from ui_python.main_window import Ui_MainWindow
 from ui_python.login_window import Ui_Form as Ui_LoginWindow
 from ui_python.verify_email_window import Ui_Form as Ui_VerifyEmailWindow
 from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation, Qt, QSize, QRect
-from PyQt6.QtGui import QColor
+from PyQt6.QtGui import QColor, QCursor, QAction
+from PyQt6.QtWidgets import QSystemTrayIcon, QMenu, QStyle, QApplication
 
 try:
     from PyQt6.QtSvg import QSvgRenderer
@@ -52,6 +53,30 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self._initial_setup()
         self._connect_signals()
+
+        style = QtWidgets.QApplication.instance().style()
+        tray_icon = style.standardIcon(QStyle.StandardPixmap.SP_ComputerIcon)
+
+        self.tray_menu = QMenu(self)
+        self.tray_action_toggle = QAction("Show/Hide", self)
+        self.tray_action_exit = QAction("Exit", self)
+        self.tray_action_toggle.triggered.connect(self.toggle_visibility)
+        self.tray_action_exit.triggered.connect(self.exit_app)
+
+        self.tray_menu.addAction(self.tray_action_toggle)
+        self.tray_menu.addSeparator()
+        self.tray_menu.addAction(self.tray_action_exit)
+
+        self.tray_icon = QSystemTrayIcon(tray_icon, parent=self)
+        self.tray_icon.setContextMenu(self.tray_menu)
+        self.tray_icon.setToolTip(f"{self.product_name}")
+        self.tray_icon.activated.connect(self.on_tray_activated)
+        self.tray_icon.show()
+
+        self.tray_icon.hide()
+        self.tray_enabled = False
+
+        QtWidgets.QApplication.setQuitOnLastWindowClosed(False)
 
     def _initial_setup(self):
         self.setWindowTitle(self.product_name)
@@ -229,6 +254,94 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.sideMenu.raise_()
 
         self.menu_toggle = False
+
+    def toggle_visibility(self):
+        if not getattr(self, "tray_enabled", False):
+            return
+        try:
+            if self.isVisible():
+                self.hide()
+            else:
+                self.show()
+                self.raise_()
+                self.activateWindow()
+        except Exception:
+            pass
+
+    def on_tray_activated(self, reason):
+        if not getattr(self, "tray_enabled", False):
+            return
+
+        if reason == QSystemTrayIcon.ActivationReason.Trigger:
+            self.toggle_visibility()
+        elif reason == QSystemTrayIcon.ActivationReason.Context:
+            try:
+                self.tray_menu.exec(QCursor.pos())
+            except Exception:
+                pass
+
+    def closeEvent(self, event):    
+        if getattr(self, "_allow_close", False):
+            event.accept()
+            return
+
+        event.ignore()
+        self.hide()
+
+    def force_close(self):
+        try:
+            self._allow_close = True
+            try:
+                self.tray_icon.hide()
+            except Exception:
+                pass
+            self.close()
+            QtWidgets.QApplication.quit()
+        except Exception:
+            try:
+                QtWidgets.QApplication.quit()
+            except Exception:
+                pass
+
+    def enable_tray(self):
+        try:
+            self._allow_close = False
+            self.tray_icon.setVisible(True)
+            self.tray_icon.show()
+            self.tray_enabled = True
+            QtWidgets.QApplication.setQuitOnLastWindowClosed(False)
+        except Exception:
+            pass
+
+    def disable_tray(self):
+        try:
+            self.tray_icon.hide()
+            self.tray_icon.setVisible(False)
+            self.tray_enabled = False
+        except Exception:
+            pass
+
+    def close_for_logout(self):
+        try:
+            self.disable_tray()
+            self._allow_close = True
+            self.close()
+        except Exception:
+            pass
+
+    def exit_app(self):
+        try:
+            self._allow_close = True
+            try:
+                self.tray_icon.hide()
+            except Exception:
+                pass
+            self.close()
+        finally:
+            try:
+                QtWidgets.QApplication.quit()
+            except Exception:
+                pass
 
     def init_myconfigs(self,data):
 
@@ -864,7 +977,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 except Exception:
                     pass
                 try:
-                    main_window.close()
+                    main_window.disable_tray()
+                    main_window.close_for_logout()
                 except Exception:
                     pass
             except Exception:
@@ -894,6 +1008,26 @@ class LoginWindow(QtWidgets.QWidget):
 
         self.ui.loginButton.clicked.connect(self.on_login_clicked)
         self.ui.submitButton.clicked.connect(self.on_submit_clicked)
+
+        self._programmatic_close = False
+
+    def closeEvent(self, event):
+        if getattr(self, "_programmatic_close", False):
+            self._programmatic_close = False
+            event.accept()
+            return
+        try:
+            try:
+                if 'main_window' in globals() and getattr(main_window, "tray_icon", None):
+                    try:
+                        main_window.tray_icon.hide()
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+        finally:
+            event.accept()
+            QApplication.quit()
 
     def _make_labels_clickable(self):
         self.ui.registerLinkText.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
@@ -961,7 +1095,9 @@ class LoginWindow(QtWidgets.QWidget):
             except:
                 pass
             main_window.show()
+            main_window.enable_tray() 
             login_window.ui.loginButton.setDisabled(False)
+            login_window._programmatic_close = True
             return login_window.close()
         login_window.ui.loginButton.setDisabled(False)
         return self._show_toast(msg, duration=1800)
@@ -1008,6 +1144,26 @@ class VerifyEmailWindow(QtWidgets.QWidget):
 
         self.ui.headerText.setText(self.product_name)
 
+        self._programmatic_close = False
+
+    def closeEvent(self, event):
+        if getattr(self, "_programmatic_close", False):
+            self._programmatic_close = False
+            event.accept()
+            return
+        try:
+            try:
+                if 'main_window' in globals() and getattr(main_window, "tray_icon", None):
+                    try:
+                        main_window.tray_icon.hide()
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+        finally:
+            event.accept()
+            QApplication.quit()
+
     def _apply_header_with_fancylabel(self):
         try:
             FancyLabel(parent=self, target_label=self.ui.headerText, text=self.product_name)
@@ -1038,7 +1194,9 @@ class VerifyEmailWindow(QtWidgets.QWidget):
                     except:
                         pass
                     main_window.show()
+                    main_window.enable_tray() 
                     self.ui.verifyButton.setDisabled(False)
+                    email_verify_window._programmatic_close = True
                     return email_verify_window.close()
                 self.ui.verifyButton.setDisabled(False)
                 return self._show_toast(msg,2000)
@@ -1090,5 +1248,6 @@ if __name__ == "__main__":
         login_window.show()
     else:
         main_window.show()
+        main_window.enable_tray() 
 
     sys.exit(app.exec())
