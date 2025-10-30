@@ -331,6 +331,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def exit_app(self):
         try:
+            try:
+                if hasattr(self, "xray_client") and self.xray_client is not None:
+                    self.xray_client.stop()
+            except Exception:
+                pass
             self._allow_close = True
             try:
                 self.tray_icon.hide()
@@ -841,6 +846,14 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     self.ui.coinNumber.setText(str(int(self.ui.coinNumber.text())-purchase_plan_result['details'].get("price")))
                     self.ui.accountCoinsCount.setText(str(int(self.ui.accountCoinsCount.text())-purchase_plan_result['details'].get("price")))
                     self.ui.accountAllConfigsCount.setText(str(int(self.ui.accountAllConfigsCount.text())+1))
+
+                    new_config = {
+                        "config_code": code_full,
+                        "display_name": display_name,
+                        "days_left": days,
+                        "gb_left": gb
+                    }
+                    self.init_myconfigs([new_config])
 
                     return self._show_toast("Plan Successfully purchased ✅")
                 return self._show_toast(purchase_plan_result)
