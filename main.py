@@ -26,6 +26,7 @@ from custome_widgets.fancy_round_button import FancyRoundButton
 from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
+from modules.path_helpers import get_path
 
 from core.handlers.manager import XrayClient, set_proxy_exceptions
 
@@ -54,9 +55,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self._initial_setup()
         self._connect_signals()
 
-        style = QtWidgets.QApplication.instance().style()
-        tray_icon = style.standardIcon(QStyle.StandardPixmap.SP_ComputerIcon)
-
         self.tray_menu = QMenu(self)
         self.tray_action_toggle = QAction("Show/Hide", self)
         self.tray_action_exit = QAction("Exit", self)
@@ -67,6 +65,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.tray_menu.addSeparator()
         self.tray_menu.addAction(self.tray_action_exit)
 
+        tray_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
         self.tray_icon = QSystemTrayIcon(tray_icon, parent=self)
         self.tray_icon.setContextMenu(self.tray_menu)
         self.tray_icon.setToolTip(f"{self.product_name}")
@@ -77,6 +76,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.tray_enabled = False
 
         QtWidgets.QApplication.setQuitOnLastWindowClosed(False)
+
+        window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
+        self.setWindowIcon(window_icon)
 
     def _initial_setup(self):
         self.setWindowTitle(self.product_name)
@@ -1059,6 +1061,9 @@ class LoginWindow(QtWidgets.QWidget):
 
         self._programmatic_close = False
 
+        window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
+        self.setWindowIcon(window_icon)
+
     def closeEvent(self, event):
         if getattr(self, "_programmatic_close", False):
             self._programmatic_close = False
@@ -1193,6 +1198,9 @@ class VerifyEmailWindow(QtWidgets.QWidget):
         self.ui.headerText.setText(self.product_name)
 
         self._programmatic_close = False
+
+        window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
+        self.setWindowIcon(window_icon)
 
     def closeEvent(self, event):
         if getattr(self, "_programmatic_close", False):
