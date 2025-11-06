@@ -1171,6 +1171,7 @@ class LoginWindow(QtWidgets.QWidget):
             email_verify_window.set_data(email,username,password)
             email_verify_window.show()
             login_window.ui.submitButton.setDisabled(False)
+            login_window._programmatic_close = True
             return login_window.close()
         login_window.ui.submitButton.setDisabled(False)
         return self._show_toast(msg, duration=1800)
