@@ -119,6 +119,19 @@ This project is licensed under the terms provided in `License.txt`.
 - [ ] Automatic updates
 - [ ] Enhanced security features
 
+## DO NOT FORGET
+
+- for building project use :
+```
+pyinstaller --noconfirm --onedir --add-data "core/binding;core/binding" --add-data "core/temp;core/temp" --add-data "assets/icons;assets/icons" --name LithiumVPN -i assets/icons/appicon.ico --uac-admin -w main.py
+```
+- for converting .ui file to .py use :
+```
+pyuic6 file.ui -o file.py
+```
+- for customizeing app to other templates (changeing icons,texts,domain,...) just edit configuration.py file
+- for converting resources.qrc to resources_rc.py install and use pyrcc6 (but never forgot to remove this package and releated packages that uses pyside6 when building project also change every pyside6 importage to pyQt6 because if you dont do this staff you may get some errors during build proccess becuase of pyside6)
+  
 ---
 
 Made with ❤️ by EXE88
