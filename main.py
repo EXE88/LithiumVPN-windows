@@ -24,6 +24,7 @@ from custome_widgets.popup_toast import PopupToast
 from custome_widgets.clickable_label import ClickableLabel
 from custome_widgets.fancy_round_button import FancyRoundButton
 from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
+from custome_widgets.rgb_label import RGBLabel
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
 from modules.path_helpers import get_path
@@ -48,9 +49,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.product_name = CONFIG['PRODUCT_NAME']
         self.admin_telegram = CONFIG['ADMIN_TELEGRAM_ID']
-        self.coin_price = CONFIG['COIN_PRICE']
-
-        self.toman_unit_x = self.ui.buyCoinsTomanUnitText.x()
 
         self._initial_setup()
         self._connect_signals()
@@ -159,25 +157,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.myconfigs_header = FancyLabel(self.ui.configsTab, self.ui.myConfigsHeaderText, self.product_name)
 
         self.ui.buyCoinsAdminID.setText(CONFIG['ADMIN_TELEGRAM_ID'])
-        self.buycoin_adminid = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, self.ui.buyCoinsAdminID.text(),
-                                                    glow_color=(255, 255, 255, 220), shadow_color=(255, 255, 255, 120), 
-                                                    header_color_stop0=(255, 255, 255, 255), header_color_stop1=(230, 230, 230, 255))
+        self.buycoin_adminid = RGBLabel(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, CONFIG['ADMIN_TELEGRAM_ID'])
         
         self.buycoin_description = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsDescription, self.ui.buyCoinsDescription.text(),
                                                     glow_color=(255, 215, 0, 200), shadow_color=(184, 134, 11, 160), 
                                                     header_color_stop0=(212, 175, 55, 255), header_color_stop1=(255, 223, 132, 255))
-
-        self.ui.buyCoinsCoinPriceText.setText(f"Price of Each Coin : {CONFIG['COIN_PRICE']} Tomans")
-        self.buycoin_price_text = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsCoinPriceText, self.ui.buyCoinsCoinPriceText.text(),
-                                                    glow_color=(255, 255, 255, 220), shadow_color=(255, 255, 255, 120), 
-                                                    header_color_stop0=(255, 255, 255, 255), header_color_stop1=(230, 230, 230, 255))
-
-        self.ui.buyCoinsYourCoinsText.setText(f"You Have : {self.coin_count} Coins")
-        self.buycoin_your_coins = FancyLabelBetter(self.ui.buyCoinsTab, self.ui.buyCoinsYourCoinsText, self.ui.buyCoinsYourCoinsText.text(),
-                                                    glow_color=(255, 255, 255, 220), shadow_color=(255, 255, 255, 120), 
-                                                    header_color_stop0=(255, 255, 255, 255), header_color_stop1=(230, 230, 230, 255))
-
-        self.ui.buyCoinsEqualMoneyNumber.setText(str(CONFIG['COIN_PRICE']))
 
         try:
             if hasattr(self.ui, "powerButtonBase") and self.ui.powerButtonBase is not None:
@@ -683,9 +667,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
             try:
                 self.ui.coinNumber.setText(coin_count)
                 self.ui.accountCoinsCount.setText(coin_count)
-                self.ui.buyCoinsYourCoinsText.setText(f"You Have : {coin_count} Coins")
-                if hasattr(self, "buycoin_your_coins"):
-                    self.buycoin_your_coins.setText(f"You Have : {coin_count} Coins")
             except Exception:
                 pass
 
@@ -783,7 +764,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.sideMenuSettingsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
         self.ui.sideMenuConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
         self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
-        self.ui.buyCoinsCounter.valueChanged.connect(self.on_counter_change)
         self.ui.buyCoinsBuyButton.clicked.connect(self.on_buycoin_clicked)
         self.ui.settingsProxyExclusivesApplyButton.clicked.connect(self.settings_exclusive_proxy_apply_clicked)
 
@@ -864,18 +844,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Error", f"Error in on_buyconfig_clicked:\n{e}")
 
     def on_buycoin_clicked(self):
-        url = f"https://t.me/{CONFIG['ADMIN_TELEGRAM_ID']}"
+        url = f"https://t.me/{CONFIG['ADMIN_TELEGRAM_ID']}".replace("@","")
         webbrowser.open(url, new=2)
-
-    def on_counter_change(self):
-        if len(str(self.ui.buyCoinsCounter.value()*CONFIG['COIN_PRICE']))>5:
-            self.ui.buyCoinsTomanUnitText.setGeometry(self.ui.buyCoinsTomanUnitText.x()+(10*(len(str(self.ui.buyCoinsCounter.value()*CONFIG['COIN_PRICE']))-5)),self.ui.buyCoinsTomanUnitText.y(),
-                                                      self.ui.buyCoinsTomanUnitText.width(),self.ui.buyCoinsTomanUnitText.height())
-        else:
-            self.ui.buyCoinsTomanUnitText.setGeometry(self.toman_unit_x,self.ui.buyCoinsTomanUnitText.y(),
-                                          self.ui.buyCoinsTomanUnitText.width(),self.ui.buyCoinsTomanUnitText.height())
-        self.ui.buyCoinsEqualMoneyNumber.setFixedWidth(len(str(self.ui.buyCoinsCounter.value()*CONFIG['COIN_PRICE']))*10)
-        self.ui.buyCoinsEqualMoneyNumber.setText(str(self.ui.buyCoinsCounter.value()*CONFIG['COIN_PRICE']))
 
     def on_power_clicked(self):
         current = self.ui.connectionStatusText.text()
