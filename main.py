@@ -1259,7 +1259,12 @@ if __name__ == "__main__":
     manage_db.init_db()
 
     backaddr_full = manage_db.get_backaddr()
-    backaddr_full = f"http://{backaddr_full['sub']}.{backaddr_full['name']}.{backaddr_full['tld']}:{backaddr_full['port']}"
+    if CONFIG['MODE']=="IP":
+        backaddr_full = f"http://{backaddr_full['ip']}:{backaddr_full['port']}"
+    elif CONFIG['MODE']=="DOMAIN":
+        backaddr_full = f"http://{backaddr_full['sub']}.{backaddr_full['name']}.{backaddr_full['tld']}:{backaddr_full['port']}"
+    else:
+        backaddr_full = f"http://{backaddr_full['ip']}:{backaddr_full['port']}"
 
     config_codes = {}
 

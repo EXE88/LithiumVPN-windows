@@ -9,13 +9,14 @@ class ManageDatabase:
         self.DOMAIN_SUB = CONFIG["DOMAIN_SUB"]
         self.DOMAIN_NAME = CONFIG["DOMAIN_NAME"]
         self.DOMAIN_TLD = CONFIG["DOMAIN_TLD"]
+        self.DOMAIN_IP = CONFIG["DOMAIN_IP"]
         self.DOMAIN_PORT = CONFIG["DOMAIN_PORT"]
 
         self.db_file = path_helpers.get_path(self.DB_NAME)
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
-        self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER);")
+        self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER, ip TEXT);")
         self.execute_database("CREATE TABLE IF NOT EXISTS Exclusives (address TEXT);")
 
         try:
@@ -23,8 +24,8 @@ class ManageDatabase:
                 cursor = conn.cursor()
                 cursor.execute("DELETE FROM Backaddr;")
                 cursor.execute(
-                    "INSERT INTO Backaddr (sub, name, tld, port) VALUES (?, ?, ?, ?);",
-                    (self.DOMAIN_SUB, self.DOMAIN_NAME, self.DOMAIN_TLD, self.DOMAIN_PORT)
+                    "INSERT INTO Backaddr (sub, name, tld, port, ip) VALUES (?, ?, ?, ?, ?);",
+                    (self.DOMAIN_SUB, self.DOMAIN_NAME, self.DOMAIN_TLD, self.DOMAIN_PORT, self.DOMAIN_IP)
                 )
                 conn.commit()
         except sqlite3.Error as e:
@@ -78,7 +79,13 @@ class ManageDatabase:
             cursor.execute("SELECT sub, name, tld, port FROM Backaddr LIMIT 1;")
             row = cursor.fetchone()
             if row:
-                return {"sub": row[0], "name": row[1], "tld": row[2], "port":row[3]}
+                try:
+                    cursor.execute("SELECT ip FROM Backaddr LIMIT 1;")
+                    ip_row = cursor.fetchone()
+                    ip_val = ip_row[0] if ip_row and ip_row[0] is not None else ""
+                except Exception:
+                    ip_val = ""
+                return {"sub": row[0], "name": row[1], "tld": row[2], "port": row[3], "ip": ip_val}
             return None
         except sqlite3.Error as e:
             print(f"Database error in get_backaddr: {e}")
