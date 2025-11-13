@@ -6,6 +6,78 @@ class ApiCalls:
         self.base_url = base_url
         self.managedb = ManageDatabase()
 
+    def _get_tokens(self):
+        tokens = self.managedb.get_auth()
+        return tokens or {}
+
+    def _save_new_access(self, access_token):
+        if not access_token:
+            return False
+        try:
+            self.managedb.execute_database(f"UPDATE Auth SET access='{access_token}';")
+            return True
+        except Exception:
+            return False
+
+    def _refresh_access_token(self):
+        tokens = self._get_tokens()
+        refresh = tokens.get('refresh')
+        if not refresh:
+            return False
+        try:
+            r = requests.post(self.base_url + "/api/token/refresh/", json={"refresh": refresh})
+        except requests.exceptions.RequestException:
+            return False
+        if r.status_code == 200:
+            new_access = r.json().get('access')
+            return self._save_new_access(new_access)
+        return False
+
+    def _request(self, method, endpoint, retry_on_401=True, **kwargs):
+        """Centralized request helper.
+
+        Returns a tuple: (ok: bool, response_or_message, status_code or None)
+
+        - On success: (True, response_obj, response.status_code)
+        - On failure: (False, 'human message', status_code_or_None)
+
+        It will try to attach Authorization header if access token exists and
+        on 401 will attempt a single refresh-and-retry using `_refresh_access_token()`.
+        """
+        tokens = self._get_tokens()
+        headers = kwargs.pop('headers', {}) or {}
+        access = tokens.get('access')
+        if access:
+            headers['Authorization'] = f"Bearer {access}"
+
+        url = self.base_url + endpoint
+        try:
+            resp = requests.request(method, url, headers=headers, **kwargs)
+        except requests.exceptions.RequestException:
+            return False, "Network error.", None
+
+        if resp.status_code == 401 and retry_on_401:
+            refreshed = self._refresh_access_token()
+            if not refreshed:
+                return False, "Unauthorized. Please log in again.", 401
+
+            tokens = self._get_tokens()
+            new_access = tokens.get('access')
+            if not new_access:
+                return False, "Unauthorized. Please log in again.", 401
+
+            headers['Authorization'] = f"Bearer {new_access}"
+            try:
+                resp2 = requests.request(method, url, headers=headers, **kwargs)
+            except requests.exceptions.RequestException:
+                return False, "Network error.", None
+
+            if resp2.status_code == 401:
+                return False, "Unauthorized. Please log in again.", 401
+            return True, resp2, resp2.status_code
+
+        return True, resp, resp.status_code
+
     def login_needed(self):
         tokens = self.managedb.get_auth()
         if tokens:
@@ -48,7 +120,7 @@ class ApiCalls:
                     return True
             return True
         return True
-    
+
     def login(self, username, password):
         if not username or not password:
             return False, "Missing required values."
@@ -67,7 +139,7 @@ class ApiCalls:
             refresh = data.get('refresh')
 
             if access and refresh:
-                if self.managedb.get_auth()==None:
+                if self.managedb.get_auth() is None:
                     self.managedb.save_tokens_first_time(access, refresh)
                 else:
                     self.managedb.execute_database(f"UPDATE Auth SET access='{access}', refresh='{refresh}';")
@@ -80,62 +152,46 @@ class ApiCalls:
 
         else:
             return False, "Server error."
-        
-    def register(self,username,password,email):
+
+    def register(self, username, password, email):
         if not username or not password or not email:
             return False, "Missing required values."
-        
-        try:
-            register_request = requests.post(
-                self.base_url + "/accounts/register/",
-                json={"username":username,"password":password,"email":email}
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
-        
-        if register_request.status_code==201:
-            return True, register_request.json().get("info")
-        return False, register_request.json().get("error")
-    
-    def send_verifycation_code(self,email,code):
+
+        ok, resp, code = self._request("POST", "/accounts/register/", json={"username": username, "password": password, "email": email})
+        if not ok:
+            return False, resp
+        if code == 201:
+            return True, resp.json().get("info")
+        return False, resp.json().get("error")
+
+    def send_verifycation_code(self, email, code):
         if not email or not code:
             return False, "Missing required values."
-        
-        try:
-            verify_request = requests.post(
-                self.base_url + "/accounts/verify-email/",
-                json={"email":email,"code":code}
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
-        
-        if verify_request.status_code==200:
-            return True, verify_request.json().get("info")
-        return False, verify_request.json().get("error")
-    
+
+        ok, resp, code = self._request("POST", "/accounts/verify-email/", json={"email": email, "code": code})
+        if not ok:
+            return False, resp
+        if code == 200:
+            return True, resp.json().get("info")
+        return False, resp.json().get("error")
+
     def resend_verification_code(self, email):
         if not email:
             return False, "Missing required values."
 
-        try:
-            resend_code_request = requests.post(
-                self.base_url + "/accounts/resend-verification/",
-                json={"email": email}
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
+        ok, resp, code = self._request("POST", "/accounts/resend-verification/", json={"email": email})
+        if not ok:
+            return False, resp
 
-        if resend_code_request.status_code == 200:
-            return True, resend_code_request.json().get("info")
+        if code == 200:
+            return True, resp.json().get("info")
 
-        elif resend_code_request.status_code == 429:
-            data = resend_code_request.json()
-
+        if code == 429:
+            data = resp.json()
             if "seconds_until_next_send" in data:
                 secs = data["seconds_until_next_send"]
                 minutes, seconds = divmod(secs, 60)
                 return False, f"Please wait {minutes} minute(s) and {seconds} second(s) before requesting another code."
-            
             elif "time_remaining_seconds" in data:
                 secs = data["time_remaining_seconds"]
                 minutes, seconds = divmod(secs, 60)
@@ -144,76 +200,48 @@ class ApiCalls:
             else:
                 return False, data.get("error", "Too many requests.")
 
-        else:
-            return False, resend_code_request.json().get("error", "Server error.")
-        
+        return False, resp.json().get("error", "Server error.")
+
     def get_user(self):
-        tokens = self.managedb.get_auth()
-        
-        if not tokens or not tokens.get('access'):
-            return False, "Tokens not found."
-        
-        headers = {"Authorization": f"Bearer {tokens['access']}"}
-        try:
-            response = requests.get(
-                self.base_url + "/accounts/status/",
-                headers=headers
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
-        
-        if response.status_code == 200:
-            return True, response.json()
-        elif response.status_code == 401:
+        ok, resp, code = self._request("GET", "/accounts/status/")
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+        if code == 200:
+            return True, resp.json()
+        elif code == 401:
             return False, "Unauthorized. Please log in again."
         else:
             return False, "Server error."
-        
+
     def get_plans(self):
-        tokens = self.managedb.get_auth()
-        
-        if not tokens or not tokens.get('access'):
-            return False, "Tokens not found."
-        
-        headers = {"Authorization": f"Bearer {tokens['access']}"}
-        try:
-            response = requests.get(
-                self.base_url + "/plans/",
-                headers=headers
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
-        
-        if response.status_code == 200:
-            return True, response.json()
-        elif response.status_code == 401:
+        ok, resp, code = self._request("GET", "/plans/")
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+        if code == 200:
+            return True, resp.json()
+        elif code == 401:
             return False, "Unauthorized. Please log in again."
         else:
             return False, "Server error."
-        
+
     def buy_plan(self, plan_id):
-        tokens = self.managedb.get_auth()
-        
-        if not tokens or not tokens.get('access'):
-            return False, "Tokens not found."
-        
-        headers = {"Authorization": f"Bearer {tokens['access']}"}
-        data = {"plan_id":plan_id}
-        try:
-            response = requests.post(
-                self.base_url + "/plans/buy/",
-                headers=headers,
-                data=data
-            )
-        except requests.exceptions.RequestException:
-            return False, "Network error."
-        
-        if response.status_code == 200:
-            return True, response.json()
-        elif response.status_code == 401:
+        data = {"plan_id": plan_id}
+        ok, resp, code = self._request("POST", "/plans/buy/", data=data)
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+
+        if code == 200:
+            return True, resp.json()
+        elif code == 401:
             return False, "Unauthorized. Please log in again."
-        elif response.status_code == 400:
-            return False , response.json()['error']
+        elif code == 400:
+            return False, resp.json().get('error')
         else:
             return False, "Server error."
 
