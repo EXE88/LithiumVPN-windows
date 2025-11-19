@@ -529,14 +529,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         frame_stylesheet = """
             QFrame {
-                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                    stop:0 rgba(255,255,255,6),
-                    stop:0.55 rgba(255,255,255,3),
-                    stop:1 rgba(0,0,0,14));
                 border: 1px solid rgba(17,186,189,140); 
                 border-radius: 12px;
                 padding: 0px;
                 color:white;
+            }
+            QFrame:hover {
+                border: 1px solid rgba(17,186,189,225); 
             }
             QLabel { 
                 border: 1px solid rgba(17, 186, 189, 255);
@@ -594,22 +593,22 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             price_lbl = QtWidgets.QLabel(frame)
             price_lbl.setObjectName(f"plan_price_lbl_{plan_id}")
-            price_lbl.setText(f"Plan Price : {plan_price}")
+            price_lbl.setText(f"Price : {plan_price}")
             price_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             usage_lbl = QtWidgets.QLabel(frame)
             usage_lbl.setObjectName(f"plan_usage_lbl_{plan_id}")
-            usage_lbl.setText(f"Plan Usage : {plan_usage}GB")
+            usage_lbl.setText(f"Usage Limit : {plan_usage}GB")
             usage_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             time_lbl = QtWidgets.QLabel(frame)
             time_lbl.setObjectName(f"plan_time_lbl_{plan_id}")
-            time_lbl.setText(f"Plan Time : {plan_time} month")
+            time_lbl.setText(f"Time : {plan_time} month")
             time_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             usersnum_lbl = QtWidgets.QLabel(frame)
             usersnum_lbl.setObjectName(f"plan_usersnum_lbl_{plan_id}")
-            usersnum_lbl.setText(f"Plan Number Of Users : {number_of_users}")
+            usersnum_lbl.setText(f"User Limit : {number_of_users}")
             usersnum_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             buy_btn = QtWidgets.QPushButton(frame)
@@ -751,13 +750,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
             number_of_users = plan.get("number_of_users", "")
 
             lines = [
-                f"📦  Name: {name}",
-                f"📊  Usage: {usage} GB",
-                f"⏳  Time: {time_days} month",
-                f"💰  Price: {price} coins",
+                f"📦  Name : {name}",
+                f"📊  Usage : {usage} GB",
+                f"⏳  Time : {time_days} month",
+                f"💰  Price : {price} coins",
             ]
             if number_of_users not in (None, "", "N/A"):
-                lines.append(f"👥  Users: {number_of_users}")
+                lines.append(f"👥  Users : {number_of_users}")
 
             body = "\n".join(lines) + "\n\nAre you sure you want to buy this plan?"
 
@@ -766,7 +765,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 "Confirm Purchase",
                 body,
                 QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No,
-                QtWidgets.QMessageBox.StandardButton.No
+                QtWidgets.QMessageBox.StandardButton.Yes
             )
 
             if resp == QtWidgets.QMessageBox.StandardButton.Yes:
