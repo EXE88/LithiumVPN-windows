@@ -24,6 +24,7 @@ from custome_widgets.rgb_label import RGBLabel
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
 from modules.path_helpers import get_path
+from modules.qrcode_generator import ShareConfigDialog
 from core.handlers.manager import XrayClient, set_proxy_exceptions
 
 class MainAppWindow(QtWidgets.QMainWindow):
@@ -424,17 +425,28 @@ class MainAppWindow(QtWidgets.QMainWindow):
         connect_btn.setText("Connect")
         connect_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
+        share_btn = QtWidgets.QPushButton(frame)
+        share_btn.setObjectName(f"myconfigs_frame_{safe_name}_shareBtn")
+        share_btn.setText("Share")
+        share_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+
         # Use display_name and config_codes map; handle missing map gracefully
         connect_btn.clicked.connect(
             lambda _checked, dname=display_name, code=config_codes.get(display_name): self._connect_myconfig(dname, code)
         )
 
+        share_btn.clicked.connect(
+            lambda _checked, dname=display_name, code=config_codes.get(display_name): self.share_myconfig(dname, code)
+        )
+
         button_container.addWidget(connect_btn)
+        button_container.addWidget(share_btn)
 
         root_layout.addLayout(label_container)
         root_layout.addLayout(button_container)
 
         connect_id = connect_btn.objectName()
+        share_id = share_btn.objectName()
 
         style = f"""
             QFrame {{
@@ -474,6 +486,29 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 background-color: #047857;
                 border: 2px solid #065f46;
                 border-top: 4px solid #065f46;
+                padding-top: 12px;
+                padding-bottom: 8px;
+            }}
+            QPushButton#{share_id} {{
+                background-color: #3b82f6;
+                color: #f8fafc;
+                border-radius: 10px;
+                padding: 10px 18px;
+                font-weight: bold;
+                border: 2px solid #2563eb;
+                border-bottom: 4px solid #1d4ed8;
+                outline: none;
+                min-width: 90px;
+                max-height: 20px;
+            }}
+            QPushButton#{share_id}:hover {{
+                background-color: #60a5fa;
+                color: white;
+            }}
+            QPushButton#{share_id}:pressed {{
+                background-color: #2563eb;
+                border: 2px solid #1d4ed8;
+                border-top: 4px solid #1d4ed8;
                 padding-top: 12px;
                 padding-bottom: 8px;
             }}
@@ -992,6 +1027,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self._show_toast(f"Connect error: {e}", 2000)
             except Exception:
                 pass
+
+    def share_myconfig(self, display_name:str, config_code: str):
+        dlg = ShareConfigDialog(link=config_code, display_name=display_name, parent=self)
+        dlg.setWindowModality(Qt.WindowModality.ApplicationModal)
+        dlg.exec()
 
     def _sanitize_name(self, name: str) -> str:
         """Convert a name to a safe string suitable for object naming."""
