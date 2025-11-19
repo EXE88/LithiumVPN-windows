@@ -207,6 +207,91 @@ class MainAppWindow(QtWidgets.QMainWindow):
         configs = user_data.get("config_codes", []) or []
         self._setup_config_combobox(configs)
 
+    def _refresh_userdata(self):
+        """Fetch fresh user data from server and update UI elements (configs, myconfigs, plans)."""
+        try:
+            status, data = api_calls.get_user()
+        except Exception as e:
+            status, data = False, f"Error fetching user: {e}"
+
+        if status and isinstance(data, dict):
+            self.user_details_status = status
+            self.user_details = data
+
+            username = self.user_details.get("username", "") or ""
+            email = self.user_details.get("email", "") or ""
+            coin_count = str(self.user_details.get("coin_count", 0))
+
+            try:
+                self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
+                self.ui.usernameText.setText(username)
+                self.ui.accountUsernameText.setText(username)
+                self.ui.accountEmailText.setText(email)
+            except Exception:
+                pass
+
+            try:
+                self.ui.coinNumber.setText(coin_count)
+                self.ui.accountCoinsCount.setText(coin_count)
+            except Exception:
+                pass
+
+            # Update selectConfigComboBox and config_codes mapping
+            try:
+                configs = self.user_details.get("config_codes", []) or []
+                try:
+                    self._setup_config_combobox(configs)
+                except Exception:
+                    pass
+            except Exception:
+                pass
+
+            # Rebuild myconfigs UI
+            try:
+                container = self.ui.myconfigs_mainContainer
+                try:
+                    while container.count():
+                        item = container.takeAt(0)
+                        widget = item.widget()
+                        if widget is not None:
+                            widget.setParent(None)
+                            widget.deleteLater()
+                except Exception:
+                    pass
+                try:
+                    self.load_myconfigs(configs)
+                except Exception:
+                    pass
+            except Exception:
+                pass
+
+            # Refresh available plans for buy-configs
+            try:
+                plans_ok, plans_data = api_calls.get_plans()
+                if plans_ok:
+                    try:
+                        vlayout = self.ui.verticalLayout
+                        while vlayout.count():
+                            item = vlayout.takeAt(0)
+                            widget = item.widget()
+                            if widget is not None:
+                                widget.setParent(None)
+                                widget.deleteLater()
+                    except Exception:
+                        pass
+                    try:
+                        self.populate_buy_plans(plans_data)
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+
+        else:
+            try:
+                self._show_toast(data, 3000)
+            except Exception:
+                pass
+
     def _setup_config_combobox(self, configs: list):
         """Fill selectConfigComboBox and maintain map of config_codes."""
         self.ui.selectConfigComboBox.clear()
@@ -1150,7 +1235,7 @@ class LoginWindow(QtWidgets.QWidget):
         ok , msg = api_calls.login(username=username,password=password)
         if ok:
             try:
-                main_window.refresh_user_data()
+                main_window._refresh_userdata()
             except:
                 pass
             main_window.show()
@@ -1253,7 +1338,7 @@ class VerifyEmailWindow(QtWidgets.QWidget):
                 ok , msg = api_calls.login(self.username,self.password)
                 if ok:
                     try:
-                        main_window.refresh_user_data()
+                        main_window._refresh_userdata()
                     except:
                         pass
                     main_window.show()
