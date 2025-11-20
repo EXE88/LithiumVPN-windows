@@ -863,7 +863,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     days = (details.get("time") * 30) if details.get("time") is not None else 0
 
                     config_codes[display_name] = code_full
-                    days = self._format_days_left(days)
+                    days = self.format_days_left(days)
 
                     # Add item to combobox
                     self.ui.selectConfigComboBox.addItem(display_name)
