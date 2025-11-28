@@ -314,12 +314,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
             display_name = code_full.split("#")[1] if "#" in code_full else code_full
             gb = cfg.get("gb_left") or 0
             days = cfg.get("days_left") or 0
+            server = cfg.get("server", "")
 
             config_codes[display_name] = code_full
 
             days = self.format_days_left(days)
 
-            self.ui.selectConfigComboBox.addItem(display_name)
+            self.ui.selectConfigComboBox.addItem(f"{display_name} ({server})")
             i = self.ui.selectConfigComboBox.count() - 1
             self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
 
@@ -434,7 +435,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
             try:
                 self._create_config_card(cfg)
             except Exception as e:
-                print(e)
                 try:
                     self._show_toast(f"Error creating config frame: {e}", 20000)
                 except Exception:
@@ -470,6 +470,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
         root_layout = QtWidgets.QVBoxLayout(frame)
         root_layout.setSpacing(8)
 
+        servername_container = QtWidgets.QHBoxLayout()
+        servername_container.setSpacing(4)
+
+        lbl_servername = QtWidgets.QLabel(frame)
+        lbl_servername.setObjectName(f"myconfigs_frame_{safe_name}_servername")
+        lbl_servername.setText(f"Server: {cfg.get("server", "")}")
+        lbl_servername.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+
+        servername_container.addWidget(lbl_servername)
+
         label_container = QtWidgets.QHBoxLayout()
         label_container.setSpacing(6)
 
@@ -494,6 +504,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             lbl_name.setFont(cons_font)
             lbl_days.setFont(cons_font)
             lbl_gb.setFont(cons_font)
+            lbl_servername.setFont(cons_font)
         except Exception:
             pass
 
@@ -527,6 +538,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         button_container.addWidget(connect_btn)
         button_container.addWidget(share_btn)
 
+        root_layout.addLayout(servername_container)
         root_layout.addLayout(label_container)
         root_layout.addLayout(button_container)
 
@@ -538,7 +550,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 background-color: #0f172a;
                 border-radius: 12px;
                 border: 1px solid rgba(94, 234, 212, 0.6);
-                min-height:150px;
+                min-height:185px;
             }}
 
             QFrame:hover{{
@@ -549,6 +561,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
             QLabel{{
                 min-height:65px;
                 max-height:65px;
+            }}
+
+            QLabel#myconfigs_frame_{safe_name}_servername{{
+                min-height:40px;
+                max-height:40px;
             }}
 
             QPushButton#{connect_id} {{
@@ -623,9 +640,12 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 border: 1px solid rgba(17,186,189,225); 
             }
             QLabel { 
-                border: 1px solid rgba(17, 186, 189, 255);
+                border: 1px solid rgba(17, 186, 189, 140);
                 border-radius: 8px;
                 font-weight: 600; font-size: 13px; 
+            }
+            QLabel:hover { 
+                border: 1px solid rgba(17, 186, 189, 255);
             }
             QPushButton {
                 background-color: #059669;
@@ -653,6 +673,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         for idx, plan in enumerate(plans):
             plan_id = plan.get("id", idx)
             plan_name = plan.get("plan_name", "Unknown Plan")
+            plan_servers = plan.get("servers", "")
             plan_usage = plan.get("usage", "")
             plan_time = plan.get("time", "")
             plan_price = plan.get("price", "")
@@ -662,7 +683,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             frame.setObjectName(f"buy_frame_{plan_id}")
             frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
             frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-            frame.setMinimumHeight(250)
+            frame.setMinimumHeight(265)
             frame.setMinimumWidth(100)
             frame.setSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed)
             frame.setStyleSheet(frame_stylesheet)
@@ -675,6 +696,21 @@ class MainAppWindow(QtWidgets.QMainWindow):
             name_lbl.setObjectName(f"plan_name_lbl_{plan_id}")
             name_lbl.setText(f"Plan Name : {plan_name}")
             name_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            servers_lbl = QtWidgets.QLabel(frame)
+            servers_lbl.setObjectName(f"plan_servers_lbl_{plan_id}")
+
+            servers_list = [str(s) for s in plan_servers]
+            max_show = 4
+            if len(servers_list) > max_show:
+                visible = servers_list[:max_show]
+                remaining = len(servers_list) - max_show
+                servers_text = ", ".join(visible) + f" and {remaining} more..."
+            else:
+                servers_text = ", ".join(servers_list)
+
+            servers_lbl.setText(f"Servers : {servers_text}")
+            servers_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             price_lbl = QtWidgets.QLabel(frame)
             price_lbl.setObjectName(f"plan_price_lbl_{plan_id}")
@@ -704,6 +740,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             # Add widgets to layout
             vbox.addWidget(name_lbl)
+            vbox.addWidget(servers_lbl)
             vbox.addWidget(price_lbl)
             vbox.addWidget(usage_lbl)
             vbox.addWidget(time_lbl)
@@ -833,9 +870,20 @@ class MainAppWindow(QtWidgets.QMainWindow):
             time_days = plan.get("plan_time", plan.get("time", "N/A"))
             price = plan.get("plan_price", plan.get("price", "N/A"))
             number_of_users = plan.get("number_of_users", "")
+            servers = plan.get("servers","")
+            
+            servers_list = [str(s) for s in servers]   
+            max_show = 3
+            if len(servers_list) > max_show:
+                visible = servers_list[:max_show]
+                remaining = len(servers_list) - max_show
+                servers_text = ", ".join(visible) + f" and {remaining} more..."
+            else:
+                servers_text = ", ".join(servers_list)
 
             lines = [
                 f"📦  Name : {name}",
+                f"🌐  Servers : {servers_text}",
                 f"📊  Usage : {usage} GB",
                 f"⏳  Time : {time_days} month",
                 f"💰  Price : {price} coins",
@@ -857,35 +905,40 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 purchase_ok, purchase_result = api_calls.buy_plan(plan_id)
                 if purchase_ok:
                     details = purchase_result.get('details', {})
-                    code_full = details.get("config_code", "")
-                    display_name = code_full.split("#")[1] if "#" in code_full else code_full
-                    gb = details.get("usage") or 0
-                    days = (details.get("time") * 30) if details.get("time") is not None else 0
+                    configs = details.get('configs', [])
+                    for config_obj in configs:
 
-                    config_codes[display_name] = code_full
-                    days = self.format_days_left(days)
+                        code_full = config_obj.get("config_code", "")
+                        server = config_obj.get("server", "")
+                        display_name = code_full.split("#")[1] if "#" in code_full else code_full
+                        gb = details.get("usage") or 0
+                        days = (details.get("time") * 30) if details.get("time") is not None else 0
 
-                    # Add item to combobox
-                    self.ui.selectConfigComboBox.addItem(display_name)
-                    i = self.ui.selectConfigComboBox.count() - 1
-                    self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+                        config_codes[display_name] = code_full
+                        days = self.format_days_left(days)
 
+                        # Add item to combobox
+                        self.ui.selectConfigComboBox.addItem(f"{display_name} ({server})")
+                        i = self.ui.selectConfigComboBox.count() - 1
+                        self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+
+                        new_config = {
+                            "config_code": code_full,
+                            "server": server,
+                            "display_name": display_name,
+                            "days_left": days,
+                            "gb_left": gb
+                        }
+                        self.load_myconfigs([new_config])
+                        
                     # Update coins and counts
                     try:
                         new_coin_count = int(self.ui.coinNumber.text()) - details.get("price", 0)
                         self.ui.coinNumber.setText(str(new_coin_count))
                         self.ui.accountCoinsCount.setText(str(new_coin_count))
-                        self.ui.accountAllConfigsCount.setText(str(int(self.ui.accountAllConfigsCount.text()) + 1))
+                        self.ui.accountAllConfigsCount.setText(str(int(self.ui.accountAllConfigsCount.text()) + int(len(configs))))
                     except Exception:
                         pass
-
-                    new_config = {
-                        "config_code": code_full,
-                        "display_name": display_name,
-                        "days_left": days,
-                        "gb_left": gb
-                    }
-                    self.load_myconfigs([new_config])
 
                     return self._show_toast("Plan Successfully purchased ✅")
                 return self._show_toast(purchase_result)
@@ -913,7 +966,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             QtCore.QTimer.singleShot(2000, self._on_connected)
 
             # config_codes may be empty — use get
-            cfg_code = config_codes.get(selected)
+            cfg_code = config_codes.get(selected.split(" ")[0])
             try:
                 self.xray_client = XrayClient(cfg_code, set_system_proxy=True)
                 self.xray_client.start()
@@ -1092,7 +1145,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self.ui.connectionStatusText.setText("Connecting...")
                 self.ui.selectConfigComboBox.setDisabled(True)
 
-                index = self.ui.selectConfigComboBox.findText(display_name, QtCore.Qt.MatchFlag.MatchExactly)
+                index = self.ui.selectConfigComboBox.findText(display_name, QtCore.Qt.MatchFlag.MatchContains)
                 if index != -1:
                     self.ui.selectConfigComboBox.setCurrentIndex(index)
 
