@@ -10,8 +10,6 @@ from urllib.parse import urlparse, parse_qs, unquote
 from modules import path_helpers
 import winreg as reg
 import base64
-import json
-from urllib.parse import urlparse, parse_qs, unquote
 
 REG_PATH_EXLUSIVE_PROXY = r"Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 VALUE_NAME_EXCLUSIVE_PROXY = "ProxyOverride"
@@ -44,6 +42,7 @@ class XrayConfigGenerator:
         self.scheme = scheme
 
         if scheme == "vless":
+            # for vless urls like: vless://UUID@host:port?type=tcp&security=reality&pbk=...#name
             self.user_id = u.username or ""
             self.host = u.hostname
             self.port = u.port
@@ -95,6 +94,11 @@ class XrayConfigGenerator:
         return cfg
 
     def _tls_settings_if_needed(self, stream: dict):
+        """
+        Handles both TLS and REALITY security based on URL/query/raw config.
+        For 'tls' -> sets stream['security']='tls' and tlsSettings...
+        For 'reality' -> sets stream['security']='reality' and realitySettings...
+        """
         security = None
         if isinstance(self.query, dict):
             security = self.query.get("security")
@@ -102,7 +106,14 @@ class XrayConfigGenerator:
             raw_tls = self.raw.get("tls")
             if raw_tls in ("tls", "true", "1") or raw_tls is True:
                 security = "tls"
-        if security and isinstance(security, str) and security.lower().startswith("tls"):
+
+        if not security:
+            return
+
+        sec_low = str(security).lower() if isinstance(security, str) else ""
+
+        # TLS branch (regular TLS settings)
+        if sec_low.startswith("tls"):
             server_name = (
                 (self.query.get("sni") if isinstance(self.query, dict) else None)
                 or (self.query.get("host") if isinstance(self.query, dict) else None)
@@ -141,6 +152,74 @@ class XrayConfigGenerator:
                 tls_settings["fingerprint"] = fp
 
             stream["tlsSettings"] = tls_settings
+            return
+
+        # REALITY branch
+        if sec_low == "reality":
+            stream["security"] = "reality"
+            # Map expected realitySettings fields (names per Xray: publicKey, shortId, spiderX, fingerprint, serverName)
+            reality = {}
+
+            # publicKey: from pbk OR publicKey
+            public_key = None
+            if isinstance(self.query, dict):
+                public_key = self.query.get("pbk") or self.query.get("publicKey") or public_key
+            if not public_key and isinstance(self.raw, dict):
+                public_key = self.raw.get("pbk") or self.raw.get("publicKey") or public_key
+            if public_key:
+                reality["publicKey"] = public_key
+
+            # fingerprint: from fp
+            fp = None
+            if isinstance(self.query, dict):
+                fp = self.query.get("fp") or fp
+            if not fp and isinstance(self.raw, dict):
+                fp = self.raw.get("fp") or fp
+            if fp:
+                reality["fingerprint"] = fp
+
+            # serverName: from sni or host
+            server_name = None
+            if isinstance(self.query, dict):
+                server_name = self.query.get("sni") or self.query.get("serverName") or self.query.get("host") or server_name
+            if not server_name and isinstance(self.raw, dict):
+                server_name = self.raw.get("sni") or self.raw.get("serverName") or self.raw.get("host") or server_name
+            if server_name:
+                reality["serverName"] = server_name
+
+            # shortId: from sid
+            short_id = None
+            if isinstance(self.query, dict):
+                short_id = self.query.get("sid") or self.query.get("shortId") or short_id
+            if not short_id and isinstance(self.raw, dict):
+                short_id = self.raw.get("sid") or self.raw.get("shortId") or short_id
+            if short_id:
+                reality["shortId"] = short_id
+
+            # spiderX: from spx (URL encoded usually)
+            spx = None
+            if isinstance(self.query, dict):
+                spx = self.query.get("spx") or self.query.get("spiderX") or spx
+            if not spx and isinstance(self.raw, dict):
+                spx = self.raw.get("spx") or self.raw.get("spiderX") or spx
+            if spx:
+                try:
+                    reality["spiderX"] = unquote(str(spx))
+                except Exception:
+                    reality["spiderX"] = str(spx)
+
+            # other optional REALITY fields: xver/minClientVer etc. (not mandatory)
+            # If query/raw contain 'xver' or 'xver' related fields, include them as-is
+            if isinstance(self.query, dict) and "xver" in self.query:
+                try:
+                    reality["xver"] = int(self.query.get("xver"))
+                except Exception:
+                    reality["xver"] = self.query.get("xver")
+            if isinstance(self.raw, dict) and "xver" in self.raw and "xver" not in reality:
+                reality["xver"] = self.raw.get("xver")
+
+            stream["realitySettings"] = reality
+            return
 
     def _build_tcp_stream(self):
         stream = {"network": "tcp"}
@@ -296,7 +375,9 @@ class XrayConfigGenerator:
             raise ValueError(f"unsupported scheme {self.scheme}")
 
         cfg = self._build_common_cfg(outbound)
+        # apply TLS or REALITY settings if needed
         if stream:
+            # ensure outbound has a streamSettings object we can pass into the helper
             self._tls_settings_if_needed(cfg["outbounds"][0].setdefault("streamSettings", stream))
         return cfg
 
