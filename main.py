@@ -77,7 +77,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         else:
             # On error, set defaults and show toast
             self.coin_count = 0
-            self._show_toast(user_data, 3000)
+            self._show_toast(user_data, 3000, "error")
 
         # Try to hide optional widget if present
         try:
@@ -128,7 +128,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         if plans_ok:
             self.populate_buy_plans(plans_data)
         else:
-            self._show_toast(plans_data, 3000)
+            self._show_toast(plans_data, 3000, "error")
 
         # Load proxy exception addresses from local DB
         addresses = manage_db.get_exclusive_addresses()
@@ -288,7 +288,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         else:
             try:
-                self._show_toast(data, 3000)
+                self._show_toast(data, 3000, "error")
             except Exception:
                 pass
 
@@ -436,7 +436,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self._create_config_card(cfg)
             except Exception as e:
                 try:
-                    self._show_toast(f"Error creating config frame: {e}", 20000)
+                    self._show_toast(f"Error creating config frame: {e}", 20000, "error")
                 except Exception:
                     pass
 
@@ -858,8 +858,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         addresses = manage_db.get_exclusive_addresses()
         if addresses is not None:
             set_proxy_exceptions(addresses)
-            return self._show_toast("Exclusive addresses applied successfully ✅")
-        return self._show_toast("There is no address to set as exclusive", 3000)
+            return self._show_toast("Exclusive addresses applied successfully",toast_type="info")
+        return self._show_toast("There is no address to set as exclusive", 3000, "warning")
 
     def on_buyconfig_clicked(self, plan: dict):
         """Handle clicking Buy on a plan: confirm and process purchase."""
@@ -940,8 +940,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     except Exception:
                         pass
 
-                    return self._show_toast("Plan Successfully purchased ✅")
-                return self._show_toast(purchase_result)
+                    return self._show_toast("Plan Successfully purchased ✅",toast_type="success")
+                return self._show_toast(purchase_result, 5000, "alert")
         except Exception as e:
             QtWidgets.QMessageBox.warning(self, "Error", f"Error in on_buyconfig_clicked:\n{e}")
 
@@ -1045,7 +1045,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             pass
 
         try:
-            self._show_toast("Logging out...", 1200)
+            self._show_toast("Logging out...", 1200, "info")
         except Exception:
             pass
 
@@ -1111,7 +1111,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             pass
 
         try:
-            self._show_toast(msg, 2000)
+            self._show_toast(msg, 2000, "info" if ok else "alert")
         except Exception:
             pass
 
@@ -1135,7 +1135,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         """Connect to a config from the my-configs page (equivalent of Connect button)."""
         try:
             if not config_code:
-                return self._show_toast("No config code available", 1800)
+                return self._show_toast("No config code available", 1800, "info")
 
             current = self.ui.connectionStatusText.text()
             if current in ("Not Connected", "Disconnected"):
@@ -1158,10 +1158,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
                 return self.ui.tabWidget.setCurrentIndex(0)
             else:
-                return self._show_toast("You already connected. Please disconnect first.")
+                return self._show_toast("You already connected. Please disconnect first.", toast_type="info")
         except Exception as e:
             try:
-                self._show_toast(f"Connect error: {e}", 2000)
+                self._show_toast(f"Connect error: {e}", 2000, "error")
             except Exception:
                 pass
 
@@ -1178,9 +1178,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
         s = re.sub(r"[^0-9a-zA-Z]+", "_", str(name))
         return s.strip("_") or "unnamed"
 
-    def _show_toast(self, text: str, duration: int = 2500):
+    def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
         """Show a temporary popup toast message."""
-        toast = PopupToast(self, text=text, duration=duration)
+        toast = PopupToast(self, text=text, duration=duration, toast_type=toast_type)
         toast.show_toast()
 
 
@@ -1279,7 +1279,7 @@ class LoginWindow(QtWidgets.QWidget):
     def on_login_clicked(self):
         ok, msg = self.validate_login()
         if not ok:
-            self._show_toast(msg)
+            self._show_toast(msg, toast_type="warning")
             return
 
         username = self.ui.usernameLineEdit.text().strip()
@@ -1297,12 +1297,12 @@ class LoginWindow(QtWidgets.QWidget):
             login_window._programmatic_close = True
             return login_window.close()
         login_window.ui.loginButton.setDisabled(False)
-        return self._show_toast(msg, duration=1800)
+        return self._show_toast(msg, duration=1800, toast_type="alert")
 
     def on_submit_clicked(self):
         ok, msg = self.validate_submit()
         if not ok:
-            self._show_toast(msg)
+            self._show_toast(msg, toast_type="warning")
             return
 
         username = self.ui.usernameLineEditRegister.text().strip()
@@ -1318,10 +1318,11 @@ class LoginWindow(QtWidgets.QWidget):
             login_window._programmatic_close = True
             return login_window.close()
         login_window.ui.submitButton.setDisabled(False)
-        return self._show_toast(msg, duration=1800)
+        return self._show_toast(msg, duration=1800, toast_type="alert")
 
-    def _show_toast(self, text: str, duration: int = 2500):
-        toast = PopupToast(self, text=text, duration=duration)
+    def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
+        """Show a temporary popup toast message."""
+        toast = PopupToast(self, text=text, duration=duration, toast_type=toast_type)
         toast.show_toast()
 
 class VerifyEmailWindow(QtWidgets.QWidget):
@@ -1400,10 +1401,10 @@ class VerifyEmailWindow(QtWidgets.QWidget):
                     email_verify_window._programmatic_close = True
                     return email_verify_window.close()
                 self.ui.verifyButton.setDisabled(False)
-                return self._show_toast(msg,2000)
+                return self._show_toast(msg,2000,"alert")
             self.ui.verifyButton.setDisabled(False)
-            return self._show_toast(msg,2000)
-        return self._show_toast(msg, 2000)
+            return self._show_toast(msg,2000,"alert")
+        return self._show_toast(msg, 2000, "warning")
 
     def on_back_to_login_clicked(self):
         login_window.show()
@@ -1413,9 +1414,9 @@ class VerifyEmailWindow(QtWidgets.QWidget):
         self.ui.resendCodeButton.setDisabled(True)
         ok ,msg = api_calls.resend_verification_code(self.email)
         if ok:
-            self._show_toast(msg, 2000)
+            self._show_toast(msg, 2000, "info")
             return self.ui.resendCodeButton.setDisabled(False)
-        self._show_toast(msg, 2000)
+        self._show_toast(msg, 2000, "alert")
         return self.ui.resendCodeButton.setDisabled(False)
 
     def set_data(self,email,username,password):
@@ -1423,8 +1424,9 @@ class VerifyEmailWindow(QtWidgets.QWidget):
         self.username = username
         self.password = password
 
-    def _show_toast(self, text: str, duration: int = 2500):
-        toast = PopupToast(self, text=text, duration=duration)
+    def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
+        """Show a temporary popup toast message."""
+        toast = PopupToast(self, text=text, duration=duration, toast_type=toast_type)
         toast.show_toast()
 
 if __name__ == "__main__":

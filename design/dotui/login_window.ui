@@ -139,7 +139,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/key.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/key.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -231,7 +231,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/user_for_login.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/user_for_login.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -448,7 +448,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/key.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/key.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -467,7 +467,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/email.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/email.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -610,7 +610,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/user_for_login.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/user_for_login.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -728,7 +728,7 @@ QLineEdit:focus {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/icons/key.png</pixmap>
+      <pixmap resource="../../resources/resources.qrc">:/icons/icons/key.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -737,7 +737,19 @@ QLineEdit:focus {
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>usernameLineEdit</tabstop>
+  <tabstop>passwordLineEdit</tabstop>
+  <tabstop>loginButton</tabstop>
+  <tabstop>emailLineEditRegister</tabstop>
+  <tabstop>usernameLineEditRegister</tabstop>
+  <tabstop>passwordLineEditRegister</tabstop>
+  <tabstop>confirmPasswordLineEditRegister</tabstop>
+  <tabstop>submitButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <resources>
+  <include location="../../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>

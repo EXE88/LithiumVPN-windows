@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'verify_email_window.ui'
+# Form implementation generated from reading ui file 'design/dotui/verify_email_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.9.1
 #
@@ -36,7 +36,7 @@ class Ui_Form(object):
         self.pTextVerify.setObjectName("pTextVerify")
         self.codeEditLine = QtWidgets.QLineEdit(parent=Form)
         self.codeEditLine.setEnabled(True)
-        self.codeEditLine.setGeometry(QtCore.QRect(120, 245, 161, 51))
+        self.codeEditLine.setGeometry(QtCore.QRect(120, 250, 161, 51))
         self.codeEditLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #1e293b;   /* زمینه تیره */\n"
 "    color: #e2e8f0;              /* متن روشن */\n"
@@ -64,7 +64,7 @@ class Ui_Form(object):
         self.codeEditLine.setObjectName("codeEditLine")
         self.verifyButton = QtWidgets.QPushButton(parent=Form)
         self.verifyButton.setEnabled(True)
-        self.verifyButton.setGeometry(QtCore.QRect(130, 410, 141, 51))
+        self.verifyButton.setGeometry(QtCore.QRect(130, 420, 141, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(16)
@@ -99,7 +99,7 @@ class Ui_Form(object):
 "")
         self.verifyButton.setObjectName("verifyButton")
         self.backToLoginButton = QtWidgets.QPushButton(parent=Form)
-        self.backToLoginButton.setGeometry(QtCore.QRect(170, 505, 91, 41))
+        self.backToLoginButton.setGeometry(QtCore.QRect(170, 477, 91, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -108,13 +108,13 @@ class Ui_Form(object):
         self.backToLoginButton.setFlat(True)
         self.backToLoginButton.setObjectName("backToLoginButton")
         self.arrowIcon = QtWidgets.QLabel(parent=Form)
-        self.arrowIcon.setGeometry(QtCore.QRect(140, 518, 31, 16))
+        self.arrowIcon.setGeometry(QtCore.QRect(140, 490, 31, 16))
         self.arrowIcon.setText("")
         self.arrowIcon.setPixmap(QtGui.QPixmap(":/icons/icons/arrow-left.png"))
         self.arrowIcon.setScaledContents(True)
         self.arrowIcon.setObjectName("arrowIcon")
         self.resendCodeButton = QtWidgets.QPushButton(parent=Form)
-        self.resendCodeButton.setGeometry(QtCore.QRect(140, 310, 121, 41))
+        self.resendCodeButton.setGeometry(QtCore.QRect(140, 315, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -151,6 +151,9 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.codeEditLine, self.resendCodeButton)
+        Form.setTabOrder(self.resendCodeButton, self.verifyButton)
+        Form.setTabOrder(self.verifyButton, self.backToLoginButton)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate

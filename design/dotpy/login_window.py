@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'login_window.ui'
+# Form implementation generated from reading ui file 'design/dotui/login_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.9.1
 #
@@ -356,6 +356,14 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.usernameLineEdit, self.passwordLineEdit)
+        Form.setTabOrder(self.passwordLineEdit, self.loginButton)
+        Form.setTabOrder(self.loginButton, self.emailLineEditRegister)
+        Form.setTabOrder(self.emailLineEditRegister, self.usernameLineEditRegister)
+        Form.setTabOrder(self.usernameLineEditRegister, self.passwordLineEditRegister)
+        Form.setTabOrder(self.passwordLineEditRegister, self.confirmPasswordLineEditRegister)
+        Form.setTabOrder(self.confirmPasswordLineEditRegister, self.submitButton)
+        Form.setTabOrder(self.submitButton, self.tabWidget)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate

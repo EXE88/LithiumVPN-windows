@@ -85,7 +85,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>245</y>
+     <y>250</y>
      <width>161</width>
      <height>51</height>
     </rect>
@@ -139,7 +139,7 @@ QLineEdit:focus {
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>410</y>
+     <y>420</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -188,7 +188,7 @@ QLineEdit:focus {
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>505</y>
+     <y>477</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -216,7 +216,7 @@ QLineEdit:focus {
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>518</y>
+     <y>490</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -225,7 +225,7 @@ QLineEdit:focus {
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../resources/resources.qrc">:/icons/icons/arrow-left.png</pixmap>
+    <pixmap resource="../../resources/resources.qrc">:/icons/icons/arrow-left.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -235,7 +235,7 @@ QLineEdit:focus {
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>310</y>
+     <y>315</y>
      <width>121</width>
      <height>41</height>
     </rect>
@@ -283,7 +283,14 @@ QLineEdit:focus {
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>codeEditLine</tabstop>
+  <tabstop>resendCodeButton</tabstop>
+  <tabstop>verifyButton</tabstop>
+  <tabstop>backToLoginButton</tabstop>
+ </tabstops>
  <resources>
+  <include location="../../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>

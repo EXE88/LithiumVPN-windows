@@ -98,8 +98,9 @@ class ShareConfigDialog(QDialog):
     def copy_link(self):
         clipboard = QApplication.clipboard()
         clipboard.setText(self.link_edit.text())
-        self._show_toast("Config code copied in your clipboard successfully.")
+        self._show_toast("Config code copied in your clipboard successfully.", toast_type="info")
 
-    def _show_toast(self, text: str, duration: int = 2500):
-        toast = PopupToast(self, text=text, duration=duration)
+    def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
+        """Show a temporary popup toast message."""
+        toast = PopupToast(self, text=text, duration=duration, toast_type=toast_type)
         toast.show_toast()
