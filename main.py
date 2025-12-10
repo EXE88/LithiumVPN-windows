@@ -20,6 +20,7 @@ from custome_widgets.popup_toast import PopupToast
 from custome_widgets.fancy_round_button import FancyRoundButton
 from custome_widgets.config_delegate_comboBox import ConfigDelegateComboBox
 from custome_widgets.rgb_label import RGBLabel
+from custome_widgets.fancy_messagebox import ThemedMessageBox
 
 from modules.database import ManageDatabase
 from modules.api_calls import ApiCalls
@@ -893,15 +894,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             body = "\n".join(lines) + "\n\nAre you sure you want to buy this plan?"
 
-            resp = QtWidgets.QMessageBox.question(
-                self,
+            resp = ThemedMessageBox.show_message(
                 "Confirm Purchase",
-                body,
-                QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No,
-                QtWidgets.QMessageBox.StandardButton.Yes
+                "Do you really want to buy this plan?"
             )
 
-            if resp == QtWidgets.QMessageBox.StandardButton.Yes:
+            #if resp == QtWidgets.QMessageBox.StandardButton.Yes:
+            if resp == ThemedMessageBox.yes:
                 purchase_ok, purchase_result = api_calls.buy_plan(plan_id)
                 if purchase_ok:
                     details = purchase_result.get('details', {})
@@ -941,7 +940,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                         pass
 
                     return self._show_toast("Plan Successfully purchased ✅",toast_type="success")
-                return self._show_toast(purchase_result, 5000, "alert")
+                return self._show_toast(purchase_result, 3000, "alert")
         except Exception as e:
             QtWidgets.QMessageBox.warning(self, "Error", f"Error in on_buyconfig_clicked:\n{e}")
 
