@@ -295,6 +295,9 @@ QLineEdit:focus {
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
+     </property>
      <property name="text">
       <string>Dont have any account ?</string>
      </property>
@@ -316,6 +319,9 @@ QLineEdit:focus {
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
      </property>
      <property name="text">
       <string> Create one for free</string>
@@ -415,6 +421,9 @@ QLineEdit:focus {
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
+     </property>
      <property name="text">
       <string>Login</string>
      </property>
@@ -427,6 +436,9 @@ QLineEdit:focus {
        <width>131</width>
        <height>41</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
      </property>
      <property name="text">
       <string>Already have account ? </string>
@@ -750,7 +762,7 @@ QLineEdit:focus {
  </tabstops>
  <resources>
   <include location="../../resources/resources.qrc"/>
-  <include location="../resources/resources.qrc"/>
+  <include location="../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

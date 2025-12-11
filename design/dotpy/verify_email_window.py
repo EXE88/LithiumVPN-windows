@@ -104,6 +104,7 @@ class Ui_Form(object):
         font.setPointSize(10)
         font.setBold(True)
         self.backToLoginButton.setFont(font)
+        self.backToLoginButton.setStyleSheet("color:white;")
         self.backToLoginButton.setIconSize(QtCore.QSize(16, 20))
         self.backToLoginButton.setFlat(True)
         self.backToLoginButton.setObjectName("backToLoginButton")

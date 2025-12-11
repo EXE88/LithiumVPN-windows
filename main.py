@@ -552,6 +552,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 border-radius: 12px;
                 border: 1px solid rgba(94, 234, 212, 0.6);
                 min-height:185px;
+                color:white;
             }}
 
             QFrame:hover{{
@@ -562,11 +563,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
             QLabel{{
                 min-height:65px;
                 max-height:65px;
+                color:white;
             }}
 
             QLabel#myconfigs_frame_{safe_name}_servername{{
                 min-height:40px;
                 max-height:40px;
+                color:#38bdf8;
             }}
 
             QPushButton#{connect_id} {{
@@ -591,6 +594,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 border-top: 4px solid #065f46;
                 padding-top: 12px;
                 padding-bottom: 8px;
+                color: white;
             }}
             QPushButton#{share_id} {{
                 background-color: #3b82f6;
@@ -614,6 +618,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 border-top: 4px solid #1d4ed8;
                 padding-top: 12px;
                 padding-bottom: 8px;
+                color: white;
             }}
         """
         try:
