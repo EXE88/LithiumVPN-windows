@@ -12,7 +12,7 @@ class ManageDatabase:
         self.DOMAIN_IP = CONFIG["DOMAIN_IP"]
         self.DOMAIN_PORT = CONFIG["DOMAIN_PORT"]
 
-        self.db_file = path_helpers.get_path(self.DB_NAME)
+        self.db_file = str(path_helpers.get_database_path(self.DB_NAME))
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
