@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>600</height>
+    <height>630</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>600</height>
+    <height>630</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>600</height>
+    <height>630</height>
    </size>
   </property>
   <property name="font">
@@ -44,7 +44,7 @@
       <x>0</x>
       <y>-30</y>
       <width>400</width>
-      <height>631</height>
+      <height>681</height>
      </rect>
     </property>
     <property name="font">
@@ -63,7 +63,7 @@
      <widget class="QLabel" name="profileIcon">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>15</x>
         <y>20</y>
         <width>48</width>
         <height>48</height>
@@ -88,7 +88,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>380</y>
+        <y>405</y>
         <width>201</width>
         <height>31</height>
        </rect>
@@ -112,7 +112,7 @@
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>30</x>
         <y>109</y>
         <width>78</width>
         <height>26</height>
@@ -161,7 +161,7 @@
      <widget class="QLabel" name="usernameText">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>30</x>
         <y>69</y>
         <width>81</width>
         <height>39</height>
@@ -187,7 +187,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>430</y>
+        <y>455</y>
         <width>201</width>
         <height>51</height>
        </rect>
@@ -259,7 +259,7 @@ color:white;
      <widget class="QFrame" name="continueProfileLine">
       <property name="geometry">
        <rect>
-        <x>16</x>
+        <x>11</x>
         <y>63</y>
         <width>20</width>
         <height>71</height>
@@ -282,7 +282,7 @@ color:white;
       <property name="geometry">
        <rect>
         <x>105</x>
-        <y>145</y>
+        <y>170</y>
         <width>210</width>
         <height>210</height>
        </rect>
@@ -305,7 +305,7 @@ background-color: white</string>
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>150</y>
+        <y>175</y>
         <width>200</width>
         <height>200</height>
        </rect>
@@ -331,8 +331,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
      <widget class="QLabel" name="headerText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -359,7 +359,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <x>-3</x>
         <y>0</y>
         <width>400</width>
-        <height>111</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -686,8 +686,8 @@ QPushButton#accountlogoutButton:pressed {
      <widget class="QLabel" name="accountHeaderText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -735,8 +735,8 @@ QPushButton#accountlogoutButton:pressed {
      <widget class="QLabel" name="myConfigsHeaderText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -903,8 +903,8 @@ border: 1px solid #555;
      <widget class="QLabel" name="buyConfigsHeaderText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1074,8 +1074,8 @@ border: 1px solid #555;
      <widget class="QLabel" name="buyCoinsHeaderText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1302,8 +1302,8 @@ QPushButton#buyCoinsBuyButton:pressed {
      <widget class="QLabel" name="settingsHeaderText">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>20</y>
+        <x>77</x>
+        <y>10</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1515,7 +1515,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>20</y>
+      <y>85</y>
       <width>111</width>
       <height>341</height>
      </rect>
@@ -1665,9 +1665,9 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>20</y>
+      <y>102</y>
       <width>51</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -1687,11 +1687,112 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="minbutton">
+    <property name="geometry">
+     <rect>
+      <x>332</x>
+      <y>62</y>
+      <width>46</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+      <fontweight>DemiBold</fontweight>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+QPushButton::before {
+    content: &quot;&quot;;
+    position: absolute;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 55);
+    border-color: rgba(255, 255, 255, 180);
+}
+
+QPushButton:pressed {
+    background-color: rgba(255, 255, 255, 85);
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../../resources/resources.qrc">
+      <normaloff>:/icons/icons/minicon.png</normaloff>:/icons/icons/minicon.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closebutton">
+    <property name="geometry">
+     <rect>
+      <x>332</x>
+      <y>20</y>
+      <width>46</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <fontweight>DemiBold</fontweight>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+QPushButton::before {
+    content: &quot;&quot;;
+    position: absolute;
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 55);
+    border-color: rgba(255, 255, 255, 180);
+}
+
+QPushButton:pressed {
+    background-color: rgba(255, 255, 255, 85);
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../../resources/resources.qrc">
+      <normaloff>:/icons/icons/closebutton.png</normaloff>:/icons/icons/closebutton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>20</width>
+      <height>20</height>
+     </size>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
   <include location="../../resources/resources.qrc"/>
-  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

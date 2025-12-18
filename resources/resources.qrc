@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/closebutton.png</file>
+    <file>icons/minicon.png</file>
     <file>icons/arrow-left.png</file>
     <file>icons/arrow.png</file>
     <file>icons/email.png</file>

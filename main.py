@@ -78,6 +78,28 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     # -------------------- helper setup methods --------------------
 
+    def animated_close(self):
+        anim = QtCore.QPropertyAnimation(self, b"windowOpacity")
+        anim.setDuration(220)
+        anim.setStartValue(1.0)
+        anim.setEndValue(0.0)
+        anim.setEasingCurve(QtCore.QEasingCurve.Type.OutQuad)
+
+        anim.finished.connect(lambda: (self.close(), self.setWindowOpacity(1.0)))
+        self._close_anim = anim
+        anim.start()
+
+    def animated_minimize(self):
+        anim = QtCore.QPropertyAnimation(self, b"windowOpacity")
+        anim.setDuration(220)
+        anim.setStartValue(1.0)
+        anim.setEndValue(0.0)
+        anim.setEasingCurve(QtCore.QEasingCurve.Type.OutQuad)
+
+        anim.finished.connect(lambda: (self.showMinimized(), self.setWindowOpacity(1.0)))
+        self._close_anim = anim
+        anim.start()
+
     def _setup_ui(self):
         """Initial load: populate user info, widgets, and tab content."""
 
@@ -113,7 +135,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # Decorative vertical rounded line
         self.rounded_line = RoundedLine(
             parent=self.ui.homeTab,
-            x=25.5, y=65,
+            x=21.35, y=63,
             length=71.7, thickness=2.3,
             color=QtGui.QColor(230, 230, 230),
             vertical=True
@@ -182,12 +204,17 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.dragframe_myconfigs.mouseMoveEvent = self._do_drag
         self.ui.dragframe_settings.mouseMoveEvent = self._do_drag
 
+        self.ui.closebutton.clicked.connect(self.animated_close)
+        self.ui.minbutton.clicked.connect(self.animated_minimize)
+
         self.ui.dragframe_home.raise_()       
         self.ui.dragframe_account.raise_()
         self.ui.dragframe_buycoin.raise_()
         self.ui.dragframe_buyconfig.raise_()
         self.ui.dragframe_myconfigs.raise_()
         self.ui.dragframe_settings.raise_()
+        self.ui.closebutton.raise_()
+        self.ui.minbutton.raise_()
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
