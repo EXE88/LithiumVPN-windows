@@ -78,7 +78,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/user.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/user.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -113,8 +113,8 @@
       <property name="geometry">
        <rect>
         <x>35</x>
-        <y>110</y>
-        <width>69</width>
+        <y>109</y>
+        <width>78</width>
         <height>26</height>
        </rect>
       </property>
@@ -131,7 +131,7 @@
           <string notr="true">color:white;</string>
          </property>
          <property name="text">
-          <string>160</string>
+          <string>999</string>
          </property>
         </widget>
        </item>
@@ -144,7 +144,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../resources/resources.qrc">
+          <iconset resource="../../resources/resources.qrc">
            <normaloff>:/icons/icons/coin.png</normaloff>
            <disabledoff>:/icons/icons/coin.png</disabledoff>:/icons/icons/coin.png</iconset>
          </property>
@@ -162,7 +162,7 @@
       <property name="geometry">
        <rect>
         <x>35</x>
-        <y>70</y>
+        <y>69</y>
         <width>81</width>
         <height>39</height>
        </rect>
@@ -259,8 +259,8 @@ color:white;
      <widget class="QFrame" name="continueProfileLine">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>70</y>
+        <x>16</x>
+        <y>63</y>
         <width>20</width>
         <height>71</height>
        </rect>
@@ -318,7 +318,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../resources/resources.qrc">
+       <iconset resource="../../resources/resources.qrc">
         <normaloff>:/icons/icons/power.svg</normaloff>:/icons/icons/power.svg</iconset>
       </property>
       <property name="iconSize">
@@ -353,6 +353,25 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QFrame" name="dragframe_home">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="accountTab">
      <attribute name="title">
@@ -371,7 +390,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/user.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/user.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -440,7 +459,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -689,6 +708,25 @@ QPushButton#accountlogoutButton:pressed {
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QFrame" name="dragframe_account">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="configsTab">
      <attribute name="title">
@@ -837,6 +875,25 @@ border: 1px solid #555;
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QFrame" name="dragframe_myconfigs">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="buyConfigsTab">
@@ -990,6 +1047,25 @@ border: 1px solid #555;
        </layout>
       </widget>
      </widget>
+     <widget class="QFrame" name="dragframe_buyconfig">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="buyCoinsTab">
      <attribute name="title">
@@ -1083,7 +1159,7 @@ border: 1px solid #555;
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1111,7 +1187,7 @@ border: 1px solid #555;
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/user.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/user.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -1190,13 +1266,32 @@ QPushButton#buyCoinsBuyButton:pressed {
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
+       <pixmap resource="../../resources/resources.qrc">:/icons/icons/coin.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="dragframe_buycoin">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
       </property>
      </widget>
     </widget>
@@ -1395,6 +1490,25 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
        </item>
       </layout>
      </widget>
+     <widget class="QFrame" name="dragframe_settings">
+      <property name="geometry">
+       <rect>
+        <x>-3</x>
+        <y>0</y>
+        <width>400</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="sideMenu" native="true">
@@ -1560,7 +1674,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="../resources/resources.qrc">
+     <iconset resource="../../resources/resources.qrc">
       <normaloff>:/icons/icons/menu.png</normaloff>:/icons/icons/menu.png</iconset>
     </property>
     <property name="iconSize">
@@ -1576,6 +1690,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
   </widget>
  </widget>
  <resources>
+  <include location="../../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>

@@ -28,12 +28,20 @@ from modules.path_helpers import get_path
 from modules.qrcode_generator import ShareConfigDialog
 from core.handlers.manager import XrayClient, set_proxy_exceptions
 
+from PyQt6.QtGui import QRegion, QPainterPath
 class MainAppWindow(QtWidgets.QMainWindow):
 
     logout_finished = pyqtSignal(bool, str)
 
     def __init__(self):
         super().__init__()
+
+        self.setWindowFlags(
+            Qt.WindowType.FramelessWindowHint |
+            Qt.WindowType.Window
+        )
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+
 
         # ---------- UI and layout setup ----------
         self.ui = Ui_MainWindow()
@@ -51,6 +59,22 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         # Prevent quitting when last window closed (we use tray)
         QtWidgets.QApplication.setQuitOnLastWindowClosed(False)
+
+    def _start_drag(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_pos = event.globalPosition().toPoint()
+
+    def _do_drag(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.move(self.pos() + event.globalPosition().toPoint() - self._drag_pos)
+            self._drag_pos = event.globalPosition().toPoint()
+
+    def resizeEvent(self, event):
+        path = QPainterPath()
+        rect = QtCore.QRectF(self.rect())
+        path.addRoundedRect(rect, 16, 16)
+        region = QRegion(path.toFillPolygon().toPolygon())
+        self.setMask(region)
 
     # -------------------- helper setup methods --------------------
 
@@ -143,6 +167,27 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.load_myconfigs(configs)
 
         # Ensure menu button and side menu are on top
+        self.ui.dragframe_home.mousePressEvent = self._start_drag
+        self.ui.dragframe_account.mousePressEvent = self._start_drag
+        self.ui.dragframe_buycoin.mousePressEvent = self._start_drag
+        self.ui.dragframe_buyconfig.mousePressEvent = self._start_drag
+        self.ui.dragframe_myconfigs.mousePressEvent = self._start_drag
+        self.ui.dragframe_settings.mousePressEvent = self._start_drag
+
+
+        self.ui.dragframe_home.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_account.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_buycoin.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_buyconfig.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_myconfigs.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_settings.mouseMoveEvent = self._do_drag
+
+        self.ui.dragframe_home.raise_()       
+        self.ui.dragframe_account.raise_()
+        self.ui.dragframe_buycoin.raise_()
+        self.ui.dragframe_buyconfig.raise_()
+        self.ui.dragframe_myconfigs.raise_()
+        self.ui.dragframe_settings.raise_()
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
