@@ -1,5 +1,8 @@
 from typing import Optional, Tuple, Union
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtGui import QFont, QColor
+from PyQt6.QtCore import QRect
+from PyQt6.QtWidgets import QGraphicsTextItem, QGraphicsDropShadowEffect
 
 ColorLike = Union[QtGui.QColor, Tuple[int, int, int], Tuple[int, int, int, int], str]
 
@@ -196,3 +199,114 @@ class FancyLabelBetter:
         self.glowText.setText(text)
         self.shadowText.setText(text)
         self.headerText.setText(text)
+
+
+class GlowText:
+    def __init__(
+        self,
+        text: str,
+        font_name="Arial",
+        font_size=50,
+        bold=True,
+        text_color=QColor("white"),
+        glow_color=QColor(255, 255, 0),
+        blur=80,
+        alpha=255,
+    ):
+        self.item = QGraphicsTextItem(text)
+
+        weight = QFont.Weight.Bold if bold else QFont.Weight.Normal
+        self.font = QFont(font_name, font_size, weight)
+        self.item.setFont(self.font)
+        self.item.setDefaultTextColor(text_color)
+
+        self.glow = QGraphicsDropShadowEffect()
+        self.glow.setOffset(0, 0)
+        self.glow.setBlurRadius(blur)
+
+        self.glow_color = QColor(glow_color)
+        self.glow_color.setAlpha(alpha)
+        self.glow.setColor(self.glow_color)
+
+        self.item.setGraphicsEffect(self.glow)
+
+    # ---------- factory ----------
+    @classmethod
+    def from_label(
+        cls,
+        parent: QtWidgets.QWidget,
+        target_label: QtWidgets.QLabel,
+        text: str,
+        font_name: str = "Arial",
+        glow_color=QColor(255, 255, 0),
+        blur: int = 50,
+        alpha: int = 255,
+        y_offset: int = 10,
+        bold: bool = True,
+    ):
+        scene = QtWidgets.QGraphicsScene(parent)
+        view = QtWidgets.QGraphicsView(scene, parent)
+
+        view.setGeometry(
+            QRect(
+                target_label.x()-30,
+                target_label.y()-30 + y_offset,
+                target_label.width()+60,
+                target_label.height()+60,
+            )
+        )
+
+        view.setStyleSheet("background: transparent;")
+        view.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+
+        glow_text = cls(
+            text=text,
+            font_name=font_name,
+            font_size=target_label.font().pointSize(),
+            bold=bold,
+            text_color=QColor(255, 255, 255),
+            glow_color=glow_color,
+            blur=blur,
+            alpha=alpha,
+        )
+
+        scene.addItem(glow_text.item)
+        target_label.deleteLater()
+
+        glow_text.scene = scene
+        glow_text.view = view
+
+        return glow_text
+
+    # ---------- setters ----------
+    def set_text(self, text):
+        self.item.setPlainText(text)
+
+    def set_position(self, x, y):
+        self.item.setPos(x, y)
+
+    def set_font(self, name=None, size=None, bold=None):
+        if name:
+            self.font.setFamily(name)
+        if size:
+            self.font.setPointSize(size)
+        if bold is not None:
+            self.font.setWeight(
+                QFont.Weight.Bold if bold else QFont.Weight.Normal
+            )
+        self.item.setFont(self.font)
+
+    def set_text_color(self, color: QColor):
+        self.item.setDefaultTextColor(color)
+
+    def set_glow(self, color=None, blur=None, alpha=None, offset_x=None, offset_y=None):
+        if color:
+            self.glow_color = QColor(color)
+        if alpha is not None:
+            self.glow_color.setAlpha(alpha)
+        self.glow.setColor(self.glow_color)
+
+        if blur is not None:
+            self.glow.setBlurRadius(blur)
+        if offset_x is not None or offset_y is not None:
+            self.glow.setOffset(offset_x or 0, offset_y or 0)

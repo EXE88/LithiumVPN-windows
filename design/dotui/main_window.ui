@@ -64,7 +64,7 @@
       <property name="geometry">
        <rect>
         <x>15</x>
-        <y>20</y>
+        <y>33</y>
         <width>48</width>
         <height>48</height>
        </rect>
@@ -113,7 +113,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>109</y>
+        <y>122</y>
         <width>78</width>
         <height>26</height>
        </rect>
@@ -162,7 +162,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>69</y>
+        <y>82</y>
         <width>81</width>
         <height>39</height>
        </rect>
@@ -260,7 +260,7 @@ color:white;
       <property name="geometry">
        <rect>
         <x>11</x>
-        <y>63</y>
+        <y>76</y>
         <width>20</width>
         <height>71</height>
        </rect>
@@ -332,7 +332,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -687,7 +687,7 @@ QPushButton#accountlogoutButton:pressed {
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -736,7 +736,7 @@ QPushButton#accountlogoutButton:pressed {
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -904,7 +904,7 @@ border: 1px solid #555;
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1075,7 +1075,7 @@ border: 1px solid #555;
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1303,7 +1303,7 @@ QPushButton#buyCoinsBuyButton:pressed {
       <property name="geometry">
        <rect>
         <x>77</x>
-        <y>10</y>
+        <y>15</y>
         <width>241</width>
         <height>51</height>
        </rect>
@@ -1515,7 +1515,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>85</y>
+      <y>3</y>
       <width>111</width>
       <height>341</height>
      </rect>
@@ -1665,7 +1665,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>102</y>
+      <y>30</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -1690,10 +1690,10 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
    <widget class="QPushButton" name="minbutton">
     <property name="geometry">
      <rect>
-      <x>332</x>
-      <y>62</y>
-      <width>46</width>
-      <height>35</height>
+      <x>334</x>
+      <y>117</y>
+      <width>43</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="font">
@@ -1718,12 +1718,12 @@ QPushButton::before {
 }
 
 QPushButton:hover {
-    background-color: rgba(255, 255, 255, 55);
-    border-color: rgba(255, 255, 255, 180);
+    background-color: rgb(80, 80, 80);
+    border-color: black;
 }
 
 QPushButton:pressed {
-    background-color: rgba(255, 255, 255, 85);
+    background-color: rgb(53, 53, 53)
 }
 </string>
     </property>
@@ -1738,10 +1738,10 @@ QPushButton:pressed {
    <widget class="QPushButton" name="closebutton">
     <property name="geometry">
      <rect>
-      <x>332</x>
-      <y>20</y>
-      <width>46</width>
-      <height>35</height>
+      <x>334</x>
+      <y>77</y>
+      <width>43</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="font">
@@ -1766,12 +1766,12 @@ QPushButton::before {
 }
 
 QPushButton:hover {
-    background-color: rgba(255, 255, 255, 55);
-    border-color: rgba(255, 255, 255, 180);
+    background-color: rgb(206, 0, 3);
+    border-color: black;
 }
 
 QPushButton:pressed {
-    background-color: rgba(255, 255, 255, 85);
+    background-color: rgb(122, 0, 2)
 }
 </string>
     </property>

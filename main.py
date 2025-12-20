@@ -6,15 +6,15 @@ import webbrowser
 from configuration import CONFIG
 
 from PyQt6 import QtWidgets, QtGui, QtCore
-from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation, Qt
-from PyQt6.QtGui import QCursor, QAction
+from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation, Qt, QRect
+from PyQt6.QtGui import QCursor, QAction, QColor
 from PyQt6.QtWidgets import QSystemTrayIcon, QMenu, QApplication
 
 from design.dotpy.main_window import Ui_MainWindow
 from design.dotpy.login_window import Ui_Form as Ui_LoginWindow
 from design.dotpy.verify_email_window import Ui_Form as Ui_VerifyEmailWindow
 
-from custome_widgets.fancy_label import FancyLabel, FancyLabelBetter
+from custome_widgets.fancy_label import FancyLabel, FancyLabelBetter, GlowText
 from custome_widgets.round_line import RoundedLine
 from custome_widgets.popup_toast import PopupToast
 from custome_widgets.fancy_round_button import FancyRoundButton
@@ -135,19 +135,73 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # Decorative vertical rounded line
         self.rounded_line = RoundedLine(
             parent=self.ui.homeTab,
-            x=21.35, y=63,
+            x=21.35, y=78,
             length=71.7, thickness=2.3,
             color=QtGui.QColor(230, 230, 230),
             vertical=True
         )
 
         # Fancy headers for tabs
-        self.home_header = FancyLabel(self.ui.homeTab, self.ui.headerText, self.product_name)
-        self.account_header = FancyLabel(self.ui.accountTab, self.ui.accountHeaderText, self.product_name)
-        self.buycoin_header = FancyLabel(self.ui.buyCoinsTab, self.ui.buyCoinsHeaderText, self.product_name)
-        self.buyconfig_header = FancyLabel(self.ui.buyConfigsTab, self.ui.buyConfigsHeaderText, self.product_name)
-        self.settings_header = FancyLabel(self.ui.settingsTab, self.ui.settingsHeaderText, self.product_name)
-        self.myconfigs_header = FancyLabel(self.ui.configsTab, self.ui.myConfigsHeaderText, self.product_name)
+
+        self.home_header = GlowText.from_label(
+            parent=self.ui.homeTab,
+            target_label=self.ui.headerText,
+            text=self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True
+        )
+        
+        self.account_header = GlowText.from_label(
+            self.ui.accountTab,
+            self.ui.accountHeaderText,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True
+        )
+
+        self.buycoin_header = GlowText.from_label(
+            self.ui.buyCoinsTab,
+            self.ui.buyCoinsHeaderText,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True            
+        )
+
+        self.buyconfig_header = GlowText.from_label(
+            self.ui.buyConfigsTab,
+            self.ui.buyConfigsHeaderText,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True            
+        )
+
+        self.settings_header = GlowText.from_label(
+            self.ui.settingsTab,
+            self.ui.settingsHeaderText,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True            
+        )
+
+        self.myconfigs_header = GlowText.from_label(
+            self.ui.configsTab,
+            self.ui.myConfigsHeaderText,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True            
+        )
 
         # Admin Telegram ID in buy-coins tab
         self.ui.buyCoinsAdminID.setText(self.admin_telegram)
@@ -1072,43 +1126,69 @@ class MainAppWindow(QtWidgets.QMainWindow):
     def on_menu_clicked(self):
         """Animate opening/closing of side menu."""
         menu_btn = self.ui.menuButton
+        closebtn = self.ui.closebutton
+        minbtn = self.ui.minbutton
         side_menu = self.ui.sideMenu
 
         if not hasattr(self, "_menu_btn_initial_geom"):
             self._menu_btn_initial_geom = menu_btn.geometry()
+        if not hasattr(self, "_close_btn_initial_geom"):
+            self._close_btn_initial_geom = closebtn.geometry()
+        if not hasattr(self, "_min_btn_initial_geom"):
+            self._min_btn_initial_geom = minbtn.geometry()
         if not hasattr(self, "_side_menu_initial_geom"):
             self._side_menu_initial_geom = side_menu.geometry()
 
         menu_btn_geom = self._menu_btn_initial_geom
+        closebtn_geom = self._close_btn_initial_geom
+        minbtn_geom = self._min_btn_initial_geom
         side_menu_geom = self._side_menu_initial_geom
 
         offset = 100
 
         anim_menu = QPropertyAnimation(menu_btn, b"geometry")
+        anim_closebtn = QPropertyAnimation(closebtn, b"geometry")
+        anim_minbtn = QPropertyAnimation(minbtn, b"geometry")
         anim_side = QPropertyAnimation(side_menu, b"geometry")
 
         anim_menu.setDuration(350)
+        anim_closebtn.setDuration(350)
+        anim_minbtn.setDuration(350)
         anim_side.setDuration(350)
         anim_menu.setEasingCurve(QEasingCurve.Type.OutQuad)
+        anim_closebtn.setEasingCurve(QEasingCurve.Type.OutQuad)
+        anim_minbtn.setEasingCurve(QEasingCurve.Type.OutQuad)
         anim_side.setEasingCurve(QEasingCurve.Type.OutQuad)
 
         if not self.menu_toggle:
             menu_btn_end = QtCore.QRect(menu_btn_geom.x() - offset, menu_btn_geom.y(), menu_btn_geom.width(), menu_btn_geom.height())
+            closebtn_end = QtCore.QRect(closebtn_geom.x() - offset, closebtn_geom.y(), closebtn_geom.width(), closebtn_geom.height())
+            minbtn_end = QtCore.QRect(minbtn_geom.x() - offset, minbtn_geom.y(), minbtn_geom.width(), minbtn_geom.height())
             side_menu_end = QtCore.QRect(side_menu_geom.x() - offset, side_menu_geom.y(), side_menu_geom.width(), side_menu_geom.height())
         else:
             menu_btn_end = QtCore.QRect(menu_btn_geom.x(), menu_btn_geom.y(), menu_btn_geom.width(), menu_btn_geom.height())
+            closebtn_end = QtCore.QRect(closebtn_geom.x(), closebtn_geom.y(), closebtn_geom.width(), closebtn_geom.height())
+            minbtn_end = QtCore.QRect(minbtn_geom.x(), minbtn_geom.y(), minbtn_geom.width(), minbtn_geom.height())
             side_menu_end = QtCore.QRect(side_menu_geom.x(), side_menu_geom.y(), side_menu_geom.width(), side_menu_geom.height())
 
         anim_menu.setStartValue(menu_btn.geometry())
         anim_menu.setEndValue(menu_btn_end)
+        anim_closebtn.setStartValue(closebtn.geometry())
+        anim_closebtn.setEndValue(closebtn_end)
+        anim_minbtn.setStartValue(minbtn.geometry())
+        anim_minbtn.setEndValue(minbtn_end)
         anim_side.setStartValue(side_menu.geometry())
         anim_side.setEndValue(side_menu_end)
 
         anim_menu.start()
+        anim_closebtn.start()
+        anim_minbtn.start()
         anim_side.start()
 
         # Keep references to avoid garbage collection
         menu_btn._anim = anim_menu
+        closebtn._anim = anim_closebtn
+        minbtn._anim = anim_minbtn
         side_menu._anim = anim_side
 
         self.menu_toggle = not self.menu_toggle

@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         self.homeTab = QtWidgets.QWidget()
         self.homeTab.setObjectName("homeTab")
         self.profileIcon = QtWidgets.QLabel(parent=self.homeTab)
-        self.profileIcon.setGeometry(QtCore.QRect(15, 20, 48, 48))
+        self.profileIcon.setGeometry(QtCore.QRect(15, 33, 48, 48))
         font = QtGui.QFont()
         font.setPointSize(1)
         self.profileIcon.setFont(font)
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.connectionStatusText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.connectionStatusText.setObjectName("connectionStatusText")
         self.horizontalLayoutWidget = QtWidgets.QWidget(parent=self.homeTab)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 109, 78, 26))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 122, 78, 26))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.coinLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.coinLayout.setContentsMargins(0, 0, 0, 0)
@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         self.coinIcon.setObjectName("coinIcon")
         self.coinLayout.addWidget(self.coinIcon)
         self.usernameText = QtWidgets.QLabel(parent=self.homeTab)
-        self.usernameText.setGeometry(QtCore.QRect(30, 69, 81, 39))
+        self.usernameText.setGeometry(QtCore.QRect(30, 82, 81, 39))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.selectConfigComboBox.addItem("")
         self.selectConfigComboBox.addItem("")
         self.continueProfileLine = QtWidgets.QFrame(parent=self.homeTab)
-        self.continueProfileLine.setGeometry(QtCore.QRect(11, 63, 20, 71))
+        self.continueProfileLine.setGeometry(QtCore.QRect(11, 76, 20, 71))
         self.continueProfileLine.setStyleSheet("color:rgb(230, 230, 230)")
         self.continueProfileLine.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.continueProfileLine.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
@@ -146,7 +146,7 @@ class Ui_MainWindow(object):
         self.powerButton.setIconSize(QtCore.QSize(150, 150))
         self.powerButton.setObjectName("powerButton")
         self.headerText = QtWidgets.QLabel(parent=self.homeTab)
-        self.headerText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.headerText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -289,7 +289,7 @@ class Ui_MainWindow(object):
 "")
         self.accountlogoutButton.setObjectName("accountlogoutButton")
         self.accountHeaderText = QtWidgets.QLabel(parent=self.accountTab)
-        self.accountHeaderText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.accountHeaderText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -307,7 +307,7 @@ class Ui_MainWindow(object):
         self.configsTab = QtWidgets.QWidget()
         self.configsTab.setObjectName("configsTab")
         self.myConfigsHeaderText = QtWidgets.QLabel(parent=self.configsTab)
-        self.myConfigsHeaderText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.myConfigsHeaderText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -411,7 +411,7 @@ class Ui_MainWindow(object):
         self.buyConfigsTab = QtWidgets.QWidget()
         self.buyConfigsTab.setObjectName("buyConfigsTab")
         self.buyConfigsHeaderText = QtWidgets.QLabel(parent=self.buyConfigsTab)
-        self.buyConfigsHeaderText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.buyConfigsHeaderText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -516,7 +516,7 @@ class Ui_MainWindow(object):
         self.buyCoinsTab = QtWidgets.QWidget()
         self.buyCoinsTab.setObjectName("buyCoinsTab")
         self.buyCoinsHeaderText = QtWidgets.QLabel(parent=self.buyCoinsTab)
-        self.buyCoinsHeaderText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.buyCoinsHeaderText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -620,7 +620,7 @@ class Ui_MainWindow(object):
         self.settingsTab = QtWidgets.QWidget()
         self.settingsTab.setObjectName("settingsTab")
         self.settingsHeaderText = QtWidgets.QLabel(parent=self.settingsTab)
-        self.settingsHeaderText.setGeometry(QtCore.QRect(77, 10, 241, 51))
+        self.settingsHeaderText.setGeometry(QtCore.QRect(77, 15, 241, 51))
         font = QtGui.QFont()
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
@@ -753,7 +753,7 @@ class Ui_MainWindow(object):
         self.dragframe_settings.setObjectName("dragframe_settings")
         self.tabWidget.addTab(self.settingsTab, "")
         self.sideMenu = QtWidgets.QWidget(parent=self.centralwidget)
-        self.sideMenu.setGeometry(QtCore.QRect(400, 85, 111, 341))
+        self.sideMenu.setGeometry(QtCore.QRect(400, 3, 111, 341))
         self.sideMenu.setStyleSheet("/*background-color: rgb(30, 41, 59);*/\n"
 "\n"
 "\n"
@@ -822,7 +822,7 @@ class Ui_MainWindow(object):
         self.sideMenuBuyCoinsButton.setFont(font)
         self.sideMenuBuyCoinsButton.setObjectName("sideMenuBuyCoinsButton")
         self.menuButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.menuButton.setGeometry(QtCore.QRect(330, 102, 51, 41))
+        self.menuButton.setGeometry(QtCore.QRect(330, 30, 51, 41))
         self.menuButton.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icons/icons/menu.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -831,7 +831,7 @@ class Ui_MainWindow(object):
         self.menuButton.setFlat(True)
         self.menuButton.setObjectName("menuButton")
         self.minbutton = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.minbutton.setGeometry(QtCore.QRect(332, 62, 46, 35))
+        self.minbutton.setGeometry(QtCore.QRect(334, 117, 43, 32))
         font = QtGui.QFont()
         font.setPointSize(36)
         self.minbutton.setFont(font)
@@ -850,12 +850,12 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(255, 255, 255, 55);\n"
-"    border-color: rgba(255, 255, 255, 180);\n"
+"    background-color: rgb(80, 80, 80);\n"
+"    border-color: black;\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"    background-color: rgba(255, 255, 255, 85);\n"
+"    background-color: rgb(53, 53, 53)\n"
 "}\n"
 "")
         self.minbutton.setText("")
@@ -864,7 +864,7 @@ class Ui_MainWindow(object):
         self.minbutton.setIcon(icon3)
         self.minbutton.setObjectName("minbutton")
         self.closebutton = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.closebutton.setGeometry(QtCore.QRect(332, 20, 46, 35))
+        self.closebutton.setGeometry(QtCore.QRect(334, 77, 43, 32))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.closebutton.setFont(font)
@@ -883,12 +883,12 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(255, 255, 255, 55);\n"
-"    border-color: rgba(255, 255, 255, 180);\n"
+"    background-color: rgb(206, 0, 3);\n"
+"    border-color: black;\n"
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
-"    background-color: rgba(255, 255, 255, 85);\n"
+"    background-color: rgb(122, 0, 2)\n"
 "}\n"
 "")
         self.closebutton.setText("")
