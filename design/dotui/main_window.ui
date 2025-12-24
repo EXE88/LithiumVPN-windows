@@ -35,7 +35,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(15, 23, 42)</string>
+   <string notr="true">background-color:rgb(15, 23, 42);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -60,7 +60,7 @@
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-     <widget class="QLabel" name="profileIcon">
+     <widget class="QLabel" name="person_icon_homeTab">
       <property name="geometry">
        <rect>
         <x>15</x>
@@ -74,6 +74,9 @@
         <pointsize>1</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -84,7 +87,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="connectionStatusText">
+     <widget class="QLabel" name="connectionStatus_homeTab">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -100,7 +103,8 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:rgb(148, 163, 184)</string>
+       <string notr="true">color:rgb(148, 163, 184);
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>Not Connected</string>
@@ -109,56 +113,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>122</y>
-        <width>78</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="coinLayout">
-       <item>
-        <widget class="QLabel" name="coinNumber">
-         <property name="font">
-          <font>
-           <family>Roboto Mono</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;</string>
-         </property>
-         <property name="text">
-          <string>999</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="coinIcon">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../resources/resources.qrc">
-           <normaloff>:/icons/icons/coin.png</normaloff>
-           <disabledoff>:/icons/icons/coin.png</disabledoff>:/icons/icons/coin.png</iconset>
-         </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QLabel" name="usernameText">
+     <widget class="QLabel" name="userUsername_homeTab">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -174,7 +129,8 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>Username</string>
@@ -183,7 +139,7 @@
        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QComboBox" name="selectConfigComboBox">
+     <widget class="QComboBox" name="configSelectorCombobox_homeTab">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -221,6 +177,7 @@ QScrollBar::sub-line:vertical {
 }
 QComboBox{
 color:white;
+background-color:transparent;
 }
 </string>
       </property>
@@ -256,7 +213,7 @@ color:white;
        </property>
       </item>
      </widget>
-     <widget class="QFrame" name="continueProfileLine">
+     <widget class="QFrame" name="line_homeTab">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -266,7 +223,8 @@ color:white;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:rgb(230, 230, 230)</string>
+       <string notr="true">color:rgb(230, 230, 230);
+background-color:transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::VLine</enum>
@@ -328,7 +286,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </size>
       </property>
      </widget>
-     <widget class="QLabel" name="headerText">
+     <widget class="QLabel" name="header_homeTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -344,7 +302,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -353,7 +312,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QFrame" name="dragframe_home">
+     <widget class="QFrame" name="dragframe_homeTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -372,12 +331,65 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <enum>QFrame::Shadow::Raised</enum>
       </property>
      </widget>
+     <widget class="QLabel" name="userCoinsCount_number_homeTab">
+      <property name="geometry">
+       <rect>
+        <x>31</x>
+        <y>123</y>
+        <width>29</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Roboto Mono</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;
+background-color:transparent;</string>
+      </property>
+      <property name="text">
+       <string>999</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="userCoinsCount_icon_homeTab">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>62</x>
+        <y>126</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../../resources/resources.qrc">
+        <normaloff>:/icons/icons/coin.png</normaloff>
+        <disabledoff>:/icons/icons/coin.png</disabledoff>:/icons/icons/coin.png</iconset>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="accountTab">
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
-     <widget class="QLabel" name="accountPersonImage">
+     <widget class="QLabel" name="person_icon_accountTab">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -385,6 +397,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <width>191</width>
         <height>191</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
       </property>
       <property name="text">
        <string/>
@@ -396,7 +411,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="accountUsernameText">
+     <widget class="QLabel" name="userUsername_accountTab">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -412,7 +427,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>username</string>
@@ -421,7 +437,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountCoinsCount">
+     <widget class="QLabel" name="userCoinsLeft_number_accountTab">
       <property name="geometry">
        <rect>
         <x>225</x>
@@ -437,7 +453,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>999</string>
@@ -446,7 +463,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountCoinsIcon">
+     <widget class="QLabel" name="userCoinsLeft_icon_accountTab">
       <property name="geometry">
        <rect>
         <x>260</x>
@@ -454,6 +471,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <width>16</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
       </property>
       <property name="text">
        <string/>
@@ -468,7 +488,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountEmailText">
+     <widget class="QLabel" name="userEmail_accountTab">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -484,7 +504,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>email@gmail.com</string>
@@ -493,7 +514,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountCoinsText">
+     <widget class="QLabel" name="userCoinsLeft_label_accountTab">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -509,7 +530,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>coins left :</string>
@@ -518,7 +540,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountAllConfigsText">
+     <widget class="QLabel" name="allConfigsCount_label_accountTab">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -534,7 +556,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>all configs :</string>
@@ -543,7 +566,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountAllConfigsCount">
+     <widget class="QLabel" name="allConfigsCount_number_accountTab">
       <property name="geometry">
        <rect>
         <x>235</x>
@@ -559,7 +582,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>20</string>
@@ -568,7 +592,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QFrame" name="accountSpacer">
+     <widget class="QFrame" name="line_accountTab">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -577,6 +601,9 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::Shape::HLine</enum>
       </property>
@@ -584,7 +611,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <enum>QFrame::Shadow::Plain</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="accountExpiredConfigsText">
+     <widget class="QLabel" name="expiredConfigsCount_label_accountTab">
       <property name="geometry">
        <rect>
         <x>114</x>
@@ -600,7 +627,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>expired configs :</string>
@@ -609,7 +637,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="accountExpiredConfigsCount">
+     <widget class="QLabel" name="expiredConfigsCount_number_accountTab">
       <property name="geometry">
        <rect>
         <x>270</x>
@@ -625,7 +653,8 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;</string>
+       <string notr="true">color:white;
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>19</string>
@@ -634,7 +663,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="accountlogoutButton">
+     <widget class="QPushButton" name="logoutButton_accountTab">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -651,7 +680,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#accountlogoutButton {
+       <string notr="true">QPushButton#logoutButton_accountTab {
     background-color: #b91c1c;        /* قرمز تیره برای پس‌زمینه */
     color: #f8fafc;                   /* متن سفید مایل به خاکستری */
     border-radius: 10px;
@@ -665,12 +694,12 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
     outline: none;
 }
 
-QPushButton#accountlogoutButton:hover {
+QPushButton#logoutButton_accountTab:hover {
     background-color: #dc2626;        /* کمی روشن‌تر هنگام hover */
     color: white;
 }
 
-QPushButton#accountlogoutButton:pressed {
+QPushButton#logoutButton_accountTab:pressed {
     background-color: #991b1b;        /* کمی تیره‌تر هنگام فشار */
     border: 2px solid #450a0a;
     border-top: 4px solid #450a0a;    /* سایه بالا برای حس فرو رفتن */
@@ -683,7 +712,7 @@ QPushButton#accountlogoutButton:pressed {
        <string>Logout</string>
       </property>
      </widget>
-     <widget class="QLabel" name="accountHeaderText">
+     <widget class="QLabel" name="header_accountTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -699,7 +728,8 @@ QPushButton#accountlogoutButton:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -708,7 +738,7 @@ QPushButton#accountlogoutButton:pressed {
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QFrame" name="dragframe_account">
+     <widget class="QFrame" name="dragframe_accountTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -728,11 +758,11 @@ QPushButton#accountlogoutButton:pressed {
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="configsTab">
+    <widget class="QWidget" name="myconfigsTab">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="myConfigsHeaderText">
+     <widget class="QLabel" name="header_myconfigsTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -748,7 +778,9 @@ QPushButton#accountlogoutButton:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;
+</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -757,7 +789,7 @@ QPushButton#accountlogoutButton:pressed {
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QScrollArea" name="myconfigs_scrollArea">
+     <widget class="QScrollArea" name="scrollArea_myconfigsTab">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -844,7 +876,7 @@ border: 1px solid #555;
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="myconfigs_scrollAreaWidgetContents">
+      <widget class="QWidget" name="scrollArea_widgetContents_myconfigsTab">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -855,7 +887,7 @@ border: 1px solid #555;
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <layout class="QVBoxLayout" name="myconfigs_mainContainer">
+         <layout class="QVBoxLayout" name="mainContainer_myconfigsTab">
           <property name="spacing">
            <number>8</number>
           </property>
@@ -876,7 +908,7 @@ border: 1px solid #555;
        </layout>
       </widget>
      </widget>
-     <widget class="QFrame" name="dragframe_myconfigs">
+     <widget class="QFrame" name="dragframe_myconfigsTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -896,11 +928,11 @@ border: 1px solid #555;
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="buyConfigsTab">
+    <widget class="QWidget" name="buyconfigTab">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="buyConfigsHeaderText">
+     <widget class="QLabel" name="header_buyconfigTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -916,7 +948,8 @@ border: 1px solid #555;
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -925,7 +958,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QScrollArea" name="scrollArea">
+     <widget class="QScrollArea" name="scrollArea_buyconfigTab">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1012,7 +1045,7 @@ border: 1px solid #555;
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
+      <widget class="QWidget" name="scrollArea_widgetContents_buyconfigTab">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -1026,7 +1059,7 @@ border: 1px solid #555;
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_buyconfigTab">
           <property name="spacing">
            <number>16</number>
           </property>
@@ -1047,7 +1080,7 @@ border: 1px solid #555;
        </layout>
       </widget>
      </widget>
-     <widget class="QFrame" name="dragframe_buyconfig">
+     <widget class="QFrame" name="dragframe_buyconfigTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -1067,11 +1100,11 @@ border: 1px solid #555;
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="buyCoinsTab">
+    <widget class="QWidget" name="buycoinTab">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="buyCoinsHeaderText">
+     <widget class="QLabel" name="header_buycoinTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -1087,7 +1120,8 @@ border: 1px solid #555;
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -1096,7 +1130,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="buyCoinsAdminID">
+     <widget class="QLabel" name="adminId_buycoinTab">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1111,6 +1145,9 @@ border: 1px solid #555;
         <pointsize>28</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string>@MibroAdmin</string>
       </property>
@@ -1118,7 +1155,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="buyCoinsDescription">
+     <widget class="QLabel" name="description_label_buycoinTab">
       <property name="geometry">
        <rect>
         <x>74</x>
@@ -1133,6 +1170,9 @@ border: 1px solid #555;
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string>Message in telegram for buying coins</string>
       </property>
@@ -1140,7 +1180,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="buyCoinsCoinIcon">
+     <widget class="QLabel" name="description_icon_1_buycoinTab">
       <property name="geometry">
        <rect>
         <x>330</x>
@@ -1155,6 +1195,9 @@ border: 1px solid #555;
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -1168,7 +1211,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="buyCoinsUserIcon">
+     <widget class="QLabel" name="person_icon_buycoinTab">
       <property name="geometry">
        <rect>
         <x>158</x>
@@ -1183,6 +1226,9 @@ border: 1px solid #555;
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -1196,7 +1242,7 @@ border: 1px solid #555;
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="buyCoinsBuyButton">
+     <widget class="QPushButton" name="buyButton_buycoinTab">
       <property name="geometry">
        <rect>
         <x>73</x>
@@ -1213,7 +1259,7 @@ border: 1px solid #555;
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#buyCoinsBuyButton {
+       <string notr="true">QPushButton#buyButton_buycoinTab {
     background-color: #059669;        /* سبز آبی اصلی (primary) */
     color: #f8fafc;                   /* متن روشن */
     border-radius: 10px;
@@ -1228,13 +1274,13 @@ border: 1px solid #555;
 }
 
 /* Hover - روشن‌تر و زنده‌تر */
-QPushButton#buyCoinsBuyButton:hover {
+QPushButton#buyButton_buycoinTab:hover {
     background-color: #10b981;        /* سبز روشن‌تر هنگام hover */
     color: white;
 }
 
 /* Pressed - کمی تیره‌تر و با حرکت جزئی */
-QPushButton#buyCoinsBuyButton:pressed {
+QPushButton#buyButton_buycoinTab:pressed {
     background-color: #047857;        /* سبز تیره‌تر */
     border: 2px solid #065f46;
     border-top: 4px solid #065f46;    /* سایه بالا برای حس فرو رفتن */
@@ -1247,7 +1293,7 @@ QPushButton#buyCoinsBuyButton:pressed {
        <string>Buy</string>
       </property>
      </widget>
-     <widget class="QLabel" name="buyCoinsCoinIcon_2">
+     <widget class="QLabel" name="description_icon_2_buycoinTab">
       <property name="geometry">
        <rect>
         <x>53</x>
@@ -1262,6 +1308,9 @@ QPushButton#buyCoinsBuyButton:pressed {
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:transparent;</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -1275,7 +1324,7 @@ QPushButton#buyCoinsBuyButton:pressed {
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QFrame" name="dragframe_buycoin">
+     <widget class="QFrame" name="dragframe_buycoinTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -1299,7 +1348,7 @@ QPushButton#buyCoinsBuyButton:pressed {
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="settingsHeaderText">
+     <widget class="QLabel" name="header_settingsTab">
       <property name="geometry">
        <rect>
         <x>77</x>
@@ -1315,7 +1364,8 @@ QPushButton#buyCoinsBuyButton:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255))</string>
+       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+background-color:transparent;</string>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -1333,7 +1383,7 @@ QPushButton#buyCoinsBuyButton:pressed {
         <height>261</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="settingsProxyExclusivesLayout">
+      <layout class="QVBoxLayout" name="proxyExlusives_layout_settingsTab">
        <property name="spacing">
         <number>10</number>
        </property>
@@ -1350,7 +1400,7 @@ QPushButton#buyCoinsBuyButton:pressed {
         <number>12</number>
        </property>
        <item>
-        <widget class="QLabel" name="settingsProxyExclusivesTopicText">
+        <widget class="QLabel" name="proxyExclusives_label_settingsTab">
          <property name="font">
           <font>
            <family>Consolas</family>
@@ -1367,7 +1417,8 @@ QPushButton#buyCoinsBuyButton:pressed {
           <string/>
          </property>
          <property name="styleSheet">
-          <string notr="true">color:rgb(125, 200, 255);</string>
+          <string notr="true">color:rgb(125, 200, 255);
+background-color:transparent;</string>
          </property>
          <property name="text">
           <string>Exclusive addresses : </string>
@@ -1375,7 +1426,7 @@ QPushButton#buyCoinsBuyButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="settingsProxyExclusivesTextEdit">
+        <widget class="QPlainTextEdit" name="proxyExclusives_textedit_settingsTab">
          <property name="font">
           <font>
            <family>Consolas</family>
@@ -1386,7 +1437,7 @@ QPushButton#buyCoinsBuyButton:pressed {
           <string/>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPlainTextEdit#settingsProxyExclusivesTextEdit {
+          <string notr="true">QPlainTextEdit#proxyExclusives_textedit_settingsTab {
     background-color: rgb(19, 28, 44);
     color: #e6eef6;
     border: 1px solid rgba(17,186,189,160);
@@ -1398,23 +1449,23 @@ QPushButton#buyCoinsBuyButton:pressed {
     selection-color: white;
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit:focus {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {
     border: 1px solid rgba(59,130,246,220);
     background-color: rgb(21, 34, 58);
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:vertical {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
     background: transparent;
     width: 12px;
     margin: 6px 0px 6px 0px;
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::groove:vertical {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::groove:vertical {
     background: rgba(255,255,255,0.02);
     border-radius: 10px;
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical {
     background: rgba(255,255,255,0.85);
     min-height: 36px;
     border-radius: 999px;
@@ -1422,24 +1473,24 @@ QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical {
     margin: 4px 2px 4px 2px;
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:hover {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:hover {
     background: rgba(255,255,255,0.95);
 }
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:vertical:pressed {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:pressed {
     background: rgba(255,255,255,1.0);
     margin-top: 5px;
 }
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-line:vertical,
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-line:vertical {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-line:vertical,
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-line:vertical {
     height: 0px;
 }
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::sub-page:vertical,
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::add-page:vertical {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-page:vertical,
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-page:vertical {
     background: transparent;
 }
 
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
-QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizontal {
     background: rgba(255,255,255,0.85);
     min-width: 36px;
     border-radius: 999px;
@@ -1450,7 +1501,7 @@ QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="settingsProxyExclusivesApplyButton">
+        <widget class="QPushButton" name="proxyExclusives_button_settingsTab">
          <property name="font">
           <font>
            <family>Consolas</family>
@@ -1459,7 +1510,7 @@ QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton#settingsProxyExclusivesApplyButton {
+          <string notr="true">QPushButton#proxyExclusives_button_settingsTab {
     /* رنگِ تنظیمات: یک آبی-سرد ملایم (هماهنگ با selection و focus) */
     background-color: #2563EB;   /* blue-600 */
     color: #f8fafc;
@@ -1472,10 +1523,10 @@ QPlainTextEdit#settingsProxyExclusivesTextEdit QScrollBar::handle:horizontal {
 }
 
 /* hover و pressed — از استایل قبلی استفاده می‌کنیم ولی با همان رنگ‌بندی آبی */
-QPushButton#settingsProxyExclusivesApplyButton:hover {
+QPushButton#proxyExclusives_button_settingsTab:hover {
     background-color: #3b82f6;
 }
-QPushButton#settingsProxyExclusivesApplyButton:pressed {
+QPushButton#proxyExclusives_button_settingsTab:pressed {
     background-color: #1e40af;
     border: 2px solid #122055;
     border-top: 4px solid #122055;
@@ -1490,7 +1541,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
        </item>
       </layout>
      </widget>
-     <widget class="QFrame" name="dragframe_settings">
+     <widget class="QFrame" name="dragframe_settingsTab">
       <property name="geometry">
        <rect>
         <x>-3</x>
@@ -1546,7 +1597,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
     color: white;
 }</string>
     </property>
-    <widget class="QPushButton" name="sideMenuHomeButton">
+    <widget class="QPushButton" name="homeButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1565,7 +1616,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <string>Home</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sideMenuAccountButton">
+    <widget class="QPushButton" name="accountButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1584,7 +1635,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <string>Account</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sideMenuConfigsButton">
+    <widget class="QPushButton" name="myconfigsButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1603,7 +1654,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <string>My Configs</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sideMenuBuyConfigsButton">
+    <widget class="QPushButton" name="buyconfigButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1622,7 +1673,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <string>Buy Configs</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sideMenuSettingsButton">
+    <widget class="QPushButton" name="settingsButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1641,7 +1692,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <string>Settings</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="sideMenuBuyCoinsButton">
+    <widget class="QPushButton" name="buycoinButton_sideMenu">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1670,6 +1721,9 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -1687,7 +1741,7 @@ QPushButton#settingsProxyExclusivesApplyButton:pressed {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="minbutton">
+   <widget class="QPushButton" name="minimizeButton">
     <property name="geometry">
      <rect>
       <x>334</x>
@@ -1735,7 +1789,7 @@ QPushButton:pressed {
       <normaloff>:/icons/icons/minicon.png</normaloff>:/icons/icons/minicon.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="closebutton">
+   <widget class="QPushButton" name="closeButton">
     <property name="geometry">
      <rect>
       <x>334</x>

@@ -145,17 +145,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.home_header = GlowText.from_label(
             parent=self.ui.homeTab,
-            target_label=self.ui.headerText,
+            target_label=self.ui.header_homeTab,
             text=self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
             font_name="consolas",
             bold=True
         )
-        
         self.account_header = GlowText.from_label(
             self.ui.accountTab,
-            self.ui.accountHeaderText,
+            self.ui.header_accountTab,
             self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
@@ -164,54 +163,54 @@ class MainAppWindow(QtWidgets.QMainWindow):
         )
 
         self.buycoin_header = GlowText.from_label(
-            self.ui.buyCoinsTab,
-            self.ui.buyCoinsHeaderText,
+            self.ui.buycoinTab,
+            self.ui.header_buycoinTab,
             self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
             font_name="consolas",
-            bold=True            
+            bold=True
         )
 
         self.buyconfig_header = GlowText.from_label(
-            self.ui.buyConfigsTab,
-            self.ui.buyConfigsHeaderText,
+            self.ui.buyconfigTab,
+            self.ui.header_buyconfigTab,
             self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
             font_name="consolas",
-            bold=True            
+            bold=True
         )
 
         self.settings_header = GlowText.from_label(
             self.ui.settingsTab,
-            self.ui.settingsHeaderText,
+            self.ui.header_settingsTab,
             self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
             font_name="consolas",
-            bold=True            
+            bold=True
         )
 
         self.myconfigs_header = GlowText.from_label(
-            self.ui.configsTab,
-            self.ui.myConfigsHeaderText,
+            self.ui.myconfigsTab,
+            self.ui.header_myconfigsTab,
             self.product_name,
             glow_color=QColor(85, 0, 255),
             blur=200,
             font_name="consolas",
-            bold=True            
+            bold=True
         )
 
         # Admin Telegram ID in buy-coins tab
-        self.ui.buyCoinsAdminID.setText(self.admin_telegram)
-        self.admin_telegram_label = RGBLabel(self.ui.buyCoinsTab, self.ui.buyCoinsAdminID, self.admin_telegram)
+        self.ui.adminId_buycoinTab.setText(self.admin_telegram)
+        self.admin_telegram_label = RGBLabel(self.ui.buycoinTab, self.ui.adminId_buycoinTab, self.admin_telegram)
 
         # Buy-coins description with fancy style
         self.buycoin_description = FancyLabelBetter(
-            self.ui.buyCoinsTab,
-            self.ui.buyCoinsDescription,
-            self.ui.buyCoinsDescription.text(),
+            self.ui.buycoinTab,
+            self.ui.description_label_buycoinTab,
+            self.ui.description_label_buycoinTab.text(),
             glow_color=(255, 215, 0, 200),
             shadow_color=(184, 134, 11, 160),
             header_color_stop0=(212, 175, 55, 255),
@@ -235,7 +234,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         addresses = manage_db.get_exclusive_addresses()
         if addresses is not None:
             init_content = "\n".join(addresses)
-            self.ui.settingsProxyExclusivesTextEdit.setPlainText(init_content)
+            self.ui.proxyExclusives_textedit_settingsTab.setPlainText(init_content)
             set_proxy_exceptions(addresses)
 
         # Initialize my-configs list
@@ -243,32 +242,33 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.load_myconfigs(configs)
 
         # Ensure menu button and side menu are on top
-        self.ui.dragframe_home.mousePressEvent = self._start_drag
-        self.ui.dragframe_account.mousePressEvent = self._start_drag
-        self.ui.dragframe_buycoin.mousePressEvent = self._start_drag
-        self.ui.dragframe_buyconfig.mousePressEvent = self._start_drag
-        self.ui.dragframe_myconfigs.mousePressEvent = self._start_drag
-        self.ui.dragframe_settings.mousePressEvent = self._start_drag
+        self.ui.dragframe_homeTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_accountTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_buycoinTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_buyconfigTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_myconfigsTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_settingsTab.mousePressEvent = self._start_drag
 
+        self.ui.dragframe_homeTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_accountTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_buycoinTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_buyconfigTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_myconfigsTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_settingsTab.mouseMoveEvent = self._do_drag
 
-        self.ui.dragframe_home.mouseMoveEvent = self._do_drag
-        self.ui.dragframe_account.mouseMoveEvent = self._do_drag
-        self.ui.dragframe_buycoin.mouseMoveEvent = self._do_drag
-        self.ui.dragframe_buyconfig.mouseMoveEvent = self._do_drag
-        self.ui.dragframe_myconfigs.mouseMoveEvent = self._do_drag
-        self.ui.dragframe_settings.mouseMoveEvent = self._do_drag
+        # close/min buttons
+        self.ui.closeButton.clicked.connect(self.animated_close)
+        self.ui.minimizeButton.clicked.connect(self.animated_minimize)
 
-        self.ui.closebutton.clicked.connect(self.animated_close)
-        self.ui.minbutton.clicked.connect(self.animated_minimize)
-
-        self.ui.dragframe_home.raise_()       
-        self.ui.dragframe_account.raise_()
-        self.ui.dragframe_buycoin.raise_()
-        self.ui.dragframe_buyconfig.raise_()
-        self.ui.dragframe_myconfigs.raise_()
-        self.ui.dragframe_settings.raise_()
-        self.ui.closebutton.raise_()
-        self.ui.minbutton.raise_()
+        # raise order
+        self.ui.dragframe_homeTab.raise_()
+        self.ui.dragframe_accountTab.raise_()
+        self.ui.dragframe_buycoinTab.raise_()
+        self.ui.dragframe_buyconfigTab.raise_()
+        self.ui.dragframe_myconfigsTab.raise_()
+        self.ui.dragframe_settingsTab.raise_()
+        self.ui.closeButton.raise_()
+        self.ui.minimizeButton.raise_()
         self.ui.menuButton.raise_()
         self.ui.sideMenu.raise_()
 
@@ -277,15 +277,17 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.ui.powerButton.clicked.connect(self.on_power_clicked)
         self.ui.menuButton.clicked.connect(self.on_menu_clicked)
-        self.ui.sideMenuHomeButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
-        self.ui.sideMenuAccountButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
-        self.ui.sideMenuBuyCoinsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
-        self.ui.sideMenuBuyConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
-        self.ui.sideMenuSettingsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
-        self.ui.sideMenuConfigsButton.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
-        self.ui.accountlogoutButton.clicked.connect(self.on_logout_clicked)
-        self.ui.buyCoinsBuyButton.clicked.connect(self.on_buycoin_clicked)
-        self.ui.settingsProxyExclusivesApplyButton.clicked.connect(self.settings_exclusive_proxy_apply_clicked)
+
+        # side menu buttons
+        self.ui.homeButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
+        self.ui.accountButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
+        self.ui.buycoinButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
+        self.ui.buyconfigButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
+        self.ui.settingsButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
+        self.ui.myconfigsButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
+        self.ui.logoutButton_accountTab.clicked.connect(self.on_logout_clicked)
+        self.ui.buyButton_buycoinTab.clicked.connect(self.on_buycoin_clicked)
+        self.ui.proxyExclusives_button_settingsTab.clicked.connect(self.settings_exclusive_proxy_apply_clicked)
 
     def _init_tray(self):
         """Create tray icon and menu."""
@@ -322,13 +324,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
         username = user_data.get("username", "") or ""
         email = user_data.get("email", "") or ""
 
-        self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
-        self.ui.usernameText.setText(username)
-        self.ui.accountUsernameText.setText(username)
-        self.ui.accountEmailText.setText(email)
+        self.ui.userUsername_homeTab.setFixedWidth(max(1, len(username)) * 10)
+        self.ui.userUsername_homeTab.setText(username)
+        self.ui.userUsername_accountTab.setText(username)
+        self.ui.userEmail_accountTab.setText(email)
+        self.ui.userCoinsCount_number_homeTab.setText(str(user_data.get("coin_count", 0)))
+        self.ui.userCoinsLeft_number_accountTab.setText(str(user_data.get("coin_count", 0)))
 
-        self.ui.coinNumber.setText(str(user_data.get("coin_count", 0)))
-        self.ui.accountCoinsCount.setText(str(user_data.get("coin_count", 0)))
 
         # Configure the config combobox
         configs = user_data.get("config_codes", []) or []
@@ -350,16 +352,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
             coin_count = str(self.user_details.get("coin_count", 0))
 
             try:
-                self.ui.usernameText.setFixedWidth(max(1, len(username)) * 10)
-                self.ui.usernameText.setText(username)
-                self.ui.accountUsernameText.setText(username)
-                self.ui.accountEmailText.setText(email)
+                self.ui.userUsername_homeTab.setFixedWidth(max(1, len(username)) * 10)
+                self.ui.userUsername_homeTab.setText(username)
+                self.ui.userUsername_accountTab.setText(username)
+                self.ui.userEmail_accountTab.setText(email)
             except Exception:
                 pass
 
             try:
-                self.ui.coinNumber.setText(coin_count)
-                self.ui.accountCoinsCount.setText(coin_count)
+                self.ui.userCoinsCount_number_homeTab.setText(coin_count)
+                self.ui.userCoinsLeft_number_accountTab.setText(coin_count)
             except Exception:
                 pass
 
@@ -375,7 +377,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             # Rebuild myconfigs UI
             try:
-                container = self.ui.myconfigs_mainContainer
+                container = self.ui.mainContainer_myconfigsTab
                 try:
                     while container.count():
                         item = container.takeAt(0)
@@ -397,7 +399,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 plans_ok, plans_data = api_calls.get_plans()
                 if plans_ok:
                     try:
-                        vlayout = self.ui.verticalLayout
+                        vlayout = self.ui.verticalLayout_buyconfigTab
                         while vlayout.count():
                             item = vlayout.takeAt(0)
                             widget = item.widget()
@@ -421,12 +423,12 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def _setup_config_combobox(self, configs: list):
         """Fill selectConfigComboBox and maintain map of config_codes."""
-        self.ui.selectConfigComboBox.clear()
-        self.ui.selectConfigComboBox.setView(QtWidgets.QListView(self.ui.selectConfigComboBox))
-        self.ui.selectConfigComboBox.view().setVerticalScrollBarPolicy(
+        self.ui.configSelectorCombobox_homeTab.clear()
+        self.ui.configSelectorCombobox_homeTab.setView(QtWidgets.QListView(self.ui.configSelectorCombobox_homeTab))
+        self.ui.configSelectorCombobox_homeTab.view().setVerticalScrollBarPolicy(
             QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded
         )
-        self.ui.selectConfigComboBox.setMaxVisibleItems(2)
+        self.ui.configSelectorCombobox_homeTab.setMaxVisibleItems(2)
 
         global config_codes
         # Ensure config_codes dict exists
@@ -447,19 +449,20 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             days = self.format_days_left(days)
 
-            self.ui.selectConfigComboBox.addItem(f"{display_name} ({server})")
-            i = self.ui.selectConfigComboBox.count() - 1
-            self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+            self.ui.configSelectorCombobox_homeTab.addItem(f"{display_name} ({server})")
+            i = self.ui.configSelectorCombobox_homeTab.count() - 1
+            self.ui.configSelectorCombobox_homeTab.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
 
         all_configs_count = len(configs)
         expired_configs_count = sum(
             1 for cfg in configs if self._is_expired(cfg.get("days_left", 0))
         )
-        self.ui.accountAllConfigsCount.setText(str(all_configs_count))
-        self.ui.accountExpiredConfigsCount.setText(str(expired_configs_count))
+        self.ui.allConfigsCount_number_accountTab.setText(str(all_configs_count))
+        self.ui.expiredConfigsCount_number_accountTab.setText(str(expired_configs_count))
 
-        self.ui.selectConfigComboBox.setItemDelegate(ConfigDelegateComboBox(self.ui.selectConfigComboBox))
-        self.ui.selectConfigComboBox.setEditable(False)
+        
+        self.ui.configSelectorCombobox_homeTab.setItemDelegate(ConfigDelegateComboBox(self.ui.configSelectorCombobox_homeTab))
+        self.ui.configSelectorCombobox_homeTab.setEditable(False)
 
     def format_days_left(self, days_value):
         """Format days_left value and convert non-positive values to 'expired'."""
@@ -586,8 +589,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         frame_obj_name = f"myconfigs_frame_{safe_name}"
 
         # Build frame and layouts
-        frame = QtWidgets.QFrame(self.ui.myconfigs_mainContainer.parentWidget())
-        self.ui.myconfigs_mainContainer.addWidget(frame)
+        frame = QtWidgets.QFrame(self.ui.mainContainer_myconfigsTab.parentWidget())
+        self.ui.mainContainer_myconfigsTab.addWidget(frame)
         frame.setObjectName(frame_obj_name)
         frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -752,7 +755,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
-        self.ui.myconfigs_mainContainer.addWidget(frame)
+        self.ui.mainContainer_myconfigsTab.addWidget(frame)
 
     def populate_buy_plans(self, data: dict):
         """Fill buy-config cards from server response data."""
@@ -811,7 +814,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             plan_price = plan.get("price", "")
             number_of_users = plan.get("number_of_users", "")
 
-            frame = QtWidgets.QFrame(self.ui.scrollAreaWidgetContents)
+            frame = QtWidgets.QFrame(self.ui.scrollArea_widgetContents_buyconfigTab)
             frame.setObjectName(f"buy_frame_{plan_id}")
             frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
             frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -879,7 +882,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             vbox.addWidget(usersnum_lbl)
             vbox.addWidget(buy_btn)
 
-            self.ui.verticalLayout.addWidget(frame)
+            self.ui.verticalLayout_buyconfigTab.addWidget(frame)
 
     # -------------------- actions and handlers --------------------
 
@@ -985,7 +988,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def settings_exclusive_proxy_apply_clicked(self):
         """Apply the proxy exception addresses from the text edit."""
-        addresses = self.ui.settingsProxyExclusivesTextEdit.toPlainText().split("\n")
+        addresses = self.ui.proxyExclusives_textedit_settingsTab.toPlainText().split("\n")
         manage_db.set_exclusive_addresses(addresses)
         addresses = manage_db.get_exclusive_addresses()
         if addresses is not None:
@@ -1048,9 +1051,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
                         days = self.format_days_left(days)
 
                         # Add item to combobox
-                        self.ui.selectConfigComboBox.addItem(f"{display_name} ({server})")
-                        i = self.ui.selectConfigComboBox.count() - 1
-                        self.ui.selectConfigComboBox.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
+                        self.ui.configSelectorCombobox_homeTab.addItem(f"{display_name} ({server})")
+                        i = self.ui.configSelectorCombobox_homeTab.count() - 1
+                        self.ui.configSelectorCombobox_homeTab.setItemData(i, {"gb": gb, "days": days}, Qt.ItemDataRole.UserRole)
 
                         new_config = {
                             "config_code": code_full,
@@ -1063,10 +1066,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
                         
                     # Update coins and counts
                     try:
-                        new_coin_count = int(self.ui.coinNumber.text()) - details.get("price", 0)
-                        self.ui.coinNumber.setText(str(new_coin_count))
-                        self.ui.accountCoinsCount.setText(str(new_coin_count))
-                        self.ui.accountAllConfigsCount.setText(str(int(self.ui.accountAllConfigsCount.text()) + int(len(configs))))
+                        new_coin_count = int(self.ui.userCoinsCount_number_homeTab.text()) - details.get("price", 0)
+                        self.ui.userCoinsCount_number_homeTab.setText(str(new_coin_count))
+                        self.ui.userCoinsLeft_number_accountTab.setText(str(new_coin_count))
+                        self.ui.allConfigsCount_number_accountTab.setText(str(int(self.ui.allConfigsCount_number_accountTab.text()) + int(len(configs))))
                     except Exception:
                         pass
 
@@ -1082,16 +1085,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def on_power_clicked(self):
         """Toggle connect/disconnect (power button)."""
-        current = self.ui.connectionStatusText.text()
-        selected = self.ui.selectConfigComboBox.currentText()
+        current = self.ui.connectionStatus_homeTab.text()
+        selected = self.ui.configSelectorCombobox_homeTab.currentText()
 
         if current in ("Not Connected", "Disconnected") and selected != "":
 
             self.power_button_fancy.set_state("connecting")
             self.power_button_fancy.setDisabled(True)
 
-            self.ui.connectionStatusText.setText("Connecting...")
-            self.ui.selectConfigComboBox.setDisabled(True)
+            self.ui.connectionStatus_homeTab.setText("Connecting...")
+            self.ui.configSelectorCombobox_homeTab.setDisabled(True)
 
             QtCore.QTimer.singleShot(2000, self._on_connected)
 
@@ -1105,10 +1108,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
         else:
             # Disconnect
             self.power_button_fancy.set_state("disconnected")
-            self.ui.connectionStatusText.setText("Disconnected")
+            self.ui.connectionStatus_homeTab.setText("Disconnected")
 
             self.power_button_fancy.setDisabled(False)
-            self.ui.selectConfigComboBox.setDisabled(False)
+            self.ui.configSelectorCombobox_homeTab.setDisabled(False)
 
             if selected != "":
                 try:
@@ -1120,14 +1123,14 @@ class MainAppWindow(QtWidgets.QMainWindow):
         """UI update after connection established."""
         self.power_button_fancy.set_state("connected")
         self.power_button_fancy.setDisabled(False)
-        self.ui.connectionStatusText.setText("Connected")
-        self.ui.selectConfigComboBox.setDisabled(True)
+        self.ui.connectionStatus_homeTab.setText("Connected")
+        self.ui.configSelectorCombobox_homeTab.setDisabled(True)
 
     def on_menu_clicked(self):
         """Animate opening/closing of side menu."""
         menu_btn = self.ui.menuButton
-        closebtn = self.ui.closebutton
-        minbtn = self.ui.minbutton
+        closebtn = self.ui.closeButton
+        minbtn = self.ui.minimizeButton
         side_menu = self.ui.sideMenu
 
         if not hasattr(self, "_menu_btn_initial_geom"):
@@ -1196,7 +1199,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
     def on_logout_clicked(self):
         """Start logout sequence in a background thread."""
         try:
-            self.ui.accountlogoutButton.setDisabled(True)
+            self.ui.logoutButton_accountTab.setDisabled(True)
         except Exception:
             pass
 
@@ -1262,7 +1265,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
     def _handle_logout_finished(self, ok: bool, msg: str):
         """Handle end of logout: show message and switch windows if successful."""
         try:
-            self.ui.accountlogoutButton.setDisabled(False)
+            self.ui.logoutButton_accountTab.setDisabled(False)
         except Exception:
             pass
 
@@ -1293,17 +1296,17 @@ class MainAppWindow(QtWidgets.QMainWindow):
             if not config_code:
                 return self._show_toast("No config code available", 1800, "info")
 
-            current = self.ui.connectionStatusText.text()
+            current = self.ui.connectionStatus_homeTab.text()
             if current in ("Not Connected", "Disconnected"):
                 # Same connect logic as on_power_clicked
                 self.power_button_fancy.set_state("connecting")
                 self.power_button_fancy.setDisabled(True)
-                self.ui.connectionStatusText.setText("Connecting...")
-                self.ui.selectConfigComboBox.setDisabled(True)
+                self.ui.connectionStatus_homeTab.setText("Connecting...")
+                self.ui.configSelectorCombobox_homeTab.setDisabled(True)
 
-                index = self.ui.selectConfigComboBox.findText(display_name, QtCore.Qt.MatchFlag.MatchContains)
+                index = self.ui.configSelectorCombobox_homeTab.findText(display_name, QtCore.Qt.MatchFlag.MatchContains)
                 if index != -1:
-                    self.ui.selectConfigComboBox.setCurrentIndex(index)
+                    self.ui.configSelectorCombobox_homeTab.setCurrentIndex(index)
 
                 QtCore.QTimer.singleShot(2000, self._on_connected)
                 try:

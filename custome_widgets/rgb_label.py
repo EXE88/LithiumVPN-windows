@@ -29,6 +29,7 @@ class RGBLabel(QLabel):
         style = f"""
             QLabel {{
                 color: rgb({color.red()}, {color.green()}, {color.blue()});
+                background-color:transparent;
                 {original_style.replace('QLabel {', '').replace('}', '').replace('color:', '/*color:*/') if original_style else ''}
             }}
         """
