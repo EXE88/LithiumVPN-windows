@@ -874,6 +874,9 @@ QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: t
 QScrollBar{
 border-radius: 12px;
 border: 1px solid #555;
+}
+QScrollArea{
+    border: 0px solid black;
 }</string>
       </property>
       <property name="horizontalScrollBarPolicy">
@@ -887,8 +890,8 @@ border: 1px solid #555;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>393</width>
-         <height>519</height>
+         <width>395</width>
+         <height>521</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1043,6 +1046,9 @@ QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: t
 QScrollBar{
 border-radius: 12px;
 border: 1px solid #555;
+}
+QScrollArea{
+    border: 0px solid black;
 }</string>
       </property>
       <property name="widgetResizable">
@@ -1056,8 +1062,8 @@ border: 1px solid #555;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>389</width>
-         <height>519</height>
+         <width>391</width>
+         <height>521</height>
         </rect>
        </property>
        <property name="styleSheet">

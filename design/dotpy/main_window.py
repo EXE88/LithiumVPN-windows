@@ -404,12 +404,15 @@ class Ui_MainWindow(object):
 "QScrollBar{\n"
 "border-radius: 12px;\n"
 "border: 1px solid #555;\n"
+"}\n"
+"QScrollArea{\n"
+"    border: 0px solid black;\n"
 "}")
         self.scrollArea_myconfigsTab.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea_myconfigsTab.setWidgetResizable(True)
         self.scrollArea_myconfigsTab.setObjectName("scrollArea_myconfigsTab")
         self.scrollArea_widgetContents_myconfigsTab = QtWidgets.QWidget()
-        self.scrollArea_widgetContents_myconfigsTab.setGeometry(QtCore.QRect(0, 0, 393, 519))
+        self.scrollArea_widgetContents_myconfigsTab.setGeometry(QtCore.QRect(0, 0, 395, 521))
         self.scrollArea_widgetContents_myconfigsTab.setObjectName("scrollArea_widgetContents_myconfigsTab")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.scrollArea_widgetContents_myconfigsTab)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
@@ -509,12 +512,15 @@ class Ui_MainWindow(object):
 "QScrollBar{\n"
 "border-radius: 12px;\n"
 "border: 1px solid #555;\n"
+"}\n"
+"QScrollArea{\n"
+"    border: 0px solid black;\n"
 "}")
         self.scrollArea_buyconfigTab.setWidgetResizable(True)
         self.scrollArea_buyconfigTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea_buyconfigTab.setObjectName("scrollArea_buyconfigTab")
         self.scrollArea_widgetContents_buyconfigTab = QtWidgets.QWidget()
-        self.scrollArea_widgetContents_buyconfigTab.setGeometry(QtCore.QRect(0, 0, 389, 519))
+        self.scrollArea_widgetContents_buyconfigTab.setGeometry(QtCore.QRect(0, 0, 391, 521))
         self.scrollArea_widgetContents_buyconfigTab.setStyleSheet("")
         self.scrollArea_widgetContents_buyconfigTab.setObjectName("scrollArea_widgetContents_buyconfigTab")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollArea_widgetContents_buyconfigTab)

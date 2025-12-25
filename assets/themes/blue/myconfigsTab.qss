@@ -58,3 +58,6 @@ QScrollBar{
     border-radius: 12px;
     border: 1px solid #555;
 }
+QScrollArea{
+    border: 0px solid black;
+}
