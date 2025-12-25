@@ -1,0 +1,60 @@
+QFrame#dragframe_myconfigsTab{
+    background-color: transparent;
+}
+
+QLabel#header_myconfigsTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+QScrollBar::groove:vertical {
+    background: transparent;
+    border-radius: 7px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;
+}
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-origin: padding;
+}
+QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
+    background: transparent;
+}
+QScrollBar:horizontal {
+    background: transparent;
+    height: 12px;
+    margin: 0px 6px 0px 6px;
+}
+QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
+QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}
+QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
+QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
+QScrollBar{
+    border-radius: 12px;
+    border: 1px solid #555;
+}

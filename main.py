@@ -27,6 +27,7 @@ from modules.api_calls import ApiCalls
 from modules.path_helpers import get_path
 from modules.qrcode_generator import ShareConfigDialog
 from core.handlers.manager import XrayClient, set_proxy_exceptions
+from modules.theme_manager import ThemeManager
 
 from PyQt6.QtGui import QRegion, QPainterPath
 class MainAppWindow(QtWidgets.QMainWindow):
@@ -49,6 +50,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         # Internal initialization
         self._setup_ui()
+
+        self.theme_manager = ThemeManager(self)
+
         self._connect_signals()
 
         # system tray initialization
@@ -99,7 +103,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         anim.finished.connect(lambda: (self.showMinimized(), self.setWindowOpacity(1.0)))
         self._close_anim = anim
         anim.start()
-
+        
     def _setup_ui(self):
         """Initial load: populate user info, widgets, and tab content."""
 
@@ -277,6 +281,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         self.ui.powerButton.clicked.connect(self.on_power_clicked)
         self.ui.menuButton.clicked.connect(self.on_menu_clicked)
+
+        self.ui.darkThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_dark())
+        self.ui.lightThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_light())
+        self.ui.blueThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_blue())
 
         # side menu buttons
         self.ui.homeButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))

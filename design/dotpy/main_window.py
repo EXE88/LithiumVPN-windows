@@ -29,8 +29,10 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(10)
         self.tabWidget.setFont(font)
+        self.tabWidget.setStyleSheet("background-color:transparent;")
         self.tabWidget.setObjectName("tabWidget")
         self.homeTab = QtWidgets.QWidget()
+        self.homeTab.setStyleSheet("")
         self.homeTab.setObjectName("homeTab")
         self.person_icon_homeTab = QtWidgets.QLabel(parent=self.homeTab)
         self.person_icon_homeTab.setGeometry(QtCore.QRect(15, 33, 48, 48))
@@ -653,7 +655,7 @@ class Ui_MainWindow(object):
         self.header_settingsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.header_settingsTab.setObjectName("header_settingsTab")
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.settingsTab)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(7, 110, 381, 261))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(7, 110, 381, 368))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.proxyExlusives_layout_settingsTab = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.proxyExlusives_layout_settingsTab.setContentsMargins(12, 12, 12, 12)
@@ -776,6 +778,107 @@ class Ui_MainWindow(object):
         self.dragframe_settingsTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_settingsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_settingsTab.setObjectName("dragframe_settingsTab")
+        self.themeSelect_label_settingsTab = QtWidgets.QLabel(parent=self.settingsTab)
+        self.themeSelect_label_settingsTab.setGeometry(QtCore.QRect(20, 500, 121, 18))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        self.themeSelect_label_settingsTab.setFont(font)
+        self.themeSelect_label_settingsTab.setToolTip("")
+        self.themeSelect_label_settingsTab.setStatusTip("")
+        self.themeSelect_label_settingsTab.setWhatsThis("")
+        self.themeSelect_label_settingsTab.setStyleSheet("color:rgb(125, 200, 255);\n"
+"background-color:transparent;")
+        self.themeSelect_label_settingsTab.setObjectName("themeSelect_label_settingsTab")
+        self.darkThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.darkThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(140, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.darkThemeSelect_button_settingsTab.setFont(font)
+        self.darkThemeSelect_button_settingsTab.setStyleSheet("QPushButton#darkThemeSelect_button_settingsTab {\n"
+"    background-color: #1e1e1e; \n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    border: 1px solid #2c2c2c;\n"
+"    border-bottom: 4px solid #161616;\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"QPushButton#darkThemeSelect_button_settingsTab:hover {\n"
+"    background-color: #2c2c2c; \n"
+"}\n"
+"\n"
+"QPushButton#darkThemeSelect_button_settingsTab:pressed {\n"
+"    background-color: #161616;\n"
+"    border: 2px solid #121212;\n"
+"    border-top: 4px solid #121212;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}")
+        self.darkThemeSelect_button_settingsTab.setFlat(False)
+        self.darkThemeSelect_button_settingsTab.setObjectName("darkThemeSelect_button_settingsTab")
+        self.lightThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.lightThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(220, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.lightThemeSelect_button_settingsTab.setFont(font)
+        self.lightThemeSelect_button_settingsTab.setStyleSheet("QPushButton#lightThemeSelect_button_settingsTab {\n"
+"    background-color: #f5f5f5; \n"
+"    color: #1e1e1e; \n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    border: 2px solid #d1d1d1;\n"
+"    border-bottom: 4px solid #b0b0b0;\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"QPushButton#lightThemeSelect_button_settingsTab:hover {\n"
+"    background-color: #e0e0e0; \n"
+"}\n"
+"\n"
+"QPushButton#lightThemeSelect_button_settingsTab:pressed {\n"
+"    background-color: #cfcfcf; \n"
+"    border: 2px solid #b0b0b0;\n"
+"    border-top: 4px solid #b0b0b0;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"")
+        self.lightThemeSelect_button_settingsTab.setFlat(False)
+        self.lightThemeSelect_button_settingsTab.setObjectName("lightThemeSelect_button_settingsTab")
+        self.blueThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.blueThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(300, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.blueThemeSelect_button_settingsTab.setFont(font)
+        self.blueThemeSelect_button_settingsTab.setStyleSheet("QPushButton#blueThemeSelect_button_settingsTab {\n"
+"    background-color: #1e3a8a; \n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    border: 2px solid #1e40af;\n"
+"    border-bottom: 4px solid #122055;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#blueThemeSelect_button_settingsTab:hover {\n"
+"    background-color: #2563eb; \n"
+"}\n"
+"QPushButton#blueThemeSelect_button_settingsTab:pressed {\n"
+"    background-color: #1e40af;\n"
+"    border: 2px solid #122055;\n"
+"    border-top: 4px solid #122055;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}")
+        self.blueThemeSelect_button_settingsTab.setFlat(False)
+        self.blueThemeSelect_button_settingsTab.setObjectName("blueThemeSelect_button_settingsTab")
         self.tabWidget.addTab(self.settingsTab, "")
         self.sideMenu = QtWidgets.QWidget(parent=self.centralwidget)
         self.sideMenu.setGeometry(QtCore.QRect(400, 3, 111, 341))
@@ -923,6 +1026,17 @@ class Ui_MainWindow(object):
         self.closeButton.setIcon(icon4)
         self.closeButton.setIconSize(QtCore.QSize(20, 20))
         self.closeButton.setObjectName("closeButton")
+        self.backgroundImage = QtWidgets.QLabel(parent=self.centralwidget)
+        self.backgroundImage.setGeometry(QtCore.QRect(0, 0, 400, 630))
+        self.backgroundImage.setText("")
+        self.backgroundImage.setScaledContents(True)
+        self.backgroundImage.setObjectName("backgroundImage")
+        self.backgroundImage.raise_()
+        self.tabWidget.raise_()
+        self.sideMenu.raise_()
+        self.menuButton.raise_()
+        self.minimizeButton.raise_()
+        self.closeButton.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -966,6 +1080,10 @@ class Ui_MainWindow(object):
         self.header_settingsTab.setText(_translate("MainWindow", "LithiumVPN"))
         self.proxyExclusives_label_settingsTab.setText(_translate("MainWindow", "Exclusive addresses : "))
         self.proxyExclusives_button_settingsTab.setText(_translate("MainWindow", "Apply"))
+        self.themeSelect_label_settingsTab.setText(_translate("MainWindow", "Select Theme : "))
+        self.darkThemeSelect_button_settingsTab.setText(_translate("MainWindow", "Dark"))
+        self.lightThemeSelect_button_settingsTab.setText(_translate("MainWindow", "Light"))
+        self.blueThemeSelect_button_settingsTab.setText(_translate("MainWindow", "Blue"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingsTab), _translate("MainWindow", "Page"))
         self.homeButton_sideMenu.setText(_translate("MainWindow", "Home"))
         self.accountButton_sideMenu.setText(_translate("MainWindow", "Account"))
