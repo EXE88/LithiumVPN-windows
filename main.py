@@ -112,6 +112,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.admin_telegram = CONFIG['ADMIN_TELEGRAM_ID']
         self.menu_toggle = False
 
+        self.buyconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
+
         # Window icon and title
         window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
         self.setWindowIcon(window_icon)
@@ -353,119 +355,34 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 pass
 
             try:
-                self._refresh_buyconfig_cards_style(theme_name)
+                frame_stylesheet = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
+
+                try:
+                    layout = getattr(self.ui, 'verticalLayout_buyconfigTab', None)
+                    if layout is None:
+                        return
+                    for i in range(layout.count()):
+                        item = layout.itemAt(i)
+                        if item is None:
+                            continue
+                        widget = item.widget()
+                        if widget is None:
+                            continue
+                        name = widget.objectName() or ''
+                        if name.startswith('buy_frame_'):
+                            try:
+                                widget.setStyleSheet(frame_stylesheet)
+                            except Exception:
+                                pass
+                except Exception:
+                    pass
             except Exception:
                 pass
-
         except Exception:
             try:
                 self._show_toast("error in changing theme", toast_type="alert")
             except Exception:
                 pass
-
-    def _refresh_buyconfig_cards_style(self, theme_name: str):
-        if theme_name == 'dark':
-            frame_stylesheet = """
-                QFrame {
-                    background-color: rgba(255, 255, 255, 75);
-                    border-bottom: 3px solid rgba(0, 0, 0, 100);
-                    font: 500 9pt "Google Sans code";
-                    border-radius: 12px;
-                }
-                QFrame:hover {
-                    border: 1px solid rgba(255,255,255,255); 
-                }
-                QLabel { 
-                    background-color: #28282B;
-                    border-bottom: 0px solid rgba(0, 0, 0, 100);
-                    color: rgba(245, 245, 245, 255);
-                    border-radius: 8px;
-                }
-                QPushButton {
-                    background-color: #e7e7e7;
-                    color: #202020;
-                    border-radius: 10px;
-                    padding: 10px 18px;
-                    font: 600 10pt "Google Sans code";
-                    border: 2px solid #cdcdcd; 
-                    border-bottom: 4px solid #929292;
-                    outline: none;
-                }
-                QPushButton:hover {
-                    background-color: #c3c3c3;
-                    border: 2px solid #cdcdcd; 
-                    border-bottom: 4px solid #929292;
-                    color: #202020;
-                }
-                QPushButton:pressed {
-                    background-color: #9a9a9a;
-                    border: 2px solid #ababab;
-                    border-top: 4px solid #6e6e6e;
-                    padding-top: 12px;
-                    padding-bottom: 8px;
-                }
-            """
-        else:
-            frame_stylesheet = """
-                QFrame {
-                    border: 1px solid rgba(17,186,189,140); 
-                    border-radius: 12px;
-                    padding: 0px;
-                    color:white;
-                }
-                QFrame:hover {
-                    border: 1px solid rgba(17,186,189,225); 
-                }
-                QLabel { 
-                    border: 1px solid rgba(17, 186, 189, 140);
-                    border-radius: 8px;
-                    font-weight: 600; font-size: 13px; 
-                }
-                QLabel:hover { 
-                    border: 1px solid rgba(17, 186, 189, 255);
-                }
-                QPushButton {
-                    background-color: #059669;
-                    color: #f8fafc;
-                    border-radius: 10px;
-                    padding: 10px 18px;
-                    font-weight: bold;
-                    border: 2px solid #047857; 
-                    border-bottom: 4px solid #065f46;
-                    outline: none;
-                }
-                QPushButton:hover {
-                    background-color: #10b981;
-                    color: white;
-                }
-                QPushButton:pressed {
-                    background-color: #047857;
-                    border: 2px solid #065f46;
-                    border-top: 4px solid #065f46;
-                    padding-top: 12px;
-                    padding-bottom: 8px;
-                }
-            """
-
-        try:
-            layout = getattr(self.ui, 'verticalLayout_buyconfigTab', None)
-            if layout is None:
-                return
-            for i in range(layout.count()):
-                item = layout.itemAt(i)
-                if item is None:
-                    continue
-                widget = item.widget()
-                if widget is None:
-                    continue
-                name = widget.objectName() or ''
-                if name.startswith('buy_frame_'):
-                    try:
-                        widget.setStyleSheet(frame_stylesheet)
-                    except Exception:
-                        pass
-        except Exception:
-            pass
 
     # -------------------- internal helpers --------------------
 
@@ -918,89 +835,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             plans = []
 
-        theme = manage_db.get_theme()
-        if theme == 'dark':
-            frame_stylesheet = """
-                QFrame {
-                    background-color: rgba(255, 255, 255, 75);
-                    border-bottom: 3px solid rgba(0, 0, 0, 100);
-                    font: 500 9pt "Google Sans code";
-                    border-radius: 12px;
-                }
-                QFrame:hover {
-                    border: 1px solid rgba(255,255,255,255); 
-                }
-                QLabel { 
-                    background-color: #28282B;
-                    border-bottom: 0px solid rgba(0, 0, 0, 100);
-                    color: rgba(245, 245, 245, 255);
-                    border-radius: 8px;
-                }
-                QPushButton {
-                    background-color: #e7e7e7;
-                    color: #202020;
-                    border-radius: 10px;
-                    padding: 10px 18px;
-                    font: 600 10pt "Google Sans code";
-                    border: 2px solid #cdcdcd; 
-                    border-bottom: 4px solid #929292;
-                    outline: none;
-                }
-                QPushButton:hover {
-                    background-color: #c3c3c3;
-                    border: 2px solid #cdcdcd; 
-                    border-bottom: 4px solid #929292;
-                    color: #202020;
-                }
-                QPushButton:pressed {
-                    background-color: #9a9a9a;
-                    border: 2px solid #ababab;
-                    border-top: 4px solid #6e6e6e;
-                    padding-top: 12px;
-                    padding-bottom: 8px;
-                }
-            """
-        else:
-            frame_stylesheet = """
-                QFrame {
-                    border: 1px solid rgba(17,186,189,140); 
-                    border-radius: 12px;
-                    padding: 0px;
-                    color:white;
-                }
-                QFrame:hover {
-                    border: 1px solid rgba(17,186,189,225); 
-                }
-                QLabel { 
-                    border: 1px solid rgba(17, 186, 189, 140);
-                    border-radius: 8px;
-                    font-weight: 600; font-size: 13px; 
-                }
-                QLabel:hover { 
-                    border: 1px solid rgba(17, 186, 189, 255);
-                }
-                QPushButton {
-                    background-color: #059669;
-                    color: #f8fafc;
-                    border-radius: 10px;
-                    padding: 10px 18px;
-                    font-weight: bold;
-                    border: 2px solid #047857; 
-                    border-bottom: 4px solid #065f46;
-                    outline: none;
-                }
-                QPushButton:hover {
-                    background-color: #10b981;
-                    color: white;
-                }
-                QPushButton:pressed {
-                    background-color: #047857;
-                    border: 2px solid #065f46;
-                    border-top: 4px solid #065f46;
-                    padding-top: 12px;
-                    padding-bottom: 8px;
-                }
-            """
+        frame_stylesheet = self.buyconfig_card_style
 
         for idx, plan in enumerate(plans):
             plan_id = plan.get("id", idx)

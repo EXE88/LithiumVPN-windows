@@ -1,0 +1,38 @@
+QFrame {
+    border: 1px solid rgba(17,186,189,140); 
+    border-radius: 12px;
+    padding: 0px;
+    color:white;
+}
+QFrame:hover {
+    border: 1px solid rgba(17,186,189,225); 
+}
+QLabel { 
+    border: 1px solid rgba(17, 186, 189, 140);
+    border-radius: 8px;
+    font-weight: 600; font-size: 13px; 
+}
+QLabel:hover { 
+    border: 1px solid rgba(17, 186, 189, 255);
+}
+QPushButton {
+    background-color: #059669;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: 2px solid #047857; 
+    border-bottom: 4px solid #065f46;
+    outline: none;
+}
+QPushButton:hover {
+    background-color: #10b981;
+    color: white;
+}
+QPushButton:pressed {
+    background-color: #047857;
+    border: 2px solid #065f46;
+    border-top: 4px solid #065f46;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}

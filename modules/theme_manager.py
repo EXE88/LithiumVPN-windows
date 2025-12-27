@@ -43,6 +43,8 @@ class ThemeManager:
                     getattr(ui, 'accountTab', ui).setStyleSheet(content)
                 elif 'buycoin' in key:
                     getattr(ui, 'buycoinTab', ui).setStyleSheet(content)
+                elif 'buyconfig_card' in key:
+                    pass               
                 elif 'buyconfig' in key:
                     getattr(ui, 'buyconfigTab', ui).setStyleSheet(content)
                 elif 'settings' in key:
