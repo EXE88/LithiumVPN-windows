@@ -15,6 +15,7 @@
   <qresource prefix="images">
     <file>images/dark_ocean_bg.png</file>
     <file>images/white_gradiant_bg.jpg</file>
+    <file>images/blue_gradiant_bg.jpg</file>
   </qresource>
   <qresource prefix="fonts">
     <file>fonts/RobotoMono-Regular.ttf</file>

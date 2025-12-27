@@ -17,6 +17,7 @@ class ManageDatabase:
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
         self.execute_database("CREATE TABLE IF NOT EXISTS Backaddr (sub TEXT,name TEXT,tld TEXT,port INTEGER, ip TEXT);")
+        self.execute_database("CREATE TABLE IF NOT EXISTS Settings (key TEXT PRIMARY KEY, value TEXT);")
         self.execute_database("CREATE TABLE IF NOT EXISTS Exclusives (address TEXT);")
 
         try:
@@ -125,3 +126,37 @@ class ManageDatabase:
         finally:
             if conn:
                 conn.close()
+
+    def set_setting(self, key: str, value: str):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute("INSERT OR REPLACE INTO Settings (key, value) VALUES (?, ?);", (key, value))
+            conn.commit()
+        except sqlite3.Error as e:
+            print(f"Database error in set_setting: {e}")
+        finally:
+            if conn:
+                conn.close()
+
+    def get_setting(self, key: str):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute("SELECT value FROM Settings WHERE key = ? LIMIT 1;", (key,))
+            row = cursor.fetchone()
+            if row:
+                return row[0]
+            return None
+        except sqlite3.Error as e:
+            print(f"Database error in get_setting: {e}")
+            return None
+        finally:
+            if conn:
+                conn.close()
+
+    def set_theme(self, theme_name: str):
+        return self.set_setting("theme", theme_name)
+
+    def get_theme(self):
+        return self.get_setting("theme")

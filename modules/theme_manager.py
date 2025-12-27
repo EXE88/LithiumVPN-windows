@@ -84,6 +84,7 @@ class ThemeManager:
         bg_map = {
             'dark': 'dark_ocean_bg.png',
             'light': 'white_gradiant_bg.jpg',
+            'blue': 'blue_gradiant_bg.jpg',
         }
         img = bg_map.get(theme)
         if img:
@@ -96,5 +97,4 @@ class ThemeManager:
         self.apply_theme('light')
 
     def apply_blue(self):
-        lbl = getattr(self.main_window.ui, 'backgroundImage', None)
-        lbl.clear()
+        self.apply_theme('blue')

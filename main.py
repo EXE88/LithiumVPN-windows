@@ -282,9 +282,9 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.powerButton.clicked.connect(self.on_power_clicked)
         self.ui.menuButton.clicked.connect(self.on_menu_clicked)
 
-        self.ui.darkThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_dark())
-        self.ui.lightThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_light())
-        self.ui.blueThemeSelect_button_settingsTab.clicked.connect(lambda: self.theme_manager.apply_blue())
+        self.ui.darkThemeSelect_button_settingsTab.clicked.connect(lambda: self._on_theme_selected('dark'))
+        self.ui.lightThemeSelect_button_settingsTab.clicked.connect(lambda: self._on_theme_selected('light'))
+        self.ui.blueThemeSelect_button_settingsTab.clicked.connect(lambda: self._on_theme_selected('blue'))
 
         # side menu buttons
         self.ui.homeButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
@@ -320,6 +320,150 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # Hidden by default; call enable_tray() to show
         self.tray_icon.hide()
         self.tray_enabled = False
+
+    def _on_theme_selected(self, theme_name: str):
+        try:
+            if theme_name == 'dark':
+                try:
+                    self.theme_manager.apply_dark()
+                except Exception:
+                    self.theme_manager.apply_theme('dark')
+            elif theme_name == 'light':
+                try:
+                    self.theme_manager.apply_light()
+                except Exception:
+                    self.theme_manager.apply_theme('light')
+            elif theme_name == 'blue':
+                try:
+                    self.theme_manager.apply_blue()
+                except Exception:
+                    self.theme_manager.apply_theme('blue')
+            else:
+                self.theme_manager.apply_theme(theme_name)
+
+            try:
+                if 'manage_db' in globals() and manage_db:
+                    manage_db.set_theme(theme_name)
+            except Exception:
+                pass
+
+            try:
+                self._show_toast("theme changed successfully", 2500, "success")
+            except Exception:
+                pass
+
+            try:
+                self._refresh_buyconfig_cards_style(theme_name)
+            except Exception:
+                pass
+
+        except Exception:
+            try:
+                self._show_toast("error in changing theme", toast_type="alert")
+            except Exception:
+                pass
+
+    def _refresh_buyconfig_cards_style(self, theme_name: str):
+        if theme_name == 'dark':
+            frame_stylesheet = """
+                QFrame {
+                    background-color: rgba(255, 255, 255, 75);
+                    border-bottom: 3px solid rgba(0, 0, 0, 100);
+                    font: 500 9pt "Google Sans code";
+                    border-radius: 12px;
+                }
+                QFrame:hover {
+                    border: 1px solid rgba(255,255,255,255); 
+                }
+                QLabel { 
+                    background-color: #28282B;
+                    border-bottom: 0px solid rgba(0, 0, 0, 100);
+                    color: rgba(245, 245, 245, 255);
+                    border-radius: 8px;
+                }
+                QPushButton {
+                    background-color: #059669;
+                    color: #f8fafc;
+                    border-radius: 10px;
+                    padding: 10px 18px;
+                    font: 600 10pt "Google Sans code";
+                    border: 2px solid #047857; 
+                    border-bottom: 4px solid #065f46;
+                    outline: none;
+                }
+                QPushButton:hover {
+                    background-color: #10b981;
+                    color: white;
+                }
+                QPushButton:pressed {
+                    background-color: #047857;
+                    border: 2px solid #065f46;
+                    border-top: 4px solid #065f46;
+                    padding-top: 12px;
+                    padding-bottom: 8px;
+                }
+            """
+        else:
+            frame_stylesheet = """
+                QFrame {
+                    border: 1px solid rgba(17,186,189,140); 
+                    border-radius: 12px;
+                    padding: 0px;
+                    color:white;
+                }
+                QFrame:hover {
+                    border: 1px solid rgba(17,186,189,225); 
+                }
+                QLabel { 
+                    border: 1px solid rgba(17, 186, 189, 140);
+                    border-radius: 8px;
+                    font-weight: 600; font-size: 13px; 
+                }
+                QLabel:hover { 
+                    border: 1px solid rgba(17, 186, 189, 255);
+                }
+                QPushButton {
+                    background-color: #059669;
+                    color: #f8fafc;
+                    border-radius: 10px;
+                    padding: 10px 18px;
+                    font-weight: bold;
+                    border: 2px solid #047857; 
+                    border-bottom: 4px solid #065f46;
+                    outline: none;
+                }
+                QPushButton:hover {
+                    background-color: #10b981;
+                    color: white;
+                }
+                QPushButton:pressed {
+                    background-color: #047857;
+                    border: 2px solid #065f46;
+                    border-top: 4px solid #065f46;
+                    padding-top: 12px;
+                    padding-bottom: 8px;
+                }
+            """
+
+        try:
+            layout = getattr(self.ui, 'verticalLayout_buyconfigTab', None)
+            if layout is None:
+                return
+            for i in range(layout.count()):
+                item = layout.itemAt(i)
+                if item is None:
+                    continue
+                widget = item.widget()
+                if widget is None:
+                    continue
+                name = widget.objectName() or ''
+                if name.startswith('buy_frame_'):
+                    try:
+                        widget.setStyleSheet(frame_stylesheet)
+                    except Exception:
+                        pass
+        except Exception:
+            pass
 
     # -------------------- internal helpers --------------------
 
@@ -772,46 +916,87 @@ class MainAppWindow(QtWidgets.QMainWindow):
         except Exception:
             plans = []
 
-        frame_stylesheet = """
-            QFrame {
-                border: 1px solid rgba(17,186,189,140); 
-                border-radius: 12px;
-                padding: 0px;
-                color:white;
-            }
-            QFrame:hover {
-                border: 1px solid rgba(17,186,189,225); 
-            }
-            QLabel { 
-                border: 1px solid rgba(17, 186, 189, 140);
-                border-radius: 8px;
-                font-weight: 600; font-size: 13px; 
-            }
-            QLabel:hover { 
-                border: 1px solid rgba(17, 186, 189, 255);
-            }
-            QPushButton {
-                background-color: #059669;
-                color: #f8fafc;
-                border-radius: 10px;
-                padding: 10px 18px;
-                font-weight: bold;
-                border: 2px solid #047857; 
-                border-bottom: 4px solid #065f46;
-                outline: none;
-            }
-            QPushButton:hover {
-                background-color: #10b981;
-                color: white;
-            }
-            QPushButton:pressed {
-                background-color: #047857;
-                border: 2px solid #065f46;
-                border-top: 4px solid #065f46;
-                padding-top: 12px;
-                padding-bottom: 8px;
-            }
-        """
+        theme = manage_db.get_theme()
+        if theme == 'dark':
+            frame_stylesheet = """
+                QFrame {
+                    background-color: rgba(255, 255, 255, 75);
+                    border-bottom: 3px solid rgba(0, 0, 0, 100);
+                    font: 500 9pt "Google Sans code";
+                    border-radius: 12px;
+                }
+                QFrame:hover {
+                    border: 1px solid rgba(255,255,255,255); 
+                }
+                QLabel { 
+                    background-color: #28282B;
+                    border-bottom: 0px solid rgba(0, 0, 0, 100);
+                    color: rgba(245, 245, 245, 255);
+                    border-radius: 8px;
+                }
+                QPushButton {
+                    background-color: #059669;
+                    color: #f8fafc;
+                    border-radius: 10px;
+                    padding: 10px 18px;
+                    font: 600 10pt "Google Sans code";
+                    border: 2px solid #047857; 
+                    border-bottom: 4px solid #065f46;
+                    outline: none;
+                }
+                QPushButton:hover {
+                    background-color: #10b981;
+                    color: white;
+                }
+                QPushButton:pressed {
+                    background-color: #047857;
+                    border: 2px solid #065f46;
+                    border-top: 4px solid #065f46;
+                    padding-top: 12px;
+                    padding-bottom: 8px;
+                }
+            """
+        else:
+            frame_stylesheet = """
+                QFrame {
+                    border: 1px solid rgba(17,186,189,140); 
+                    border-radius: 12px;
+                    padding: 0px;
+                    color:white;
+                }
+                QFrame:hover {
+                    border: 1px solid rgba(17,186,189,225); 
+                }
+                QLabel { 
+                    border: 1px solid rgba(17, 186, 189, 140);
+                    border-radius: 8px;
+                    font-weight: 600; font-size: 13px; 
+                }
+                QLabel:hover { 
+                    border: 1px solid rgba(17, 186, 189, 255);
+                }
+                QPushButton {
+                    background-color: #059669;
+                    color: #f8fafc;
+                    border-radius: 10px;
+                    padding: 10px 18px;
+                    font-weight: bold;
+                    border: 2px solid #047857; 
+                    border-bottom: 4px solid #065f46;
+                    outline: none;
+                }
+                QPushButton:hover {
+                    background-color: #10b981;
+                    color: white;
+                }
+                QPushButton:pressed {
+                    background-color: #047857;
+                    border: 2px solid #065f46;
+                    border-top: 4px solid #065f46;
+                    padding-top: 12px;
+                    padding-bottom: 8px;
+                }
+            """
 
         for idx, plan in enumerate(plans):
             plan_id = plan.get("id", idx)
@@ -830,7 +1015,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
             frame.setMinimumWidth(100)
             frame.setSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed)
             frame.setStyleSheet(frame_stylesheet)
-
             vbox = QtWidgets.QVBoxLayout(frame)
             vbox.setContentsMargins(10, 8, 10, 8)
             vbox.setSpacing(6)
@@ -1618,6 +1802,26 @@ if __name__ == "__main__":
     main_window = MainAppWindow()
     login_window = LoginWindow()
     email_verify_window = VerifyEmailWindow()
+
+    try:
+        saved = manage_db.get_theme() if 'manage_db' in globals() and manage_db else None
+        if saved:
+            try:
+                main_window.theme_manager.apply_theme(saved)
+            except Exception:
+                if saved == 'dark':
+                    main_window.theme_manager.apply_dark()
+                elif saved == 'light':
+                    main_window.theme_manager.apply_light()
+                else:
+                    main_window.theme_manager.apply_blue()
+        else:
+            main_window.theme_manager.apply_blue()
+    except Exception:
+        try:
+            main_window.theme_manager.apply_blue()
+        except Exception:
+            pass
 
     if api_calls.login_needed():
         login_window.show()
