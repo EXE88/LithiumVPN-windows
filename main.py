@@ -382,23 +382,25 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     border-radius: 8px;
                 }
                 QPushButton {
-                    background-color: #059669;
-                    color: #f8fafc;
+                    background-color: #e7e7e7;
+                    color: #202020;
                     border-radius: 10px;
                     padding: 10px 18px;
                     font: 600 10pt "Google Sans code";
-                    border: 2px solid #047857; 
-                    border-bottom: 4px solid #065f46;
+                    border: 2px solid #cdcdcd; 
+                    border-bottom: 4px solid #929292;
                     outline: none;
                 }
                 QPushButton:hover {
-                    background-color: #10b981;
-                    color: white;
+                    background-color: #bae1be;
+                    border: 2px solid #bcc6bd; 
+                    border-bottom: 4px solid #939a94;
+                    color: #202020;
                 }
                 QPushButton:pressed {
-                    background-color: #047857;
-                    border: 2px solid #065f46;
-                    border-top: 4px solid #065f46;
+                    background-color: #778378;
+                    border: 2px solid #4e544f;
+                    border-top: 4px solid #3d413e;
                     padding-top: 12px;
                     padding-bottom: 8px;
                 }
@@ -935,23 +937,25 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     border-radius: 8px;
                 }
                 QPushButton {
-                    background-color: #059669;
-                    color: #f8fafc;
+                    background-color: #e7e7e7;
+                    color: #202020;
                     border-radius: 10px;
                     padding: 10px 18px;
                     font: 600 10pt "Google Sans code";
-                    border: 2px solid #047857; 
-                    border-bottom: 4px solid #065f46;
+                    border: 2px solid #cdcdcd; 
+                    border-bottom: 4px solid #929292;
                     outline: none;
                 }
                 QPushButton:hover {
-                    background-color: #10b981;
-                    color: white;
+                    background-color: #bae1be;
+                    border: 2px solid #bcc6bd; 
+                    border-bottom: 4px solid #939a94;
+                    color: #202020;
                 }
                 QPushButton:pressed {
-                    background-color: #047857;
-                    border: 2px solid #065f46;
-                    border-top: 4px solid #065f46;
+                    background-color: #778378;
+                    border: 2px solid #4e544f;
+                    border-top: 4px solid #3d413e;
                     padding-top: 12px;
                     padding-bottom: 8px;
                 }

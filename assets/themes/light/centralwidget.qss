@@ -1,0 +1,44 @@
+QPushButton#closeButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+QPushButton#closeButton::before {
+    content: "";
+    position: absolute;
+}
+QPushButton#closeButton:hover {
+    background-color: rgb(206, 0, 3);
+    border-color: black;
+}
+QPushButton#closeButton:pressed {
+    background-color: rgb(122, 0, 2)
+}
+
+QPushButton#menuButton {background-color:transparent;}
+
+QPushButton#minimizeButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+QPushButton#minimizeButton::before {
+    content: "";
+    position: absolute;
+}
+
+QPushButton#minimizeButton:hover {
+    background-color: rgb(80, 80, 80);
+    border-color: black;
+}
+
+QPushButton#minimizeButton:pressed {
+    background-color: rgb(53, 53, 53)
+}

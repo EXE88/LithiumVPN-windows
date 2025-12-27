@@ -38,6 +38,53 @@
    <string notr="true">background-color:rgb(15, 23, 42);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QPushButton#closeButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+QPushButton#closeButton::before {
+    content: &quot;&quot;;
+    position: absolute;
+}
+QPushButton#closeButton:hover {
+    background-color: rgb(206, 0, 3);
+    border-color: black;
+}
+QPushButton#closeButton:pressed {
+    background-color: rgb(122, 0, 2)
+}
+
+QPushButton#menuButton {background-color:transparent;}
+
+QPushButton#minimizeButton {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 100);
+    border-radius: 6px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+QPushButton#minimizeButton::before {
+    content: &quot;&quot;;
+    position: absolute;
+}
+
+QPushButton#minimizeButton:hover {
+    background-color: rgb(80, 80, 80);
+    border-color: black;
+}
+
+QPushButton#minimizeButton:pressed {
+    background-color: rgb(53, 53, 53)
+}
+</string>
+   </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
@@ -61,7 +108,74 @@
     </property>
     <widget class="QWidget" name="homeTab">
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QScrollBar:vertical {
+    background: #f0f0f0;
+    width: 10px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: #888;
+    min-height: 20px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #555;
+}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background: none;
+}
+QComboBox{
+    color:white;
+    background-color:transparent;
+}
+
+QLabel#connectionStatus_homeTab{
+    color:rgb(148, 163, 184);
+    background-color:transparent;
+}
+
+QFrame#dragframe_homeTab{
+    background-color:transparent;
+}
+
+QLabel#header_homeTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;
+}
+
+QFrame#line_homeTab{
+    color:rgb(230, 230, 230);
+    background-color:transparent;
+}
+
+QLabel#person_icon_homeTab{
+    background-color:transparent;
+}
+
+QPushButton#powerButton{
+    border-radius : 100; 
+    background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))
+}
+
+QPushButton#powerButtonBase{
+    border-radius : 100; 
+    background-color: white
+}
+
+QPushButton#userCoinsCount_icon_homeTab{
+    background-color:transparent;
+}
+
+QLabel#userCoinsCount_number_homeTab{
+    color:white;
+    background-color:transparent;
+}
+
+QLabel#userUsername_homeTab{
+    color:white;
+    background-color:transparent;
+}</string>
      </property>
      <attribute name="title">
       <string>Tab 1</string>
@@ -81,7 +195,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -109,8 +223,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:rgb(148, 163, 184);
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Not Connected</string>
@@ -135,8 +248,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Username</string>
@@ -161,31 +273,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QScrollBar:vertical {
-    background: #f0f0f0;   /* پس زمینه */
-    width: 10px;           /* ضخامت اسکرول بار */
-    margin: 0px;
-}
-
-QScrollBar::handle:vertical {
-    background: #888;      /* رنگ دستگیره (قابل حرکت) */
-    min-height: 20px;
-    border-radius: 4px;
-}
-
-QScrollBar::handle:vertical:hover {
-    background: #555;      /* رنگ دستگیره وقتی موس روشه */
-}
-
-QScrollBar::add-line:vertical,
-QScrollBar::sub-line:vertical {
-    background: none;      /* دکمه‌های بالا/پایین رو حذف میکنه */
-}
-QComboBox{
-color:white;
-background-color:transparent;
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="maxVisibleItems">
        <number>3</number>
@@ -229,8 +317,7 @@ background-color:transparent;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:rgb(230, 230, 230);
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::VLine</enum>
@@ -252,8 +339,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-radius : 100; 
-background-color: white</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -275,8 +361,7 @@ background-color: white</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-radius : 100; 
-background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -308,8 +393,7 @@ background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, st
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -328,7 +412,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -353,8 +437,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>999</string>
@@ -373,7 +456,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -392,6 +475,86 @@ background-color:transparent;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="accountTab">
+     <property name="styleSheet">
+      <string notr="true">QLabel#allConfigsCount_label_accountTab{
+    color:white;
+    background-color:transparent;
+}
+QLabel#allConfigsCount_number_accountTab{
+    color:white;
+    background-color:transparent;
+}
+
+QFrame#dragframe_accountTab{
+    background-color:transparent;
+}
+
+QLabel#expiredConfigsCount_label_accountTab{
+    color:white;
+    background-color:transparent;
+}
+QLabel#expiredConfigsCount_number_accountTab{
+    color:white;
+    background-color:transparent;
+}
+
+QLabel#header_accountTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;   
+}
+
+QFrame#line_accountTab{
+    background-color:transparent;
+}
+
+QPushButton#logoutButton_accountTab {
+    background-color: #b91c1c;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: 2px solid #7f1d1d; 
+    border-bottom: 4px solid #450a0a;
+    outline: none;
+}
+QPushButton#logoutButton_accountTab:hover {
+    background-color: #dc2626;
+    color: white;
+}
+QPushButton#logoutButton_accountTab:pressed {
+    background-color: #991b1b;
+    border: 2px solid #450a0a;
+    border-top: 4px solid #450a0a;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QLabel#person_icon_accountTab{
+    background-color:transparent;
+}
+
+QLabel#userCoinsLeft_icon_accountTab{
+    background-color:transparent;
+}
+QLabel#userCoinsLeft_label_accountTab{
+    color:white;
+    background-color:transparent;
+}
+QLabel#userCoinsLeft_number_accountTab{
+    color:white;
+    background-color:transparent;
+}
+
+QLabel#userEmail_accountTab{
+    color:white;
+    background-color:transparent;
+}
+
+QLabel#userUsername_accountTab{
+    color:white;
+    background-color:transparent;
+}</string>
+     </property>
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
@@ -405,7 +568,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -433,8 +596,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>username</string>
@@ -459,8 +621,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>999</string>
@@ -479,7 +640,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -510,8 +671,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>email@gmail.com</string>
@@ -536,8 +696,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>coins left :</string>
@@ -562,8 +721,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>all configs :</string>
@@ -588,8 +746,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>20</string>
@@ -608,7 +765,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::HLine</enum>
@@ -633,8 +790,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>expired configs :</string>
@@ -659,8 +815,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>19</string>
@@ -686,33 +841,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#logoutButton_accountTab {
-    background-color: #b91c1c;        /* قرمز تیره برای پس‌زمینه */
-    color: #f8fafc;                   /* متن سفید مایل به خاکستری */
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-weight: bold;
-
-    /* عمق (سایه‌ی مصنوعی) */
-    border: 2px solid #7f1d1d;        /* خط دور تیره‌تر */
-    border-bottom: 4px solid #450a0a; /* سایه پایین برای برجسته شدن */
-
-    outline: none;
-}
-
-QPushButton#logoutButton_accountTab:hover {
-    background-color: #dc2626;        /* کمی روشن‌تر هنگام hover */
-    color: white;
-}
-
-QPushButton#logoutButton_accountTab:pressed {
-    background-color: #991b1b;        /* کمی تیره‌تر هنگام فشار */
-    border: 2px solid #450a0a;
-    border-top: 4px solid #450a0a;    /* سایه بالا برای حس فرو رفتن */
-    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */
-    padding-bottom: 8px;
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Logout</string>
@@ -734,8 +863,7 @@ QPushButton#logoutButton_accountTab:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -754,7 +882,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -765,6 +893,71 @@ background-color:transparent;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="myconfigsTab">
+     <property name="styleSheet">
+      <string notr="true">QFrame#dragframe_myconfigsTab{
+    background-color: transparent;
+}
+
+QLabel#header_myconfigsTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+QScrollBar::groove:vertical {
+    background: transparent;
+    border-radius: 7px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;
+}
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-origin: padding;
+}
+QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
+    background: transparent;
+}
+QScrollBar:horizontal {
+    background: transparent;
+    height: 12px;
+    margin: 0px 6px 0px 6px;
+}
+QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
+QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}
+QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
+QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
+QScrollBar{
+    border-radius: 12px;
+    border: 1px solid #555;
+}
+QScrollArea{
+    border: 0px solid black;
+}</string>
+     </property>
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -784,9 +977,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -805,79 +996,7 @@ background-color:transparent;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">/* ===== پایه - برای همه‌ی QScrollBar ها ===== */
-QScrollBar:vertical {
-    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */
-    width: 12px;                    /* ضخامت اسکرول‌بار */
-    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */
-}
-
-/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:
-   QScrollArea QScrollBar:vertical { ... }
-*/
-
-/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */
-QScrollBar::groove:vertical {
-    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */
-    border-radius: 7px;
-    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */
-}
-
-/* handle — همان دکمه‌ای که حرکت می‌کند */
-QScrollBar::handle:vertical {
-    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */
-    min-height: 36px;                     /* حداقل اندازه‌ی handle */
-    border-radius: 999px;                 /* خیلی بزرگ =&gt; همیشه گرد */
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */
-}
-
-/* وقتی ماوس روشه کمی برجسته‌ترش کن */
-QScrollBar::handle:vertical:hover {
-    background: rgba(255,255,255,0.95);
-}
-
-/* وقتی کلیک می‌کنن ــ حس فشرده شدن */
-QScrollBar::handle:vertical:pressed {
-    background: rgba(255,255,255,1.0);
-    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */
-}
-
-/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */
-QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
-    height: 0px;
-    subcontrol-origin: padding;
-}
-
-/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */
-QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
-    background: transparent;
-}
-
-/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */
-QScrollBar:horizontal {
-    background: transparent;
-    height: 12px;
-    margin: 0px 6px 0px 6px;
-}
-QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
-QScrollBar::handle:horizontal {
-    background: rgba(255,255,255,0.85);
-    min-width: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 2px 4px 2px 4px;
-}
-QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
-QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
-QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
-QScrollBar{
-border-radius: 12px;
-border: 1px solid #555;
-}
-QScrollArea{
-    border: 0px solid black;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
@@ -927,7 +1046,7 @@ QScrollArea{
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -938,6 +1057,71 @@ QScrollArea{
      </widget>
     </widget>
     <widget class="QWidget" name="buyconfigTab">
+     <property name="styleSheet">
+      <string notr="true">QFrame#dragframe_buyconfigTab{
+    background-color: transparent;
+}
+
+QLabel#header_buyconfigTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+QScrollBar::groove:vertical {
+    background: transparent;
+    border-radius: 7px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;
+}
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-origin: padding;
+}
+QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
+    background: transparent;
+}
+QScrollBar:horizontal {
+    background: transparent;
+    height: 12px;
+    margin: 0px 6px 0px 6px;
+}
+QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
+QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}
+QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
+QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
+QScrollBar{
+    border-radius: 12px;
+    border: 1px solid #555;
+}
+QScrollArea{
+    border: 0px solid black;
+}</string>
+     </property>
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -957,8 +1141,7 @@ QScrollArea{
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -977,79 +1160,7 @@ background-color:transparent;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">/* ===== پایه - برای همه‌ی QScrollBar ها ===== */
-QScrollBar:vertical {
-    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */
-    width: 12px;                    /* ضخامت اسکرول‌بار */
-    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */
-}
-
-/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:
-   QScrollArea QScrollBar:vertical { ... }
-*/
-
-/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */
-QScrollBar::groove:vertical {
-    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */
-    border-radius: 7px;
-    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */
-}
-
-/* handle — همان دکمه‌ای که حرکت می‌کند */
-QScrollBar::handle:vertical {
-    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */
-    min-height: 36px;                     /* حداقل اندازه‌ی handle */
-    border-radius: 999px;                 /* خیلی بزرگ =&gt; همیشه گرد */
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */
-}
-
-/* وقتی ماوس روشه کمی برجسته‌ترش کن */
-QScrollBar::handle:vertical:hover {
-    background: rgba(255,255,255,0.95);
-}
-
-/* وقتی کلیک می‌کنن ــ حس فشرده شدن */
-QScrollBar::handle:vertical:pressed {
-    background: rgba(255,255,255,1.0);
-    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */
-}
-
-/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */
-QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
-    height: 0px;
-    subcontrol-origin: padding;
-}
-
-/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */
-QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
-    background: transparent;
-}
-
-/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */
-QScrollBar:horizontal {
-    background: transparent;
-    height: 12px;
-    margin: 0px 6px 0px 6px;
-}
-QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }
-QScrollBar::handle:horizontal {
-    background: rgba(255,255,255,0.85);
-    min-width: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 2px 4px 2px 4px;
-}
-QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }
-QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }
-QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
-QScrollBar{
-border-radius: 12px;
-border: 1px solid #555;
-}
-QScrollArea{
-    border: 0px solid black;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -1102,7 +1213,7 @@ QScrollArea{
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -1113,6 +1224,58 @@ QScrollArea{
      </widget>
     </widget>
     <widget class="QWidget" name="buycoinTab">
+     <property name="styleSheet">
+      <string notr="true">QLabel#adminId_buycoinTab{
+    background-color: transparent;
+}
+
+QPushButton#buyButton_buycoinTab {
+    background-color: #059669;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: 2px solid #047857;
+    border-bottom: 4px solid #065f46;
+    outline: none;
+}
+QPushButton#buyButton_buycoinTab:hover {
+    background-color: #10b981;
+    color: white;
+}
+QPushButton#buyButton_buycoinTab:pressed {
+    background-color: #047857;
+    border: 2px solid #065f46;
+    border-top: 4px solid #065f46;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QLabel#description_icon_1_buycoinTab{
+    background-color: transparent;
+}
+QLabel#description_icon_2_buycoinTab{
+    background-color: transparent;
+}
+QLabel#description_label_buycoinTab{
+    background-color: transparent;
+}
+
+QFrame#dragframe_buycoinTab{
+    background-color: transparent;
+}
+
+QLabel#header_buycoinTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;
+}
+
+QLabel#person_icon_buycoinTab{
+    background-color: transparent;
+}
+
+</string>
+     </property>
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -1132,8 +1295,7 @@ QScrollArea{
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -1158,7 +1320,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>@MibroAdmin</string>
@@ -1183,7 +1345,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Message in telegram for buying coins</string>
@@ -1208,7 +1370,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -1239,7 +1401,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -1271,35 +1433,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#buyButton_buycoinTab {
-    background-color: #059669;        /* سبز آبی اصلی (primary) */
-    color: #f8fafc;                   /* متن روشن */
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-weight: bold;
-
-    /* عمق و برجستگی */
-    border: 2px solid #047857;        /* خط دور کمی تیره‌تر */
-    border-bottom: 4px solid #065f46; /* سایه پایین برای حجم دادن */
-
-    outline: none;
-}
-
-/* Hover - روشن‌تر و زنده‌تر */
-QPushButton#buyButton_buycoinTab:hover {
-    background-color: #10b981;        /* سبز روشن‌تر هنگام hover */
-    color: white;
-}
-
-/* Pressed - کمی تیره‌تر و با حرکت جزئی */
-QPushButton#buyButton_buycoinTab:pressed {
-    background-color: #047857;        /* سبز تیره‌تر */
-    border: 2px solid #065f46;
-    border-top: 4px solid #065f46;    /* سایه بالا برای حس فرو رفتن */
-    padding-top: 12px;
-    padding-bottom: 8px;
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Buy</string>
@@ -1321,7 +1455,7 @@ QPushButton#buyButton_buycoinTab:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -1346,7 +1480,7 @@ QPushButton#buyButton_buycoinTab:pressed {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -1357,6 +1491,163 @@ QPushButton#buyButton_buycoinTab:pressed {
      </widget>
     </widget>
     <widget class="QWidget" name="settingsTab">
+     <property name="styleSheet">
+      <string notr="true">QPushButton#darkThemeSelect_button_settingsTab {
+    background-color: #1e1e1e; 
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    border: 1px solid #2c2c2c;
+    border-bottom: 4px solid #161616;
+    outline: none;
+}
+QPushButton#darkThemeSelect_button_settingsTab:hover {
+    background-color: #2c2c2c; 
+}
+QPushButton#darkThemeSelect_button_settingsTab:pressed {
+    background-color: #161616;
+    border: 2px solid #121212;
+    border-top: 4px solid #121212;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QFrame#dragframe_settingsTab{
+    background-color: transparent;
+}
+
+QLabel#header_settingsTab{
+    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color:transparent;    
+}
+
+QPushButton#lightThemeSelect_button_settingsTab {
+    background-color: #f5f5f5; 
+    color: #1e1e1e; 
+    border-radius: 10px;
+    padding: 10px 18px;
+    border: 2px solid #d1d1d1;
+    border-bottom: 4px solid #b0b0b0;
+    outline: none;
+}
+QPushButton#lightThemeSelect_button_settingsTab:hover {
+    background-color: #e0e0e0; 
+}
+QPushButton#lightThemeSelect_button_settingsTab:pressed {
+    background-color: #cfcfcf; 
+    border: 2px solid #b0b0b0;
+    border-top: 4px solid #b0b0b0;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QPushButton#proxyExclusives_button_settingsTab {
+    background-color: #2563EB;
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: bold;
+    border: 2px solid #1e40af;
+    border-bottom: 4px solid #122055;
+    outline: none;
+}
+QPushButton#proxyExclusives_button_settingsTab:hover {
+    background-color: #3b82f6;
+}
+QPushButton#proxyExclusives_button_settingsTab:pressed {
+    background-color: #1e40af;
+    border: 2px solid #122055;
+    border-top: 4px solid #122055;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QLabel#proxyExclusives_label_settingsTab{
+    color:rgb(125, 200, 255);
+    background-color:transparent;
+}
+
+QPlainTextEdit#proxyExclusives_textedit_settingsTab {
+    background-color: rgb(19, 28, 44);
+    color: #e6eef6;
+    border: 1px solid rgba(17,186,189,160);
+    border-radius: 12px;
+    padding: 12px;
+    font-family: Consolas, &quot;Courier New&quot;, monospace;
+    font-size: 13px;
+    selection-background-color: rgba(59,130,246,0.25);
+    selection-color: white;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {
+    border: 1px solid rgba(59,130,246,220);
+    background-color: rgb(21, 34, 58);
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::groove:vertical {
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical {
+    background: rgba(255,255,255,0.85);
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 4px 2px 4px 2px;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:hover {
+    background: rgba(255,255,255,0.95);
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:pressed {
+    background: rgba(255,255,255,1.0);
+    margin-top: 5px;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-line:vertical,
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-line:vertical {
+    height: 0px;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-page:vertical,
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-page:vertical {
+    background: transparent;
+}
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
+QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizontal {
+    background: rgba(255,255,255,0.85);
+    min-width: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 2px 4px 2px 4px;
+}
+
+QLabel#themeSelect_label_settingsTab{
+    color:rgb(125, 200, 255);
+    background-color:transparent;    
+}
+
+QPushButton#blueThemeSelect_button_settingsTab {
+    background-color: #1e3a8a; 
+    color: #f8fafc;
+    border-radius: 10px;
+    padding: 10px 18px;
+    border: 2px solid #1e40af;
+    border-bottom: 4px solid #122055;
+    outline: none;
+}
+QPushButton#blueThemeSelect_button_settingsTab:hover {
+    background-color: #2563eb; 
+}
+QPushButton#blueThemeSelect_button_settingsTab:pressed {
+    background-color: #1e40af;
+    border: 2px solid #122055;
+    border-top: 4px solid #122055;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+</string>
+     </property>
      <attribute name="title">
       <string>Page</string>
      </attribute>
@@ -1376,8 +1667,7 @@ QPushButton#buyButton_buycoinTab:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>LithiumVPN</string>
@@ -1429,8 +1719,7 @@ background-color:transparent;</string>
           <string/>
          </property>
          <property name="styleSheet">
-          <string notr="true">color:rgb(125, 200, 255);
-background-color:transparent;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Exclusive addresses : </string>
@@ -1449,66 +1738,7 @@ background-color:transparent;</string>
           <string/>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPlainTextEdit#proxyExclusives_textedit_settingsTab {
-    background-color: rgb(19, 28, 44);
-    color: #e6eef6;
-    border: 1px solid rgba(17,186,189,160);
-    border-radius: 12px;
-    padding: 12px;
-    font-family: Consolas, &quot;Courier New&quot;, monospace;
-    font-size: 13px;
-    selection-background-color: rgba(59,130,246,0.25);
-    selection-color: white;
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {
-    border: 1px solid rgba(59,130,246,220);
-    background-color: rgb(21, 34, 58);
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
-    background: transparent;
-    width: 12px;
-    margin: 6px 0px 6px 0px;
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::groove:vertical {
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical {
-    background: rgba(255,255,255,0.85);
-    min-height: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 4px 2px 4px 2px;
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:hover {
-    background: rgba(255,255,255,0.95);
-}
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:pressed {
-    background: rgba(255,255,255,1.0);
-    margin-top: 5px;
-}
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-line:vertical,
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-line:vertical {
-    height: 0px;
-}
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-page:vertical,
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-page:vertical {
-    background: transparent;
-}
-
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
-QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizontal {
-    background: rgba(255,255,255,0.85);
-    min-width: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 2px 4px 2px 4px;
-}</string>
+          <string notr="true"/>
          </property>
         </widget>
        </item>
@@ -1522,29 +1752,7 @@ QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizonta
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton#proxyExclusives_button_settingsTab {
-    /* رنگِ تنظیمات: یک آبی-سرد ملایم (هماهنگ با selection و focus) */
-    background-color: #2563EB;   /* blue-600 */
-    color: #f8fafc;
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-weight: bold;
-    border: 2px solid #1e40af;   /* آبی تیره‌تر برای کنتراست */
-    border-bottom: 4px solid #122055;
-    outline: none;
-}
-
-/* hover و pressed — از استایل قبلی استفاده می‌کنیم ولی با همان رنگ‌بندی آبی */
-QPushButton#proxyExclusives_button_settingsTab:hover {
-    background-color: #3b82f6;
-}
-QPushButton#proxyExclusives_button_settingsTab:pressed {
-    background-color: #1e40af;
-    border: 2px solid #122055;
-    border-top: 4px solid #122055;
-    padding-top: 12px;
-    padding-bottom: 8px;
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Apply</string>
@@ -1563,7 +1771,7 @@ QPushButton#proxyExclusives_button_settingsTab:pressed {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::Shape::NoFrame</enum>
@@ -1597,8 +1805,7 @@ QPushButton#proxyExclusives_button_settingsTab:pressed {
        <string/>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:rgb(125, 200, 255);
-background-color:transparent;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Select Theme : </string>
@@ -1621,27 +1828,7 @@ background-color:transparent;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#darkThemeSelect_button_settingsTab {
-    background-color: #1e1e1e; 
-    color: #f8fafc;
-    border-radius: 10px;
-    padding: 10px 18px;
-    border: 1px solid #2c2c2c;
-    border-bottom: 4px solid #161616;
-    outline: none;
-}
-
-QPushButton#darkThemeSelect_button_settingsTab:hover {
-    background-color: #2c2c2c; 
-}
-
-QPushButton#darkThemeSelect_button_settingsTab:pressed {
-    background-color: #161616;
-    border: 2px solid #121212;
-    border-top: 4px solid #121212;
-    padding-top: 12px;
-    padding-bottom: 8px;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Dark</string>
@@ -1667,28 +1854,7 @@ QPushButton#darkThemeSelect_button_settingsTab:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#lightThemeSelect_button_settingsTab {
-    background-color: #f5f5f5; 
-    color: #1e1e1e; 
-    border-radius: 10px;
-    padding: 10px 18px;
-    border: 2px solid #d1d1d1;
-    border-bottom: 4px solid #b0b0b0;
-    outline: none;
-}
-
-QPushButton#lightThemeSelect_button_settingsTab:hover {
-    background-color: #e0e0e0; 
-}
-
-QPushButton#lightThemeSelect_button_settingsTab:pressed {
-    background-color: #cfcfcf; 
-    border: 2px solid #b0b0b0;
-    border-top: 4px solid #b0b0b0;
-    padding-top: 12px;
-    padding-bottom: 8px;
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Light</string>
@@ -1714,25 +1880,7 @@ QPushButton#lightThemeSelect_button_settingsTab:pressed {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton#blueThemeSelect_button_settingsTab {
-    background-color: #1e3a8a; 
-    color: #f8fafc;
-    border-radius: 10px;
-    padding: 10px 18px;
-    border: 2px solid #1e40af;
-    border-bottom: 4px solid #122055;
-    outline: none;
-}
-QPushButton#blueThemeSelect_button_settingsTab:hover {
-    background-color: #2563eb; 
-}
-QPushButton#blueThemeSelect_button_settingsTab:pressed {
-    background-color: #1e40af;
-    border: 2px solid #122055;
-    border-top: 4px solid #122055;
-    padding-top: 12px;
-    padding-bottom: 8px;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Blue</string>
@@ -1753,14 +1901,10 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">/*background-color: rgb(30, 41, 59);*/
-
-
-#sideMenu {
-    background-color: rgb(30, 41, 59); /* پس‌زمینه منو */
+     <string notr="true">#sideMenu {
+    background-color: rgb(30, 41, 59);
     border-radius:14px;
 }
-
 #sideMenu QPushButton {
     background-color: transparent;
     color: rgb(241, 245, 249);
@@ -1768,13 +1912,11 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
     text-align: left;
     border: none;
 }
-
 #sideMenu QPushButton:hover {
     background-color: rgb(51, 65, 85);
 }
-
 #sideMenu QPushButton:checked {
-    background-color: rgb(59, 130, 246); /* آبی برای آیتم انتخاب‌شده */
+    background-color: rgb(59, 130, 246);
     color: white;
 }</string>
     </property>
@@ -1903,7 +2045,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:transparent;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>
@@ -1938,29 +2080,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: rgba(255, 255, 255, 30);
-    border: 1px solid rgba(255, 255, 255, 100);
-    border-radius: 6px;
-    color: white;
-    padding: 10px 20px;
-    font-weight: 600;
-}
-
-QPushButton::before {
-    content: &quot;&quot;;
-    position: absolute;
-}
-
-QPushButton:hover {
-    background-color: rgb(80, 80, 80);
-    border-color: black;
-}
-
-QPushButton:pressed {
-    background-color: rgb(53, 53, 53)
-}
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>
@@ -1986,29 +2106,7 @@ QPushButton:pressed {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: rgba(255, 255, 255, 30);
-    border: 1px solid rgba(255, 255, 255, 100);
-    border-radius: 6px;
-    color: white;
-    padding: 10px 20px;
-    font-weight: 600;
-}
-
-QPushButton::before {
-    content: &quot;&quot;;
-    position: absolute;
-}
-
-QPushButton:hover {
-    background-color: rgb(206, 0, 3);
-    border-color: black;
-}
-
-QPushButton:pressed {
-    background-color: rgb(122, 0, 2)
-}
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>

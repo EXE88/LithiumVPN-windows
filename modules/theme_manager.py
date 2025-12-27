@@ -49,6 +49,10 @@ class ThemeManager:
                     getattr(ui, 'settingsTab', ui).setStyleSheet(content)
                 elif 'myconfigs' in key:
                     getattr(ui, 'myconfigsTab', ui).setStyleSheet(content)
+                elif 'centralwidget' in key:
+                    getattr(ui, 'centralwidget', ui).setStyleSheet(content)
+                elif 'sidemenu' in key:
+                    getattr(ui, 'sideMenu', ui).setStyleSheet(content)                    
                 else:
                     try:
                         ui.centralwidget.setStyleSheet(content)

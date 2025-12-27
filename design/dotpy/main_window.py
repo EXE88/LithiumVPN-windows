@@ -22,6 +22,51 @@ class Ui_MainWindow(object):
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color:rgb(15, 23, 42);")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget.setStyleSheet("QPushButton#closeButton {\n"
+"    background-color: rgba(255, 255, 255, 30);\n"
+"    border: 1px solid rgba(255, 255, 255, 100);\n"
+"    border-radius: 6px;\n"
+"    color: white;\n"
+"    padding: 10px 20px;\n"
+"    font-weight: 600;\n"
+"}\n"
+"QPushButton#closeButton::before {\n"
+"    content: \"\";\n"
+"    position: absolute;\n"
+"}\n"
+"QPushButton#closeButton:hover {\n"
+"    background-color: rgb(206, 0, 3);\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton#closeButton:pressed {\n"
+"    background-color: rgb(122, 0, 2)\n"
+"}\n"
+"\n"
+"QPushButton#menuButton {background-color:transparent;}\n"
+"\n"
+"QPushButton#minimizeButton {\n"
+"    background-color: rgba(255, 255, 255, 30);\n"
+"    border: 1px solid rgba(255, 255, 255, 100);\n"
+"    border-radius: 6px;\n"
+"    color: white;\n"
+"    padding: 10px 20px;\n"
+"    font-weight: 600;\n"
+"}\n"
+"\n"
+"QPushButton#minimizeButton::before {\n"
+"    content: \"\";\n"
+"    position: absolute;\n"
+"}\n"
+"\n"
+"QPushButton#minimizeButton:hover {\n"
+"    background-color: rgb(80, 80, 80);\n"
+"    border-color: black;\n"
+"}\n"
+"\n"
+"QPushButton#minimizeButton:pressed {\n"
+"    background-color: rgb(53, 53, 53)\n"
+"}\n"
+"")
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(parent=self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, -30, 400, 681))
@@ -32,14 +77,81 @@ class Ui_MainWindow(object):
         self.tabWidget.setStyleSheet("background-color:transparent;")
         self.tabWidget.setObjectName("tabWidget")
         self.homeTab = QtWidgets.QWidget()
-        self.homeTab.setStyleSheet("")
+        self.homeTab.setStyleSheet("QScrollBar:vertical {\n"
+"    background: #f0f0f0;\n"
+"    width: 10px;\n"
+"    margin: 0px;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"    background: #888;\n"
+"    min-height: 20px;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background: #555;\n"
+"}\n"
+"QScrollBar::add-line:vertical,\n"
+"QScrollBar::sub-line:vertical {\n"
+"    background: none;\n"
+"}\n"
+"QComboBox{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#connectionStatus_homeTab{\n"
+"    color:rgb(148, 163, 184);\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QFrame#dragframe_homeTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_homeTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QFrame#line_homeTab{\n"
+"    color:rgb(230, 230, 230);\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#person_icon_homeTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QPushButton#powerButton{\n"
+"    border-radius : 100; \n"
+"    background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))\n"
+"}\n"
+"\n"
+"QPushButton#powerButtonBase{\n"
+"    border-radius : 100; \n"
+"    background-color: white\n"
+"}\n"
+"\n"
+"QPushButton#userCoinsCount_icon_homeTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#userCoinsCount_number_homeTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#userUsername_homeTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}")
         self.homeTab.setObjectName("homeTab")
         self.person_icon_homeTab = QtWidgets.QLabel(parent=self.homeTab)
         self.person_icon_homeTab.setGeometry(QtCore.QRect(15, 33, 48, 48))
         font = QtGui.QFont()
         font.setPointSize(1)
         self.person_icon_homeTab.setFont(font)
-        self.person_icon_homeTab.setStyleSheet("background-color:transparent;")
+        self.person_icon_homeTab.setStyleSheet("")
         self.person_icon_homeTab.setText("")
         self.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
         self.person_icon_homeTab.setScaledContents(True)
@@ -50,8 +162,7 @@ class Ui_MainWindow(object):
         font.setFamily("SF Pro Display")
         font.setPointSize(16)
         self.connectionStatus_homeTab.setFont(font)
-        self.connectionStatus_homeTab.setStyleSheet("color:rgb(148, 163, 184);\n"
-"background-color:transparent;")
+        self.connectionStatus_homeTab.setStyleSheet("")
         self.connectionStatus_homeTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.connectionStatus_homeTab.setObjectName("connectionStatus_homeTab")
         self.userUsername_homeTab = QtWidgets.QLabel(parent=self.homeTab)
@@ -60,8 +171,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.userUsername_homeTab.setFont(font)
-        self.userUsername_homeTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userUsername_homeTab.setStyleSheet("")
         self.userUsername_homeTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.userUsername_homeTab.setObjectName("userUsername_homeTab")
         self.configSelectorCombobox_homeTab = QtWidgets.QComboBox(parent=self.homeTab)
@@ -70,31 +180,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.configSelectorCombobox_homeTab.setFont(font)
-        self.configSelectorCombobox_homeTab.setStyleSheet("QScrollBar:vertical {\n"
-"    background: #f0f0f0;   /* پس زمینه */\n"
-"    width: 10px;           /* ضخامت اسکرول بار */\n"
-"    margin: 0px;\n"
-"}\n"
-"\n"
-"QScrollBar::handle:vertical {\n"
-"    background: #888;      /* رنگ دستگیره (قابل حرکت) */\n"
-"    min-height: 20px;\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"QScrollBar::handle:vertical:hover {\n"
-"    background: #555;      /* رنگ دستگیره وقتی موس روشه */\n"
-"}\n"
-"\n"
-"QScrollBar::add-line:vertical,\n"
-"QScrollBar::sub-line:vertical {\n"
-"    background: none;      /* دکمه‌های بالا/پایین رو حذف میکنه */\n"
-"}\n"
-"QComboBox{\n"
-"color:white;\n"
-"background-color:transparent;\n"
-"}\n"
-"")
+        self.configSelectorCombobox_homeTab.setStyleSheet("")
         self.configSelectorCombobox_homeTab.setMaxVisibleItems(3)
         self.configSelectorCombobox_homeTab.setObjectName("configSelectorCombobox_homeTab")
         self.configSelectorCombobox_homeTab.addItem("")
@@ -104,23 +190,20 @@ class Ui_MainWindow(object):
         self.configSelectorCombobox_homeTab.addItem("")
         self.line_homeTab = QtWidgets.QFrame(parent=self.homeTab)
         self.line_homeTab.setGeometry(QtCore.QRect(11, 76, 20, 71))
-        self.line_homeTab.setStyleSheet("color:rgb(230, 230, 230);\n"
-"background-color:transparent;")
+        self.line_homeTab.setStyleSheet("")
         self.line_homeTab.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.line_homeTab.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
         self.line_homeTab.setLineWidth(2)
         self.line_homeTab.setObjectName("line_homeTab")
         self.powerButtonBase = QtWidgets.QPushButton(parent=self.homeTab)
         self.powerButtonBase.setGeometry(QtCore.QRect(105, 170, 210, 210))
-        self.powerButtonBase.setStyleSheet("border-radius : 100; \n"
-"background-color: white")
+        self.powerButtonBase.setStyleSheet("")
         self.powerButtonBase.setText("")
         self.powerButtonBase.setIconSize(QtCore.QSize(110, 110))
         self.powerButtonBase.setObjectName("powerButtonBase")
         self.powerButton = QtWidgets.QPushButton(parent=self.homeTab)
         self.powerButton.setGeometry(QtCore.QRect(110, 175, 200, 200))
-        self.powerButton.setStyleSheet("border-radius : 100; \n"
-"background-color: qlineargradient(spread:pad, x1:0.462, y1:0, x2:0.473, y2:1, stop:0 rgba(107, 114, 128, 255), stop:1 rgba(210, 220, 236, 255))")
+        self.powerButton.setStyleSheet("")
         self.powerButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/power.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -133,13 +216,12 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
         self.header_homeTab.setFont(font)
-        self.header_homeTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;")
+        self.header_homeTab.setStyleSheet("")
         self.header_homeTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.header_homeTab.setObjectName("header_homeTab")
         self.dragframe_homeTab = QtWidgets.QFrame(parent=self.homeTab)
         self.dragframe_homeTab.setGeometry(QtCore.QRect(-3, 0, 400, 121))
-        self.dragframe_homeTab.setStyleSheet("background-color:transparent;")
+        self.dragframe_homeTab.setStyleSheet("")
         self.dragframe_homeTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_homeTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_homeTab.setObjectName("dragframe_homeTab")
@@ -149,13 +231,12 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.userCoinsCount_number_homeTab.setFont(font)
-        self.userCoinsCount_number_homeTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userCoinsCount_number_homeTab.setStyleSheet("")
         self.userCoinsCount_number_homeTab.setObjectName("userCoinsCount_number_homeTab")
         self.userCoinsCount_icon_homeTab = QtWidgets.QPushButton(parent=self.homeTab)
         self.userCoinsCount_icon_homeTab.setEnabled(False)
         self.userCoinsCount_icon_homeTab.setGeometry(QtCore.QRect(62, 126, 21, 21))
-        self.userCoinsCount_icon_homeTab.setStyleSheet("background-color:transparent;")
+        self.userCoinsCount_icon_homeTab.setStyleSheet("")
         self.userCoinsCount_icon_homeTab.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/icons/icons/coin.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -166,10 +247,88 @@ class Ui_MainWindow(object):
         self.userCoinsCount_icon_homeTab.setObjectName("userCoinsCount_icon_homeTab")
         self.tabWidget.addTab(self.homeTab, "")
         self.accountTab = QtWidgets.QWidget()
+        self.accountTab.setStyleSheet("QLabel#allConfigsCount_label_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"QLabel#allConfigsCount_number_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QFrame#dragframe_accountTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#expiredConfigsCount_label_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"QLabel#expiredConfigsCount_number_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_accountTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;   \n"
+"}\n"
+"\n"
+"QFrame#line_accountTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QPushButton#logoutButton_accountTab {\n"
+"    background-color: #b91c1c;\n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"    border: 2px solid #7f1d1d; \n"
+"    border-bottom: 4px solid #450a0a;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#logoutButton_accountTab:hover {\n"
+"    background-color: #dc2626;\n"
+"    color: white;\n"
+"}\n"
+"QPushButton#logoutButton_accountTab:pressed {\n"
+"    background-color: #991b1b;\n"
+"    border: 2px solid #450a0a;\n"
+"    border-top: 4px solid #450a0a;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"\n"
+"QLabel#person_icon_accountTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#userCoinsLeft_icon_accountTab{\n"
+"    background-color:transparent;\n"
+"}\n"
+"QLabel#userCoinsLeft_label_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"QLabel#userCoinsLeft_number_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#userEmail_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#userUsername_accountTab{\n"
+"    color:white;\n"
+"    background-color:transparent;\n"
+"}")
         self.accountTab.setObjectName("accountTab")
         self.person_icon_accountTab = QtWidgets.QLabel(parent=self.accountTab)
         self.person_icon_accountTab.setGeometry(QtCore.QRect(100, 130, 191, 191))
-        self.person_icon_accountTab.setStyleSheet("background-color:transparent;")
+        self.person_icon_accountTab.setStyleSheet("")
         self.person_icon_accountTab.setText("")
         self.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
         self.person_icon_accountTab.setScaledContents(True)
@@ -180,8 +339,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.userUsername_accountTab.setFont(font)
-        self.userUsername_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userUsername_accountTab.setStyleSheet("")
         self.userUsername_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.userUsername_accountTab.setObjectName("userUsername_accountTab")
         self.userCoinsLeft_number_accountTab = QtWidgets.QLabel(parent=self.accountTab)
@@ -190,13 +348,12 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.userCoinsLeft_number_accountTab.setFont(font)
-        self.userCoinsLeft_number_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userCoinsLeft_number_accountTab.setStyleSheet("")
         self.userCoinsLeft_number_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.userCoinsLeft_number_accountTab.setObjectName("userCoinsLeft_number_accountTab")
         self.userCoinsLeft_icon_accountTab = QtWidgets.QLabel(parent=self.accountTab)
         self.userCoinsLeft_icon_accountTab.setGeometry(QtCore.QRect(260, 437, 16, 16))
-        self.userCoinsLeft_icon_accountTab.setStyleSheet("background-color:transparent;")
+        self.userCoinsLeft_icon_accountTab.setStyleSheet("")
         self.userCoinsLeft_icon_accountTab.setText("")
         self.userCoinsLeft_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/coin.png"))
         self.userCoinsLeft_icon_accountTab.setScaledContents(True)
@@ -208,8 +365,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.userEmail_accountTab.setFont(font)
-        self.userEmail_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userEmail_accountTab.setStyleSheet("")
         self.userEmail_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.userEmail_accountTab.setObjectName("userEmail_accountTab")
         self.userCoinsLeft_label_accountTab = QtWidgets.QLabel(parent=self.accountTab)
@@ -218,8 +374,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.userCoinsLeft_label_accountTab.setFont(font)
-        self.userCoinsLeft_label_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.userCoinsLeft_label_accountTab.setStyleSheet("")
         self.userCoinsLeft_label_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.userCoinsLeft_label_accountTab.setObjectName("userCoinsLeft_label_accountTab")
         self.allConfigsCount_label_accountTab = QtWidgets.QLabel(parent=self.accountTab)
@@ -228,8 +383,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.allConfigsCount_label_accountTab.setFont(font)
-        self.allConfigsCount_label_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.allConfigsCount_label_accountTab.setStyleSheet("")
         self.allConfigsCount_label_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.allConfigsCount_label_accountTab.setObjectName("allConfigsCount_label_accountTab")
         self.allConfigsCount_number_accountTab = QtWidgets.QLabel(parent=self.accountTab)
@@ -238,13 +392,12 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.allConfigsCount_number_accountTab.setFont(font)
-        self.allConfigsCount_number_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.allConfigsCount_number_accountTab.setStyleSheet("")
         self.allConfigsCount_number_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.allConfigsCount_number_accountTab.setObjectName("allConfigsCount_number_accountTab")
         self.line_accountTab = QtWidgets.QFrame(parent=self.accountTab)
         self.line_accountTab.setGeometry(QtCore.QRect(60, 400, 270, 16))
-        self.line_accountTab.setStyleSheet("background-color:transparent;")
+        self.line_accountTab.setStyleSheet("")
         self.line_accountTab.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         self.line_accountTab.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
         self.line_accountTab.setObjectName("line_accountTab")
@@ -254,8 +407,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.expiredConfigsCount_label_accountTab.setFont(font)
-        self.expiredConfigsCount_label_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.expiredConfigsCount_label_accountTab.setStyleSheet("")
         self.expiredConfigsCount_label_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.expiredConfigsCount_label_accountTab.setObjectName("expiredConfigsCount_label_accountTab")
         self.expiredConfigsCount_number_accountTab = QtWidgets.QLabel(parent=self.accountTab)
@@ -264,8 +416,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(11)
         self.expiredConfigsCount_number_accountTab.setFont(font)
-        self.expiredConfigsCount_number_accountTab.setStyleSheet("color:white;\n"
-"background-color:transparent;")
+        self.expiredConfigsCount_number_accountTab.setStyleSheet("")
         self.expiredConfigsCount_number_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.expiredConfigsCount_number_accountTab.setObjectName("expiredConfigsCount_number_accountTab")
         self.logoutButton_accountTab = QtWidgets.QPushButton(parent=self.accountTab)
@@ -275,33 +426,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         font.setBold(True)
         self.logoutButton_accountTab.setFont(font)
-        self.logoutButton_accountTab.setStyleSheet("QPushButton#logoutButton_accountTab {\n"
-"    background-color: #b91c1c;        /* قرمز تیره برای پس‌زمینه */\n"
-"    color: #f8fafc;                   /* متن سفید مایل به خاکستری */\n"
-"    border-radius: 10px;\n"
-"    padding: 10px 18px;\n"
-"    font-weight: bold;\n"
-"\n"
-"    /* عمق (سایه‌ی مصنوعی) */\n"
-"    border: 2px solid #7f1d1d;        /* خط دور تیره‌تر */\n"
-"    border-bottom: 4px solid #450a0a; /* سایه پایین برای برجسته شدن */\n"
-"\n"
-"    outline: none;\n"
-"}\n"
-"\n"
-"QPushButton#logoutButton_accountTab:hover {\n"
-"    background-color: #dc2626;        /* کمی روشن‌تر هنگام hover */\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"QPushButton#logoutButton_accountTab:pressed {\n"
-"    background-color: #991b1b;        /* کمی تیره‌تر هنگام فشار */\n"
-"    border: 2px solid #450a0a;\n"
-"    border-top: 4px solid #450a0a;    /* سایه بالا برای حس فرو رفتن */\n"
-"    padding-top: 12px;                /* حرکت جزئی برای طبیعی‌تر شدن */\n"
-"    padding-bottom: 8px;\n"
-"}\n"
-"")
+        self.logoutButton_accountTab.setStyleSheet("")
         self.logoutButton_accountTab.setObjectName("logoutButton_accountTab")
         self.header_accountTab = QtWidgets.QLabel(parent=self.accountTab)
         self.header_accountTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
@@ -309,82 +434,57 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
         self.header_accountTab.setFont(font)
-        self.header_accountTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;")
+        self.header_accountTab.setStyleSheet("")
         self.header_accountTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.header_accountTab.setObjectName("header_accountTab")
         self.dragframe_accountTab = QtWidgets.QFrame(parent=self.accountTab)
         self.dragframe_accountTab.setGeometry(QtCore.QRect(-3, 0, 400, 111))
-        self.dragframe_accountTab.setStyleSheet("background-color:transparent;")
+        self.dragframe_accountTab.setStyleSheet("")
         self.dragframe_accountTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_accountTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_accountTab.setObjectName("dragframe_accountTab")
         self.tabWidget.addTab(self.accountTab, "")
         self.myconfigsTab = QtWidgets.QWidget()
-        self.myconfigsTab.setObjectName("myconfigsTab")
-        self.header_myconfigsTab = QtWidgets.QLabel(parent=self.myconfigsTab)
-        self.header_myconfigsTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
-        font = QtGui.QFont()
-        font.setFamily("Roboto Mono")
-        font.setPointSize(28)
-        self.header_myconfigsTab.setFont(font)
-        self.header_myconfigsTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;\n"
-"")
-        self.header_myconfigsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.header_myconfigsTab.setObjectName("header_myconfigsTab")
-        self.scrollArea_myconfigsTab = QtWidgets.QScrollArea(parent=self.myconfigsTab)
-        self.scrollArea_myconfigsTab.setGeometry(QtCore.QRect(0, 80, 395, 521))
-        self.scrollArea_myconfigsTab.setStyleSheet("/* ===== پایه - برای همه‌ی QScrollBar ها ===== */\n"
+        self.myconfigsTab.setStyleSheet("QFrame#dragframe_myconfigsTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_myconfigsTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
 "QScrollBar:vertical {\n"
-"    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */\n"
-"    width: 12px;                    /* ضخامت اسکرول‌بار */\n"
-"    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */\n"
+"    background: transparent;\n"
+"    width: 12px;\n"
+"    margin: 6px 0px 6px 0px;\n"
 "}\n"
-"\n"
-"/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:\n"
-"   QScrollArea QScrollBar:vertical { ... }\n"
-"*/\n"
-"\n"
-"/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */\n"
 "QScrollBar::groove:vertical {\n"
-"    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */\n"
+"    background: transparent;\n"
 "    border-radius: 7px;\n"
-"    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */\n"
+"    margin: 0px;\n"
 "}\n"
-"\n"
-"/* handle — همان دکمه‌ای که حرکت می‌کند */\n"
 "QScrollBar::handle:vertical {\n"
-"    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */\n"
-"    min-height: 36px;                     /* حداقل اندازه‌ی handle */\n"
-"    border-radius: 999px;                 /* خیلی بزرگ => همیشه گرد */\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-height: 36px;\n"
+"    border-radius: 999px;\n"
 "    border: 1px solid rgba(255,255,255,0.25);\n"
-"    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */\n"
+"    margin: 4px 2px 4px 2px;\n"
 "}\n"
-"\n"
-"/* وقتی ماوس روشه کمی برجسته‌ترش کن */\n"
 "QScrollBar::handle:vertical:hover {\n"
 "    background: rgba(255,255,255,0.95);\n"
 "}\n"
-"\n"
-"/* وقتی کلیک می‌کنن ــ حس فشرده شدن */\n"
 "QScrollBar::handle:vertical:pressed {\n"
 "    background: rgba(255,255,255,1.0);\n"
-"    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */\n"
+"    margin-top: 5px;\n"
 "}\n"
-"\n"
-"/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */\n"
 "QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
 "    height: 0px;\n"
 "    subcontrol-origin: padding;\n"
 "}\n"
-"\n"
-"/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */\n"
 "QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {\n"
 "    background: transparent;\n"
 "}\n"
-"\n"
-"/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */\n"
 "QScrollBar:horizontal {\n"
 "    background: transparent;\n"
 "    height: 12px;\n"
@@ -402,12 +502,25 @@ class Ui_MainWindow(object):
 "QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }\n"
 "QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }\n"
 "QScrollBar{\n"
-"border-radius: 12px;\n"
-"border: 1px solid #555;\n"
+"    border-radius: 12px;\n"
+"    border: 1px solid #555;\n"
 "}\n"
 "QScrollArea{\n"
 "    border: 0px solid black;\n"
 "}")
+        self.myconfigsTab.setObjectName("myconfigsTab")
+        self.header_myconfigsTab = QtWidgets.QLabel(parent=self.myconfigsTab)
+        self.header_myconfigsTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.header_myconfigsTab.setFont(font)
+        self.header_myconfigsTab.setStyleSheet("")
+        self.header_myconfigsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.header_myconfigsTab.setObjectName("header_myconfigsTab")
+        self.scrollArea_myconfigsTab = QtWidgets.QScrollArea(parent=self.myconfigsTab)
+        self.scrollArea_myconfigsTab.setGeometry(QtCore.QRect(0, 80, 395, 521))
+        self.scrollArea_myconfigsTab.setStyleSheet("")
         self.scrollArea_myconfigsTab.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea_myconfigsTab.setWidgetResizable(True)
         self.scrollArea_myconfigsTab.setObjectName("scrollArea_myconfigsTab")
@@ -424,75 +537,52 @@ class Ui_MainWindow(object):
         self.scrollArea_myconfigsTab.setWidget(self.scrollArea_widgetContents_myconfigsTab)
         self.dragframe_myconfigsTab = QtWidgets.QFrame(parent=self.myconfigsTab)
         self.dragframe_myconfigsTab.setGeometry(QtCore.QRect(-3, 0, 400, 80))
-        self.dragframe_myconfigsTab.setStyleSheet("background-color:transparent;")
+        self.dragframe_myconfigsTab.setStyleSheet("")
         self.dragframe_myconfigsTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_myconfigsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_myconfigsTab.setObjectName("dragframe_myconfigsTab")
         self.tabWidget.addTab(self.myconfigsTab, "")
         self.buyconfigTab = QtWidgets.QWidget()
-        self.buyconfigTab.setObjectName("buyconfigTab")
-        self.header_buyconfigTab = QtWidgets.QLabel(parent=self.buyconfigTab)
-        self.header_buyconfigTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
-        font = QtGui.QFont()
-        font.setFamily("Roboto Mono")
-        font.setPointSize(28)
-        self.header_buyconfigTab.setFont(font)
-        self.header_buyconfigTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;")
-        self.header_buyconfigTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.header_buyconfigTab.setObjectName("header_buyconfigTab")
-        self.scrollArea_buyconfigTab = QtWidgets.QScrollArea(parent=self.buyconfigTab)
-        self.scrollArea_buyconfigTab.setGeometry(QtCore.QRect(0, 80, 391, 521))
-        self.scrollArea_buyconfigTab.setStyleSheet("/* ===== پایه - برای همه‌ی QScrollBar ها ===== */\n"
+        self.buyconfigTab.setStyleSheet("QFrame#dragframe_buyconfigTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_buyconfigTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
 "QScrollBar:vertical {\n"
-"    background: transparent;        /* پس‌زمینه‌ی خودِ groove شفاف */\n"
-"    width: 12px;                    /* ضخامت اسکرول‌بار */\n"
-"    margin: 6px 0px 6px 0px;        /* تا handle به لبه‌ها نچسبه */\n"
+"    background: transparent;\n"
+"    width: 12px;\n"
+"    margin: 6px 0px 6px 0px;\n"
 "}\n"
-"\n"
-"/* اگر می‌خواهی فقط برای QScrollArea اعمال کنی:\n"
-"   QScrollArea QScrollBar:vertical { ... }\n"
-"*/\n"
-"\n"
-"/* groove (راهروی اسکرول؛ ما آن‌را هم کمی گرد می‌کنیم) */\n"
 "QScrollBar::groove:vertical {\n"
-"    background: transparent;        /* یا rgba(..., 0.06) برای کمی کانتور */\n"
+"    background: transparent;\n"
 "    border-radius: 7px;\n"
-"    margin: 0px;                    /* groove خودش با margin handle فاصله میگیره */\n"
+"    margin: 0px;\n"
 "}\n"
-"\n"
-"/* handle — همان دکمه‌ای که حرکت می‌کند */\n"
 "QScrollBar::handle:vertical {\n"
-"    background: rgba(255,255,255,0.85);   /* سفیدِ مات (0.85 شفافیت) */\n"
-"    min-height: 36px;                     /* حداقل اندازه‌ی handle */\n"
-"    border-radius: 999px;                 /* خیلی بزرگ => همیشه گرد */\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-height: 36px;\n"
+"    border-radius: 999px;\n"
 "    border: 1px solid rgba(255,255,255,0.25);\n"
-"    margin: 4px 2px 4px 2px;              /* خیلی مهم برای دیدن گوشه‌های گرد */\n"
+"    margin: 4px 2px 4px 2px;\n"
 "}\n"
-"\n"
-"/* وقتی ماوس روشه کمی برجسته‌ترش کن */\n"
 "QScrollBar::handle:vertical:hover {\n"
 "    background: rgba(255,255,255,0.95);\n"
 "}\n"
-"\n"
-"/* وقتی کلیک می‌کنن ــ حس فشرده شدن */\n"
 "QScrollBar::handle:vertical:pressed {\n"
 "    background: rgba(255,255,255,1.0);\n"
-"    margin-top: 5px;      /* اندکی جابه‌جایی عمودی برای حس فشرده‌شدن */\n"
+"    margin-top: 5px;\n"
 "}\n"
-"\n"
-"/* مخفی کردن دکمه‌های بالا/پایین (arrow buttons) */\n"
 "QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
 "    height: 0px;\n"
 "    subcontrol-origin: padding;\n"
 "}\n"
-"\n"
-"/* صفحه خالی بین handle و لبه (برای کلیک روی groove) */\n"
 "QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {\n"
 "    background: transparent;\n"
 "}\n"
-"\n"
-"/* ===== برای اسکرول‌بار افقی هم همان‌ها با عرض/height معکوس ===== */\n"
 "QScrollBar:horizontal {\n"
 "    background: transparent;\n"
 "    height: 12px;\n"
@@ -510,12 +600,25 @@ class Ui_MainWindow(object):
 "QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }\n"
 "QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }\n"
 "QScrollBar{\n"
-"border-radius: 12px;\n"
-"border: 1px solid #555;\n"
+"    border-radius: 12px;\n"
+"    border: 1px solid #555;\n"
 "}\n"
 "QScrollArea{\n"
 "    border: 0px solid black;\n"
 "}")
+        self.buyconfigTab.setObjectName("buyconfigTab")
+        self.header_buyconfigTab = QtWidgets.QLabel(parent=self.buyconfigTab)
+        self.header_buyconfigTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.header_buyconfigTab.setFont(font)
+        self.header_buyconfigTab.setStyleSheet("")
+        self.header_buyconfigTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.header_buyconfigTab.setObjectName("header_buyconfigTab")
+        self.scrollArea_buyconfigTab = QtWidgets.QScrollArea(parent=self.buyconfigTab)
+        self.scrollArea_buyconfigTab.setGeometry(QtCore.QRect(0, 80, 391, 521))
+        self.scrollArea_buyconfigTab.setStyleSheet("")
         self.scrollArea_buyconfigTab.setWidgetResizable(True)
         self.scrollArea_buyconfigTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea_buyconfigTab.setObjectName("scrollArea_buyconfigTab")
@@ -533,12 +636,62 @@ class Ui_MainWindow(object):
         self.scrollArea_buyconfigTab.setWidget(self.scrollArea_widgetContents_buyconfigTab)
         self.dragframe_buyconfigTab = QtWidgets.QFrame(parent=self.buyconfigTab)
         self.dragframe_buyconfigTab.setGeometry(QtCore.QRect(-3, 0, 400, 80))
-        self.dragframe_buyconfigTab.setStyleSheet("background-color:transparent;")
+        self.dragframe_buyconfigTab.setStyleSheet("")
         self.dragframe_buyconfigTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_buyconfigTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_buyconfigTab.setObjectName("dragframe_buyconfigTab")
         self.tabWidget.addTab(self.buyconfigTab, "")
         self.buycoinTab = QtWidgets.QWidget()
+        self.buycoinTab.setStyleSheet("QLabel#adminId_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QPushButton#buyButton_buycoinTab {\n"
+"    background-color: #059669;\n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"    border: 2px solid #047857;\n"
+"    border-bottom: 4px solid #065f46;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#buyButton_buycoinTab:hover {\n"
+"    background-color: #10b981;\n"
+"    color: white;\n"
+"}\n"
+"QPushButton#buyButton_buycoinTab:pressed {\n"
+"    background-color: #047857;\n"
+"    border: 2px solid #065f46;\n"
+"    border-top: 4px solid #065f46;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"\n"
+"QLabel#description_icon_1_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"QLabel#description_icon_2_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"QLabel#description_label_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QFrame#dragframe_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_buycoinTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QLabel#person_icon_buycoinTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"")
         self.buycoinTab.setObjectName("buycoinTab")
         self.header_buycoinTab = QtWidgets.QLabel(parent=self.buycoinTab)
         self.header_buycoinTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
@@ -546,8 +699,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(28)
         self.header_buycoinTab.setFont(font)
-        self.header_buycoinTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;")
+        self.header_buycoinTab.setStyleSheet("")
         self.header_buycoinTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.header_buycoinTab.setObjectName("header_buycoinTab")
         self.adminId_buycoinTab = QtWidgets.QLabel(parent=self.buycoinTab)
@@ -556,7 +708,7 @@ class Ui_MainWindow(object):
         font.setFamily("SF Pro Display")
         font.setPointSize(28)
         self.adminId_buycoinTab.setFont(font)
-        self.adminId_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.adminId_buycoinTab.setStyleSheet("")
         self.adminId_buycoinTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.adminId_buycoinTab.setObjectName("adminId_buycoinTab")
         self.description_label_buycoinTab = QtWidgets.QLabel(parent=self.buycoinTab)
@@ -565,7 +717,7 @@ class Ui_MainWindow(object):
         font.setFamily("SF Pro Display")
         font.setPointSize(12)
         self.description_label_buycoinTab.setFont(font)
-        self.description_label_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.description_label_buycoinTab.setStyleSheet("")
         self.description_label_buycoinTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.description_label_buycoinTab.setObjectName("description_label_buycoinTab")
         self.description_icon_1_buycoinTab = QtWidgets.QLabel(parent=self.buycoinTab)
@@ -574,7 +726,7 @@ class Ui_MainWindow(object):
         font.setFamily("SF Pro Display")
         font.setPointSize(12)
         self.description_icon_1_buycoinTab.setFont(font)
-        self.description_icon_1_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.description_icon_1_buycoinTab.setStyleSheet("")
         self.description_icon_1_buycoinTab.setText("")
         self.description_icon_1_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/coin.png"))
         self.description_icon_1_buycoinTab.setScaledContents(True)
@@ -586,7 +738,7 @@ class Ui_MainWindow(object):
         font.setFamily("Roboto Mono")
         font.setPointSize(12)
         self.person_icon_buycoinTab.setFont(font)
-        self.person_icon_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.person_icon_buycoinTab.setStyleSheet("")
         self.person_icon_buycoinTab.setText("")
         self.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
         self.person_icon_buycoinTab.setScaledContents(True)
@@ -599,35 +751,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         font.setBold(True)
         self.buyButton_buycoinTab.setFont(font)
-        self.buyButton_buycoinTab.setStyleSheet("QPushButton#buyButton_buycoinTab {\n"
-"    background-color: #059669;        /* سبز آبی اصلی (primary) */\n"
-"    color: #f8fafc;                   /* متن روشن */\n"
-"    border-radius: 10px;\n"
-"    padding: 10px 18px;\n"
-"    font-weight: bold;\n"
-"\n"
-"    /* عمق و برجستگی */\n"
-"    border: 2px solid #047857;        /* خط دور کمی تیره‌تر */\n"
-"    border-bottom: 4px solid #065f46; /* سایه پایین برای حجم دادن */\n"
-"\n"
-"    outline: none;\n"
-"}\n"
-"\n"
-"/* Hover - روشن‌تر و زنده‌تر */\n"
-"QPushButton#buyButton_buycoinTab:hover {\n"
-"    background-color: #10b981;        /* سبز روشن‌تر هنگام hover */\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"/* Pressed - کمی تیره‌تر و با حرکت جزئی */\n"
-"QPushButton#buyButton_buycoinTab:pressed {\n"
-"    background-color: #047857;        /* سبز تیره‌تر */\n"
-"    border: 2px solid #065f46;\n"
-"    border-top: 4px solid #065f46;    /* سایه بالا برای حس فرو رفتن */\n"
-"    padding-top: 12px;\n"
-"    padding-bottom: 8px;\n"
-"}\n"
-"")
+        self.buyButton_buycoinTab.setStyleSheet("")
         self.buyButton_buycoinTab.setObjectName("buyButton_buycoinTab")
         self.description_icon_2_buycoinTab = QtWidgets.QLabel(parent=self.buycoinTab)
         self.description_icon_2_buycoinTab.setGeometry(QtCore.QRect(53, 310, 16, 16))
@@ -635,7 +759,7 @@ class Ui_MainWindow(object):
         font.setFamily("SF Pro Display")
         font.setPointSize(12)
         self.description_icon_2_buycoinTab.setFont(font)
-        self.description_icon_2_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.description_icon_2_buycoinTab.setStyleSheet("")
         self.description_icon_2_buycoinTab.setText("")
         self.description_icon_2_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/coin.png"))
         self.description_icon_2_buycoinTab.setScaledContents(True)
@@ -643,49 +767,88 @@ class Ui_MainWindow(object):
         self.description_icon_2_buycoinTab.setObjectName("description_icon_2_buycoinTab")
         self.dragframe_buycoinTab = QtWidgets.QFrame(parent=self.buycoinTab)
         self.dragframe_buycoinTab.setGeometry(QtCore.QRect(-3, 0, 400, 111))
-        self.dragframe_buycoinTab.setStyleSheet("background-color:transparent;")
+        self.dragframe_buycoinTab.setStyleSheet("")
         self.dragframe_buycoinTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.dragframe_buycoinTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_buycoinTab.setObjectName("dragframe_buycoinTab")
         self.tabWidget.addTab(self.buycoinTab, "")
         self.settingsTab = QtWidgets.QWidget()
-        self.settingsTab.setObjectName("settingsTab")
-        self.header_settingsTab = QtWidgets.QLabel(parent=self.settingsTab)
-        self.header_settingsTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
-        font = QtGui.QFont()
-        font.setFamily("Roboto Mono")
-        font.setPointSize(28)
-        self.header_settingsTab.setFont(font)
-        self.header_settingsTab.setStyleSheet("color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
-"background-color:transparent;")
-        self.header_settingsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.header_settingsTab.setObjectName("header_settingsTab")
-        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.settingsTab)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(7, 110, 381, 368))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.proxyExlusives_layout_settingsTab = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.proxyExlusives_layout_settingsTab.setContentsMargins(12, 12, 12, 12)
-        self.proxyExlusives_layout_settingsTab.setSpacing(10)
-        self.proxyExlusives_layout_settingsTab.setObjectName("proxyExlusives_layout_settingsTab")
-        self.proxyExclusives_label_settingsTab = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(11)
-        self.proxyExclusives_label_settingsTab.setFont(font)
-        self.proxyExclusives_label_settingsTab.setToolTip("")
-        self.proxyExclusives_label_settingsTab.setStatusTip("")
-        self.proxyExclusives_label_settingsTab.setWhatsThis("")
-        self.proxyExclusives_label_settingsTab.setStyleSheet("color:rgb(125, 200, 255);\n"
-"background-color:transparent;")
-        self.proxyExclusives_label_settingsTab.setObjectName("proxyExclusives_label_settingsTab")
-        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_label_settingsTab)
-        self.proxyExclusives_textedit_settingsTab = QtWidgets.QPlainTextEdit(parent=self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(-1)
-        self.proxyExclusives_textedit_settingsTab.setFont(font)
-        self.proxyExclusives_textedit_settingsTab.setToolTip("")
-        self.proxyExclusives_textedit_settingsTab.setStyleSheet("QPlainTextEdit#proxyExclusives_textedit_settingsTab {\n"
+        self.settingsTab.setStyleSheet("QPushButton#darkThemeSelect_button_settingsTab {\n"
+"    background-color: #1e1e1e; \n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    border: 1px solid #2c2c2c;\n"
+"    border-bottom: 4px solid #161616;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#darkThemeSelect_button_settingsTab:hover {\n"
+"    background-color: #2c2c2c; \n"
+"}\n"
+"QPushButton#darkThemeSelect_button_settingsTab:pressed {\n"
+"    background-color: #161616;\n"
+"    border: 2px solid #121212;\n"
+"    border-top: 4px solid #121212;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"\n"
+"QFrame#dragframe_settingsTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_settingsTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;    \n"
+"}\n"
+"\n"
+"QPushButton#lightThemeSelect_button_settingsTab {\n"
+"    background-color: #f5f5f5; \n"
+"    color: #1e1e1e; \n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    border: 2px solid #d1d1d1;\n"
+"    border-bottom: 4px solid #b0b0b0;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#lightThemeSelect_button_settingsTab:hover {\n"
+"    background-color: #e0e0e0; \n"
+"}\n"
+"QPushButton#lightThemeSelect_button_settingsTab:pressed {\n"
+"    background-color: #cfcfcf; \n"
+"    border: 2px solid #b0b0b0;\n"
+"    border-top: 4px solid #b0b0b0;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"\n"
+"QPushButton#proxyExclusives_button_settingsTab {\n"
+"    background-color: #2563EB;\n"
+"    color: #f8fafc;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px 18px;\n"
+"    font-weight: bold;\n"
+"    border: 2px solid #1e40af;\n"
+"    border-bottom: 4px solid #122055;\n"
+"    outline: none;\n"
+"}\n"
+"QPushButton#proxyExclusives_button_settingsTab:hover {\n"
+"    background-color: #3b82f6;\n"
+"}\n"
+"QPushButton#proxyExclusives_button_settingsTab:pressed {\n"
+"    background-color: #1e40af;\n"
+"    border: 2px solid #122055;\n"
+"    border-top: 4px solid #122055;\n"
+"    padding-top: 12px;\n"
+"    padding-bottom: 8px;\n"
+"}\n"
+"\n"
+"QLabel#proxyExclusives_label_settingsTab{\n"
+"    color:rgb(125, 200, 255);\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QPlainTextEdit#proxyExclusives_textedit_settingsTab {\n"
 "    background-color: rgb(19, 28, 44);\n"
 "    color: #e6eef6;\n"
 "    border: 1px solid rgba(17,186,189,160);\n"
@@ -696,23 +859,19 @@ class Ui_MainWindow(object):
 "    selection-background-color: rgba(59,130,246,0.25);\n"
 "    selection-color: white;\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {\n"
 "    border: 1px solid rgba(59,130,246,220);\n"
 "    background-color: rgb(21, 34, 58);\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {\n"
 "    background: transparent;\n"
 "    width: 12px;\n"
 "    margin: 6px 0px 6px 0px;\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::groove:vertical {\n"
 "    background: rgba(255,255,255,0.02);\n"
 "    border-radius: 10px;\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical {\n"
 "    background: rgba(255,255,255,0.85);\n"
 "    min-height: 36px;\n"
@@ -720,7 +879,6 @@ class Ui_MainWindow(object):
 "    border: 1px solid rgba(255,255,255,0.25);\n"
 "    margin: 4px 2px 4px 2px;\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:hover {\n"
 "    background: rgba(255,255,255,0.95);\n"
 "}\n"
@@ -736,7 +894,6 @@ class Ui_MainWindow(object):
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-page:vertical {\n"
 "    background: transparent;\n"
 "}\n"
-"\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:horizontal { height: 12px; margin: 0px 6px; }\n"
 "QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizontal {\n"
 "    background: rgba(255,255,255,0.85);\n"
@@ -744,127 +901,14 @@ class Ui_MainWindow(object):
 "    border-radius: 999px;\n"
 "    border: 1px solid rgba(255,255,255,0.25);\n"
 "    margin: 2px 4px 2px 4px;\n"
-"}")
-        self.proxyExclusives_textedit_settingsTab.setObjectName("proxyExclusives_textedit_settingsTab")
-        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_textedit_settingsTab)
-        self.proxyExclusives_button_settingsTab = QtWidgets.QPushButton(parent=self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(11)
-        font.setBold(True)
-        self.proxyExclusives_button_settingsTab.setFont(font)
-        self.proxyExclusives_button_settingsTab.setStyleSheet("QPushButton#proxyExclusives_button_settingsTab {\n"
-"    /* رنگِ تنظیمات: یک آبی-سرد ملایم (هماهنگ با selection و focus) */\n"
-"    background-color: #2563EB;   /* blue-600 */\n"
-"    color: #f8fafc;\n"
-"    border-radius: 10px;\n"
-"    padding: 10px 18px;\n"
-"    font-weight: bold;\n"
-"    border: 2px solid #1e40af;   /* آبی تیره‌تر برای کنتراست */\n"
-"    border-bottom: 4px solid #122055;\n"
-"    outline: none;\n"
 "}\n"
 "\n"
-"/* hover و pressed — از استایل قبلی استفاده می‌کنیم ولی با همان رنگ‌بندی آبی */\n"
-"QPushButton#proxyExclusives_button_settingsTab:hover {\n"
-"    background-color: #3b82f6;\n"
-"}\n"
-"QPushButton#proxyExclusives_button_settingsTab:pressed {\n"
-"    background-color: #1e40af;\n"
-"    border: 2px solid #122055;\n"
-"    border-top: 4px solid #122055;\n"
-"    padding-top: 12px;\n"
-"    padding-bottom: 8px;\n"
-"}")
-        self.proxyExclusives_button_settingsTab.setObjectName("proxyExclusives_button_settingsTab")
-        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_button_settingsTab)
-        self.dragframe_settingsTab = QtWidgets.QFrame(parent=self.settingsTab)
-        self.dragframe_settingsTab.setGeometry(QtCore.QRect(-3, 0, 400, 90))
-        self.dragframe_settingsTab.setStyleSheet("background-color:transparent;")
-        self.dragframe_settingsTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
-        self.dragframe_settingsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.dragframe_settingsTab.setObjectName("dragframe_settingsTab")
-        self.themeSelect_label_settingsTab = QtWidgets.QLabel(parent=self.settingsTab)
-        self.themeSelect_label_settingsTab.setGeometry(QtCore.QRect(20, 500, 121, 18))
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(11)
-        self.themeSelect_label_settingsTab.setFont(font)
-        self.themeSelect_label_settingsTab.setToolTip("")
-        self.themeSelect_label_settingsTab.setStatusTip("")
-        self.themeSelect_label_settingsTab.setWhatsThis("")
-        self.themeSelect_label_settingsTab.setStyleSheet("color:rgb(125, 200, 255);\n"
-"background-color:transparent;")
-        self.themeSelect_label_settingsTab.setObjectName("themeSelect_label_settingsTab")
-        self.darkThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
-        self.darkThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(140, 488, 70, 45))
-        font = QtGui.QFont()
-        font.setFamily("SF Pro Display")
-        font.setPointSize(11)
-        font.setBold(False)
-        self.darkThemeSelect_button_settingsTab.setFont(font)
-        self.darkThemeSelect_button_settingsTab.setStyleSheet("QPushButton#darkThemeSelect_button_settingsTab {\n"
-"    background-color: #1e1e1e; \n"
-"    color: #f8fafc;\n"
-"    border-radius: 10px;\n"
-"    padding: 10px 18px;\n"
-"    border: 1px solid #2c2c2c;\n"
-"    border-bottom: 4px solid #161616;\n"
-"    outline: none;\n"
+"QLabel#themeSelect_label_settingsTab{\n"
+"    color:rgb(125, 200, 255);\n"
+"    background-color:transparent;    \n"
 "}\n"
 "\n"
-"QPushButton#darkThemeSelect_button_settingsTab:hover {\n"
-"    background-color: #2c2c2c; \n"
-"}\n"
-"\n"
-"QPushButton#darkThemeSelect_button_settingsTab:pressed {\n"
-"    background-color: #161616;\n"
-"    border: 2px solid #121212;\n"
-"    border-top: 4px solid #121212;\n"
-"    padding-top: 12px;\n"
-"    padding-bottom: 8px;\n"
-"}")
-        self.darkThemeSelect_button_settingsTab.setFlat(False)
-        self.darkThemeSelect_button_settingsTab.setObjectName("darkThemeSelect_button_settingsTab")
-        self.lightThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
-        self.lightThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(220, 488, 70, 45))
-        font = QtGui.QFont()
-        font.setFamily("SF Pro Display")
-        font.setPointSize(11)
-        font.setBold(False)
-        self.lightThemeSelect_button_settingsTab.setFont(font)
-        self.lightThemeSelect_button_settingsTab.setStyleSheet("QPushButton#lightThemeSelect_button_settingsTab {\n"
-"    background-color: #f5f5f5; \n"
-"    color: #1e1e1e; \n"
-"    border-radius: 10px;\n"
-"    padding: 10px 18px;\n"
-"    border: 2px solid #d1d1d1;\n"
-"    border-bottom: 4px solid #b0b0b0;\n"
-"    outline: none;\n"
-"}\n"
-"\n"
-"QPushButton#lightThemeSelect_button_settingsTab:hover {\n"
-"    background-color: #e0e0e0; \n"
-"}\n"
-"\n"
-"QPushButton#lightThemeSelect_button_settingsTab:pressed {\n"
-"    background-color: #cfcfcf; \n"
-"    border: 2px solid #b0b0b0;\n"
-"    border-top: 4px solid #b0b0b0;\n"
-"    padding-top: 12px;\n"
-"    padding-bottom: 8px;\n"
-"}\n"
-"")
-        self.lightThemeSelect_button_settingsTab.setFlat(False)
-        self.lightThemeSelect_button_settingsTab.setObjectName("lightThemeSelect_button_settingsTab")
-        self.blueThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
-        self.blueThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(300, 488, 70, 45))
-        font = QtGui.QFont()
-        font.setFamily("SF Pro Display")
-        font.setPointSize(11)
-        font.setBold(False)
-        self.blueThemeSelect_button_settingsTab.setFont(font)
-        self.blueThemeSelect_button_settingsTab.setStyleSheet("QPushButton#blueThemeSelect_button_settingsTab {\n"
+"QPushButton#blueThemeSelect_button_settingsTab {\n"
 "    background-color: #1e3a8a; \n"
 "    color: #f8fafc;\n"
 "    border-radius: 10px;\n"
@@ -882,20 +926,108 @@ class Ui_MainWindow(object):
 "    border-top: 4px solid #122055;\n"
 "    padding-top: 12px;\n"
 "    padding-bottom: 8px;\n"
-"}")
+"}\n"
+"")
+        self.settingsTab.setObjectName("settingsTab")
+        self.header_settingsTab = QtWidgets.QLabel(parent=self.settingsTab)
+        self.header_settingsTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.header_settingsTab.setFont(font)
+        self.header_settingsTab.setStyleSheet("")
+        self.header_settingsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.header_settingsTab.setObjectName("header_settingsTab")
+        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.settingsTab)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(7, 110, 381, 368))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.proxyExlusives_layout_settingsTab = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.proxyExlusives_layout_settingsTab.setContentsMargins(12, 12, 12, 12)
+        self.proxyExlusives_layout_settingsTab.setSpacing(10)
+        self.proxyExlusives_layout_settingsTab.setObjectName("proxyExlusives_layout_settingsTab")
+        self.proxyExclusives_label_settingsTab = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        self.proxyExclusives_label_settingsTab.setFont(font)
+        self.proxyExclusives_label_settingsTab.setToolTip("")
+        self.proxyExclusives_label_settingsTab.setStatusTip("")
+        self.proxyExclusives_label_settingsTab.setWhatsThis("")
+        self.proxyExclusives_label_settingsTab.setStyleSheet("")
+        self.proxyExclusives_label_settingsTab.setObjectName("proxyExclusives_label_settingsTab")
+        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_label_settingsTab)
+        self.proxyExclusives_textedit_settingsTab = QtWidgets.QPlainTextEdit(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(-1)
+        self.proxyExclusives_textedit_settingsTab.setFont(font)
+        self.proxyExclusives_textedit_settingsTab.setToolTip("")
+        self.proxyExclusives_textedit_settingsTab.setStyleSheet("")
+        self.proxyExclusives_textedit_settingsTab.setObjectName("proxyExclusives_textedit_settingsTab")
+        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_textedit_settingsTab)
+        self.proxyExclusives_button_settingsTab = QtWidgets.QPushButton(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        font.setBold(True)
+        self.proxyExclusives_button_settingsTab.setFont(font)
+        self.proxyExclusives_button_settingsTab.setStyleSheet("")
+        self.proxyExclusives_button_settingsTab.setObjectName("proxyExclusives_button_settingsTab")
+        self.proxyExlusives_layout_settingsTab.addWidget(self.proxyExclusives_button_settingsTab)
+        self.dragframe_settingsTab = QtWidgets.QFrame(parent=self.settingsTab)
+        self.dragframe_settingsTab.setGeometry(QtCore.QRect(-3, 0, 400, 90))
+        self.dragframe_settingsTab.setStyleSheet("")
+        self.dragframe_settingsTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.dragframe_settingsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.dragframe_settingsTab.setObjectName("dragframe_settingsTab")
+        self.themeSelect_label_settingsTab = QtWidgets.QLabel(parent=self.settingsTab)
+        self.themeSelect_label_settingsTab.setGeometry(QtCore.QRect(20, 500, 121, 18))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(11)
+        self.themeSelect_label_settingsTab.setFont(font)
+        self.themeSelect_label_settingsTab.setToolTip("")
+        self.themeSelect_label_settingsTab.setStatusTip("")
+        self.themeSelect_label_settingsTab.setWhatsThis("")
+        self.themeSelect_label_settingsTab.setStyleSheet("")
+        self.themeSelect_label_settingsTab.setObjectName("themeSelect_label_settingsTab")
+        self.darkThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.darkThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(140, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.darkThemeSelect_button_settingsTab.setFont(font)
+        self.darkThemeSelect_button_settingsTab.setStyleSheet("")
+        self.darkThemeSelect_button_settingsTab.setFlat(False)
+        self.darkThemeSelect_button_settingsTab.setObjectName("darkThemeSelect_button_settingsTab")
+        self.lightThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.lightThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(220, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.lightThemeSelect_button_settingsTab.setFont(font)
+        self.lightThemeSelect_button_settingsTab.setStyleSheet("")
+        self.lightThemeSelect_button_settingsTab.setFlat(False)
+        self.lightThemeSelect_button_settingsTab.setObjectName("lightThemeSelect_button_settingsTab")
+        self.blueThemeSelect_button_settingsTab = QtWidgets.QPushButton(parent=self.settingsTab)
+        self.blueThemeSelect_button_settingsTab.setGeometry(QtCore.QRect(300, 488, 70, 45))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(11)
+        font.setBold(False)
+        self.blueThemeSelect_button_settingsTab.setFont(font)
+        self.blueThemeSelect_button_settingsTab.setStyleSheet("")
         self.blueThemeSelect_button_settingsTab.setFlat(False)
         self.blueThemeSelect_button_settingsTab.setObjectName("blueThemeSelect_button_settingsTab")
         self.tabWidget.addTab(self.settingsTab, "")
         self.sideMenu = QtWidgets.QWidget(parent=self.centralwidget)
         self.sideMenu.setGeometry(QtCore.QRect(400, 3, 111, 341))
-        self.sideMenu.setStyleSheet("/*background-color: rgb(30, 41, 59);*/\n"
-"\n"
-"\n"
-"#sideMenu {\n"
-"    background-color: rgb(30, 41, 59); /* پس‌زمینه منو */\n"
+        self.sideMenu.setStyleSheet("#sideMenu {\n"
+"    background-color: rgb(30, 41, 59);\n"
 "    border-radius:14px;\n"
 "}\n"
-"\n"
 "#sideMenu QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: rgb(241, 245, 249);\n"
@@ -903,13 +1035,11 @@ class Ui_MainWindow(object):
 "    text-align: left;\n"
 "    border: none;\n"
 "}\n"
-"\n"
 "#sideMenu QPushButton:hover {\n"
 "    background-color: rgb(51, 65, 85);\n"
 "}\n"
-"\n"
 "#sideMenu QPushButton:checked {\n"
-"    background-color: rgb(59, 130, 246); /* آبی برای آیتم انتخاب‌شده */\n"
+"    background-color: rgb(59, 130, 246);\n"
 "    color: white;\n"
 "}")
         self.sideMenu.setObjectName("sideMenu")
@@ -957,7 +1087,7 @@ class Ui_MainWindow(object):
         self.buycoinButton_sideMenu.setObjectName("buycoinButton_sideMenu")
         self.menuButton = QtWidgets.QPushButton(parent=self.centralwidget)
         self.menuButton.setGeometry(QtCore.QRect(330, 30, 51, 41))
-        self.menuButton.setStyleSheet("background-color:transparent;")
+        self.menuButton.setStyleSheet("")
         self.menuButton.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icons/icons/menu.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -970,29 +1100,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(36)
         self.minimizeButton.setFont(font)
-        self.minimizeButton.setStyleSheet("QPushButton {\n"
-"    background-color: rgba(255, 255, 255, 30);\n"
-"    border: 1px solid rgba(255, 255, 255, 100);\n"
-"    border-radius: 6px;\n"
-"    color: white;\n"
-"    padding: 10px 20px;\n"
-"    font-weight: 600;\n"
-"}\n"
-"\n"
-"QPushButton::before {\n"
-"    content: \"\";\n"
-"    position: absolute;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(80, 80, 80);\n"
-"    border-color: black;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(53, 53, 53)\n"
-"}\n"
-"")
+        self.minimizeButton.setStyleSheet("")
         self.minimizeButton.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/icons/icons/minicon.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -1003,29 +1111,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.closeButton.setFont(font)
-        self.closeButton.setStyleSheet("QPushButton {\n"
-"    background-color: rgba(255, 255, 255, 30);\n"
-"    border: 1px solid rgba(255, 255, 255, 100);\n"
-"    border-radius: 6px;\n"
-"    color: white;\n"
-"    padding: 10px 20px;\n"
-"    font-weight: 600;\n"
-"}\n"
-"\n"
-"QPushButton::before {\n"
-"    content: \"\";\n"
-"    position: absolute;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(206, 0, 3);\n"
-"    border-color: black;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(122, 0, 2)\n"
-"}\n"
-"")
+        self.closeButton.setStyleSheet("")
         self.closeButton.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/icons/icons/closebutton.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
