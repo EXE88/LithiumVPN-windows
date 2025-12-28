@@ -49,6 +49,8 @@ class ThemeManager:
                     getattr(ui, 'buyconfigTab', ui).setStyleSheet(content)
                 elif 'settings' in key:
                     getattr(ui, 'settingsTab', ui).setStyleSheet(content)
+                elif 'myconfig_card' in key:
+                    pass
                 elif 'myconfigs' in key:
                     getattr(ui, 'myconfigsTab', ui).setStyleSheet(content)
                 elif 'centralwidget' in key:

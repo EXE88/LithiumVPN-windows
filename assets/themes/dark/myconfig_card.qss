@@ -1,0 +1,94 @@
+QFrame {
+    background-color: rgba(255, 255, 255, 75);
+    border-bottom: 3px solid rgba(0, 0, 0, 100);
+    border-radius: 12px;
+    min-height:185px;
+    color:white;
+    font: 500 9pt "Google Sans code";
+}
+
+QFrame:hover{
+    border: 1px solid rgba(255,255,255,255); 
+}
+
+QLabel{
+    min-height:65px;
+    max-height:65px;
+    background-color: #28282B;
+    border-bottom: 0px solid rgba(0, 0, 0, 100);
+    color: rgba(245, 245, 245, 255);
+    border-radius: 8px;
+}
+
+QLabel#myconfigs_frame_SAFENAME_servername{
+    min-height:40px;
+    max-height:40px;
+    background-color: #28282B;
+    border-bottom: 0px solid rgba(0, 0, 0, 100);
+    color: rgba(245, 245, 245, 255);
+    border-radius: 8px;
+    font: 500 10pt "Google Sans code";
+}
+
+QLabel#myconfigs_frame_SAFENAME_gbLeft{
+    min-height:65px;
+    max-height:65px;
+    background-color: #28282B;
+    border-bottom: 0px solid rgba(0, 0, 0, 100);
+    color: rgba(245, 245, 245, 255);
+    border-radius: 8px;
+    font: 500 8pt "Google Sans code";
+}
+
+QPushButton#CONNECT_ID {
+    background-color: #e7e7e7;
+    color: #202020;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font: 600 10pt "Google Sans code";
+    border: 2px solid #cdcdcd; 
+    border-bottom: 4px solid #929292;
+    outline: none;
+    min-width: 90px;
+    max-height: 20px;
+}
+QPushButton#CONNECT_ID:hover {
+    background-color: #c3c3c3;
+    border: 2px solid #cdcdcd; 
+    border-bottom: 4px solid #929292;
+    color: #202020;
+}
+QPushButton#CONNECT_ID:pressed {
+    background-color: #9a9a9a;
+    border: 2px solid #ababab;
+    border-top: 4px solid #6e6e6e;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    color: #202020;
+}
+QPushButton#SHARE_ID {
+    background-color: #e7e7e7;
+    color: #202020;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font: 600 10pt "Google Sans code";
+    border: 2px solid #cdcdcd; 
+    border-bottom: 4px solid #929292;
+    outline: none;
+    min-width: 90px;
+    max-height: 20px;
+}
+QPushButton#SHARE_ID:hover {
+    background-color: #c3c3c3;
+    border: 2px solid #cdcdcd; 
+    border-bottom: 4px solid #929292;
+    color: #202020;
+}
+QPushButton#SHARE_ID:pressed {
+    background-color: #9a9a9a;
+    border: 2px solid #ababab;
+    border-top: 4px solid #6e6e6e;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    color: #202020;
+}

@@ -5,7 +5,7 @@ CONFIG = {
     "DOMAIN_NAME":"fast-pro",
     "DOMAIN_TLD":"ir",
     "DOMAIN_IP": "127.0.0.1",
-    "MODE": "DOMAIN",
+    "MODE": "IP",
     "DOMAIN_PORT":8000,
     "PRODUCT_NAME":"LithiumVPN",
     "ADMIN_TELEGRAM_ID":"@MibroAdmin",

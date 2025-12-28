@@ -113,6 +113,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.menu_toggle = False
 
         self.buyconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
+        self.myconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "myconfig_card.qss"), "r", encoding="utf-8").read())
 
         # Window icon and title
         window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
@@ -356,7 +357,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             try:
                 frame_stylesheet = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
-
                 try:
                     layout = getattr(self.ui, 'verticalLayout_buyconfigTab', None)
                     if layout is None:
@@ -372,6 +372,46 @@ class MainAppWindow(QtWidgets.QMainWindow):
                         if name.startswith('buy_frame_'):
                             try:
                                 widget.setStyleSheet(frame_stylesheet)
+                            except Exception:
+                                pass
+                except Exception:
+                    pass
+            except Exception:
+                pass
+
+            try:
+                mycfg_stylesheet = str(open(get_path("assets", "themes", manage_db.get_theme(), "myconfig_card.qss"), "r", encoding="utf-8").read())
+                try:
+                    layout = getattr(self.ui, 'mainContainer_myconfigsTab', None)
+                    if layout is not None:
+                        for i in range(layout.count()):
+                            item = layout.itemAt(i)
+                            if item is None:
+                                continue
+                            widget = item.widget()
+                            if widget is None:
+                                continue
+                            name = widget.objectName() or ''
+                            if not name.startswith('myconfigs_frame_'):
+                                continue
+
+                            try:
+                                safe_name = name.split('myconfigs_frame_', 1)[1]
+                            except Exception:
+                                safe_name = ''
+                            connect_id = f"{name}_connectBtn"
+                            share_id = f"{name}_shareBtn"
+
+                            style = mycfg_stylesheet
+                            style = style.replace("SAFENAME", safe_name)
+                            style = style.replace("{safe_name}", safe_name)
+                            style = style.replace("CONNECT_ID", connect_id)
+                            style = style.replace("{connect_id}", connect_id)
+                            style = style.replace("SHARE_ID", share_id)
+                            style = style.replace("{share_id}", share_id)
+
+                            try:
+                                widget.setStyleSheet(style)
                             except Exception:
                                 pass
                 except Exception:
@@ -746,81 +786,13 @@ class MainAppWindow(QtWidgets.QMainWindow):
         connect_id = connect_btn.objectName()
         share_id = share_btn.objectName()
 
-        style = f"""
-            QFrame {{
-                background-color: #0f172a;
-                border-radius: 12px;
-                border: 1px solid rgba(94, 234, 212, 0.6);
-                min-height:185px;
-                color:white;
-            }}
-
-            QFrame:hover{{
-                background-color: rgb(21, 34, 58);
-                border: 1px solid rgba(59,130,246,220);
-            }}
-
-            QLabel{{
-                min-height:65px;
-                max-height:65px;
-                color:white;
-            }}
-
-            QLabel#myconfigs_frame_{safe_name}_servername{{
-                min-height:40px;
-                max-height:40px;
-                color:#38bdf8;
-            }}
-
-            QPushButton#{connect_id} {{
-                background-color: #059669;
-                color: #f8fafc;
-                border-radius: 10px;
-                padding: 10px 18px;
-                font-weight: bold;
-                border: 2px solid #047857;
-                border-bottom: 4px solid #065f46;
-                outline: none;
-                min-width: 90px;
-                max-height: 20px;
-            }}
-            QPushButton#{connect_id}:hover {{
-                background-color: #10b981;
-                color: white;
-            }}
-            QPushButton#{connect_id}:pressed {{
-                background-color: #047857;
-                border: 2px solid #065f46;
-                border-top: 4px solid #065f46;
-                padding-top: 12px;
-                padding-bottom: 8px;
-                color: white;
-            }}
-            QPushButton#{share_id} {{
-                background-color: #3b82f6;
-                color: #f8fafc;
-                border-radius: 10px;
-                padding: 10px 18px;
-                font-weight: bold;
-                border: 2px solid #2563eb;
-                border-bottom: 4px solid #1d4ed8;
-                outline: none;
-                min-width: 90px;
-                max-height: 20px;
-            }}
-            QPushButton#{share_id}:hover {{
-                background-color: #60a5fa;
-                color: white;
-            }}
-            QPushButton#{share_id}:pressed {{
-                background-color: #2563eb;
-                border: 2px solid #1d4ed8;
-                border-top: 4px solid #1d4ed8;
-                padding-top: 12px;
-                padding-bottom: 8px;
-                color: white;
-            }}
-        """
+        style = self.myconfig_card_style
+        style = style.replace("SAFENAME", safe_name)
+        style = style.replace("{safe_name}", safe_name)
+        style = style.replace("CONNECT_ID", connect_id)
+        style = style.replace("{connect_id}", connect_id)
+        style = style.replace("SHARE_ID", share_id)
+        style = style.replace("{share_id}", share_id)
         try:
             frame.setStyleSheet(style)
         except Exception:
