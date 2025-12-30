@@ -69,24 +69,24 @@ QPushButton#proxyExclusives_button_settingsTab:pressed {
 }
 
 QLabel#proxyExclusives_label_settingsTab{
-    color:rgb(125, 200, 255);
+    color: #0f172a;
     background-color:transparent;
 }
 
 QPlainTextEdit#proxyExclusives_textedit_settingsTab {
-    background-color: rgb(19, 28, 44);
-    color: #e6eef6;
-    border: 1px solid rgba(17,186,189,160);
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid rgba(203, 213, 225, 255);
     border-radius: 12px;
     padding: 12px;
-    font-family: Consolas, "Courier New", monospace;
+    font-family: "Google Sans Code", Consolas, "Courier New", monospace;
     font-size: 13px;
-    selection-background-color: rgba(59,130,246,0.25);
-    selection-color: white;
+    selection-background-color: rgba(59, 130, 246, 0.2);
+    selection-color: #0f172a;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {
-    border: 1px solid rgba(59,130,246,220);
-    background-color: rgb(21, 34, 58);
+    border: 1px solid rgba(37, 99, 235, 220);
+    background-color: #f8fafc;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
     background: transparent;
@@ -94,21 +94,21 @@ QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
     margin: 6px 0px 6px 0px;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::groove:vertical {
-    background: rgba(255,255,255,0.02);
+    background: rgba(15, 23, 42, 0.03);
     border-radius: 10px;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical {
-    background: rgba(255,255,255,0.85);
+    background: rgba(148, 163, 184, 0.9);
     min-height: 36px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(100, 116, 139, 0.35);
     margin: 4px 2px 4px 2px;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:hover {
-    background: rgba(255,255,255,0.95);
+    background: rgba(100, 116, 139, 0.95);
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:vertical:pressed {
-    background: rgba(255,255,255,1.0);
+    background: rgba(71, 85, 105, 0.95);
     margin-top: 5px;
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::sub-line:vertical,
@@ -121,15 +121,15 @@ QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::add-page:vertica
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:horizontal { height: 12px; margin: 0px 6px; }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizontal {
-    background: rgba(255,255,255,0.85);
+    background: rgba(148, 163, 184, 0.9);
     min-width: 36px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(100, 116, 139, 0.35);
     margin: 2px 4px 2px 4px;
 }
 
 QLabel#themeSelect_label_settingsTab{
-    color:rgb(125, 200, 255);
+    color: #0f172a;
     background-color:transparent;    
 }
 

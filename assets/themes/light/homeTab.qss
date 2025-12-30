@@ -1,27 +1,29 @@
 QScrollBar:vertical {
-    background: #f0f0f0;
+    background: #e2e8f0;
     width: 10px;
     margin: 0px;
 }
 QScrollBar::handle:vertical {
-    background: #888;
+    background: #94a3b8;
     min-height: 20px;
     border-radius: 4px;
 }
 QScrollBar::handle:vertical:hover {
-    background: #555;
+    background: #64748b;
 }
 QScrollBar::add-line:vertical,
 QScrollBar::sub-line:vertical {
     background: none;
 }
 QComboBox{
-    color:white;
+    color: #28282B;
+    border: 1px solid #7a7a7cbc;
+    border-radius: 9px;
     background-color:transparent;
 }
 
 QLabel#connectionStatus_homeTab{
-    color:rgb(148, 163, 184);
+    color: rgb(100, 116, 139);
     background-color:transparent;
 }
 
@@ -58,11 +60,11 @@ QPushButton#userCoinsCount_icon_homeTab{
 }
 
 QLabel#userCoinsCount_number_homeTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 
 QLabel#userUsername_homeTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }

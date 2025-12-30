@@ -1,1 +1,22 @@
-background-color:rgb(15, 23, 42);
+background-color: rgb(248, 250, 252);
+
+QMenu {
+    background-color: rgba(241, 245, 249, 230);
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+QMenu::item {
+    background-color: transparent;
+    padding: 6px 12px;
+    font: 500 10pt "Google Sans";
+}
+QMenu::item:selected {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #0f172a;
+}
+QMenu::separator {
+    height: 1px;
+    background: rgba(148, 163, 184, 0.6);
+    margin: 4px 8px;
+}

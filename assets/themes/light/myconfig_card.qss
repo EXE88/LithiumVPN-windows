@@ -1,26 +1,34 @@
 QFrame {
-    background-color: #0f172a;
+    background-color: #ffffff;
     border-radius: 12px;
-    border: 1px solid rgba(94, 234, 212, 0.6);
+    border: 1px solid rgba(148, 163, 184, 180);
     min-height:185px;
-    color:white;
+    color: #28282B;
+    font: 500 9pt "Google Sans";
 }
 
 QFrame:hover{
-    background-color: rgb(21, 34, 58);
-    border: 1px solid rgba(59,130,246,220);
+    background-color: #f8fafc;
+    border: 1px solid rgba(37, 99, 235, 200);
 }
 
 QLabel{
     min-height:65px;
     max-height:65px;
-    color:white;
+    background-color: #f8fafc;
+    color: #28282B;
+    border-radius: 8px;
+    border: 1px solid rgba(226, 232, 240, 255);
+    font: 450 10pt "Google Sans";
 }
 
 QLabel#myconfigs_frame_{safe_name}_servername{
     min-height:40px;
     max-height:40px;
-    color:#38bdf8;
+    background-color: #eef2ff;
+    color: #0284c7;
+    border: 1px solid rgba(191, 219, 254, 255);
+    font: 500 10pt "Google Sans Code";
 }
 
 QPushButton#{connect_id} {

@@ -88,7 +88,7 @@ QPushButton#minimizeButton:pressed {
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>-1</x>
       <y>-30</y>
       <width>400</width>
       <height>681</height>
@@ -1783,7 +1783,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      <widget class="QLabel" name="themeSelect_label_settingsTab">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>28</x>
         <y>500</y>
         <width>121</width>
         <height>18</height>
@@ -1814,7 +1814,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      <widget class="QPushButton" name="darkThemeSelect_button_settingsTab">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>148</x>
         <y>488</y>
         <width>70</width>
         <height>45</height>
@@ -1840,7 +1840,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      <widget class="QPushButton" name="lightThemeSelect_button_settingsTab">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>228</x>
         <y>488</y>
         <width>70</width>
         <height>45</height>
@@ -1866,7 +1866,7 @@ QPushButton#blueThemeSelect_button_settingsTab:pressed {
      <widget class="QPushButton" name="blueThemeSelect_button_settingsTab">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>308</x>
         <y>488</y>
         <width>70</width>
         <height>45</height>

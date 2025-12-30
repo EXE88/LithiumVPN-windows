@@ -1,19 +1,23 @@
 QFrame {
-    border: 1px solid rgba(17,186,189,140); 
+    background-color: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 180);
     border-radius: 12px;
     padding: 0px;
-    color:white;
+    color: #28282B;
+    font: 500 9pt "Google Sans";
 }
 QFrame:hover {
-    border: 1px solid rgba(17,186,189,225); 
+    border: 1px solid rgba(56, 189, 248, 220);
 }
 QLabel { 
-    border: 1px solid rgba(17, 186, 189, 140);
+    background-color: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 140);
     border-radius: 8px;
-    font-weight: 600; font-size: 13px; 
+    font: 450 10pt "Google Sans Code";
+    color: #28282B;
 }
 QLabel:hover { 
-    border: 1px solid rgba(17, 186, 189, 255);
+    border: 1px solid rgba(56, 189, 248, 220);
 }
 QPushButton {
     background-color: #059669;

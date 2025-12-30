@@ -69,24 +69,21 @@ QPushButton#proxyExclusives_button_settingsTab:pressed {
 }
 
 QLabel#proxyExclusives_label_settingsTab{
-    color:rgb(125, 200, 255);
+    color:#e7e7e7;
     background-color:transparent;
+    font: 600 11pt "Google Sans Code";
 }
 
 QPlainTextEdit#proxyExclusives_textedit_settingsTab {
-    background-color: rgb(19, 28, 44);
-    color: #e6eef6;
-    border: 1px solid rgba(17,186,189,160);
+    background-color: #28282B;
+    color: #e7e7e7;
+    border: 1px solid #e7e7e7;
     border-radius: 12px;
     padding: 12px;
-    font-family: Consolas, "Courier New", monospace;
+    font: 500 9pt "Google Sans Code";
     font-size: 13px;
     selection-background-color: rgba(59,130,246,0.25);
     selection-color: white;
-}
-QPlainTextEdit#proxyExclusives_textedit_settingsTab:focus {
-    border: 1px solid rgba(59,130,246,220);
-    background-color: rgb(21, 34, 58);
 }
 QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar:vertical {
     background: transparent;
@@ -129,8 +126,9 @@ QPlainTextEdit#proxyExclusives_textedit_settingsTab QScrollBar::handle:horizonta
 }
 
 QLabel#themeSelect_label_settingsTab{
-    color:rgb(125, 200, 255);
+    color:#e7e7e7;
     background-color:transparent;    
+    font: 600 10pt "Google Sans Code";
 }
 
 QPushButton#blueThemeSelect_button_settingsTab {

@@ -27,14 +27,12 @@ class PopupToast(QtWidgets.QWidget):
                 color: {style['text']};
                 border-radius: 12px;
                 padding: 12px 20px;
-                font-family: 'Segoe UI', 'SF Pro Display', sans-serif;
-                font-size: 14px;
                 border: 1px solid {style['border']};
             }}
             QLabel {{
                 background-color: transparent;
                 color: {style['text']};
-                font-weight: 500;
+                font: 450 10pt "Google Sans";
             }}
         """)
 

@@ -1,9 +1,9 @@
 QLabel#allConfigsCount_label_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 QLabel#allConfigsCount_number_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 
@@ -12,11 +12,11 @@ QFrame#dragframe_accountTab{
 }
 
 QLabel#expiredConfigsCount_label_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 QLabel#expiredConfigsCount_number_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 
@@ -59,20 +59,20 @@ QLabel#userCoinsLeft_icon_accountTab{
     background-color:transparent;
 }
 QLabel#userCoinsLeft_label_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 QLabel#userCoinsLeft_number_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 
 QLabel#userEmail_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }
 
 QLabel#userUsername_accountTab{
-    color:white;
+    color: #28282B;
     background-color:transparent;
 }

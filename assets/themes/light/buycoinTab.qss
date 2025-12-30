@@ -1,5 +1,6 @@
 QLabel#adminId_buycoinTab{
     background-color: transparent;
+    color: #28282B;
 }
 
 QPushButton#buyButton_buycoinTab {
@@ -32,6 +33,7 @@ QLabel#description_icon_2_buycoinTab{
 }
 QLabel#description_label_buycoinTab{
     background-color: transparent;
+    color: #334155;
 }
 
 QFrame#dragframe_buycoinTab{

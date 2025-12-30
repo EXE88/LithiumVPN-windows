@@ -1,18 +1,15 @@
 #sideMenu {
-    background-color: rgb(30, 41, 59);
-    border-radius:14px;
+    background-color: #28282B;
+    border-radius: 14px;
+    border: 1px solid rgba(143, 143, 143, 1);
 }
 #sideMenu QPushButton {
     background-color: transparent;
-    color: rgb(241, 245, 249);
+    color: rgb(226, 232, 240);
     padding: 8px 16px;
     text-align: left;
     border: none;
 }
 #sideMenu QPushButton:hover {
-    background-color: rgb(51, 65, 85);
-}
-#sideMenu QPushButton:checked {
-    background-color: rgb(59, 130, 246);
-    color: white;
+    background-color: rgba(73, 73, 73, 1);
 }

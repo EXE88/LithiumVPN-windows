@@ -9,27 +9,30 @@ import qrcode
 from custome_widgets.popup_toast import PopupToast
 
 class ShareConfigDialog(QDialog):
-    def __init__(self, link: str, display_name: str, parent=None):
+    def __init__(self, link: str, display_name: str, parent=None, theme_name: str | None = None):
         super().__init__(parent)
+        self.theme_name = (theme_name or "").lower()
         self.setWindowTitle(f"Share Config {display_name}")
         self.setMinimumSize(360, 450)
         self.link = link
+        self.setObjectName("shareConfigDialog")
 
         layout = QVBoxLayout()
         layout.setContentsMargins(12, 12, 12, 12)
         layout.setSpacing(10)
 
         self.link_edit = QLineEdit()
+        self.link_edit.setObjectName("shareLinkEdit")
         self.link_edit.setMinimumHeight(40)
-        self.link_edit.setFont(QFont("Consolas", 11))
+        self.link_edit.setFont(QFont("Google Sans Code", 11))
         self.link_edit.setText(self.link)
         self.link_edit.setReadOnly(True)
         self.link_edit.setCursorPosition(0)
         layout.addWidget(self.link_edit)
 
         self.qr_label = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
+        self.qr_label.setObjectName("shareQrLabel")
         self.qr_label.setFixedSize(300, 300)
-        self.qr_label.setStyleSheet("background: white; border: 1px solid #ccc;")
         layout.addWidget(self.qr_label, alignment=Qt.AlignmentFlag.AlignCenter)
 
         btns = QHBoxLayout()
@@ -42,36 +45,70 @@ class ShareConfigDialog(QDialog):
         layout.addLayout(btns)
         self.setLayout(layout)
 
-        self.setStyleSheet("""
-            QPushButton#copyBtn {
-                background-color: #3b82f6;
-                color: #f8fafc;
-                border-radius: 10px;
-                padding: 10px 18px;
-                font-weight: bold;
-                border: 2px solid #2563eb;
-                border-bottom: 4px solid #1d4ed8;
-                outline: none;
-                min-width: 90px;
-                max-height: 20px;
-            }
-            QPushButton#copyBtn:hover {
-                background-color: #60a5fa;
-                color: white;
-            }
-            QPushButton#copyBtn:pressed {
-                background-color: #2563eb;
-                border: 2px solid #1d4ed8;
-                border-top: 4px solid #1d4ed8;
-                padding-top: 12px;
-                padding-bottom: 8px;
-            }
-        """)
+        self._apply_theme_styles()
 
         try:
             self._generate_and_show_qr(self.link)
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error in generating Qrcode : {e}")
+
+    def _apply_theme_styles(self):
+        theme = self.theme_name or "dark"
+        if theme == "light":
+            dialog_bg = "#f8fafc"
+            text_color = "#0f172a"
+            edit_bg = "#ffffff"
+            edit_border = "#cbd5e1"
+            qr_border = "#cbd5e1"
+        else:
+            dialog_bg = "#0b1220"
+            text_color = "#e2e8f0"
+            edit_bg = "#0f172a"
+            edit_border = "#334155"
+            qr_border = "#475569"
+
+        self.setStyleSheet(f"""
+            QDialog#shareConfigDialog {{
+                background-color: {dialog_bg};
+                color: {text_color};
+            }}
+            QLineEdit#shareLinkEdit {{
+                background-color: {edit_bg};
+                color: {text_color};
+                border: 1px solid {edit_border};
+                border-radius: 8px;
+                padding: 8px 10px;
+                font: 500 11pt "Google Sans Code";
+            }}
+            QLabel#shareQrLabel {{
+                background: #ffffff;
+                border: 1px solid {qr_border};
+                border-radius: 8px;
+            }}
+            QPushButton#copyBtn {{
+                background-color: #3b82f6;
+                color: #f8fafc;
+                border-radius: 10px;
+                padding: 10px 18px;
+                font: 600 10pt "Google Sans";
+                border: 2px solid #2563eb;
+                border-bottom: 4px solid #1d4ed8;
+                outline: none;
+                min-width: 90px;
+                max-height: 20px;
+            }}
+            QPushButton#copyBtn:hover {{
+                background-color: #60a5fa;
+                color: white;
+            }}
+            QPushButton#copyBtn:pressed {{
+                background-color: #2563eb;
+                border: 2px solid #1d4ed8;
+                border-top: 4px solid #1d4ed8;
+                padding-top: 12px;
+                padding-bottom: 8px;
+            }}
+        """)
 
     def _generate_and_show_qr(self, text: str):
         qr = qrcode.QRCode(

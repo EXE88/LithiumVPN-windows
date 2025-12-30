@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/user_homeTab_white_theme.png</file>
+    <file>icons/user_accountTab_white_theme.png</file>
+    <file>icons/user_buycoinTab_white_theme.png</file>
     <file>icons/closebutton.png</file>
     <file>icons/minicon.png</file>
     <file>icons/arrow-left.png</file>

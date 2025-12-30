@@ -115,6 +115,15 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.buyconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
         self.myconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "myconfig_card.qss"), "r", encoding="utf-8").read())
 
+        if manage_db.get_theme()=="light":
+            self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_homeTab_white_theme.png"))
+            self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_accountTab_white_theme.png"))
+            self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_buycoinTab_white_theme.png"))
+        else:
+            self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+            self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+            self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+
         # Window icon and title
         window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
         self.setWindowIcon(window_icon)
@@ -313,6 +322,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.tray_menu.addAction(self.tray_action_toggle)
         self.tray_menu.addSeparator()
         self.tray_menu.addAction(self.tray_action_exit)
+        self.tray_menu.setStyleSheet("""color: #FFFFFF;background-color: #28282B;border: 1px solid #6d6d6d;""")
 
         tray_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
         self.tray_icon = QSystemTrayIcon(tray_icon, parent=self)
@@ -331,16 +341,25 @@ class MainAppWindow(QtWidgets.QMainWindow):
                     self.theme_manager.apply_dark()
                 except Exception:
                     self.theme_manager.apply_theme('dark')
+                self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+                self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+                self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
             elif theme_name == 'light':
                 try:
                     self.theme_manager.apply_light()
                 except Exception:
                     self.theme_manager.apply_theme('light')
+                self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_homeTab_white_theme.png"))
+                self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_accountTab_white_theme.png"))
+                self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_buycoinTab_white_theme.png"))
             elif theme_name == 'blue':
                 try:
                     self.theme_manager.apply_blue()
                 except Exception:
                     self.theme_manager.apply_theme('blue')
+                self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+                self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
+                self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user.png"))
             else:
                 self.theme_manager.apply_theme(theme_name)
 
@@ -1328,7 +1347,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 pass
 
     def share_myconfig(self, display_name:str, config_code: str):
-        dlg = ShareConfigDialog(link=config_code, display_name=display_name, parent=self)
+        theme_name = manage_db.get_theme()
+        dlg = ShareConfigDialog(link=config_code, display_name=display_name, parent=self, theme_name=theme_name)
         dlg.setWindowModality(Qt.WindowModality.ApplicationModal)
         dlg.exec()
 
