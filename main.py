@@ -7,7 +7,7 @@ from configuration import CONFIG
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import pyqtSignal, QEasingCurve, QPropertyAnimation, Qt, QRect
-from PyQt6.QtGui import QCursor, QAction, QColor
+from PyQt6.QtGui import QCursor, QAction, QColor, QFontDatabase
 from PyQt6.QtWidgets import QSystemTrayIcon, QMenu, QApplication
 
 from design.dotpy.main_window import Ui_MainWindow
@@ -30,6 +30,7 @@ from core.handlers.manager import XrayClient, set_proxy_exceptions
 from modules.theme_manager import ThemeManager
 
 from PyQt6.QtGui import QRegion, QPainterPath
+
 class MainAppWindow(QtWidgets.QMainWindow):
 
     logout_finished = pyqtSignal(bool, str)
@@ -128,10 +129,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
         window_icon = QtGui.QIcon(str(get_path("assets", "icons", CONFIG['TRAYICON_NAME'])))
         self.setWindowIcon(window_icon)
         self.setWindowTitle(self.product_name)
-
-        #load fonts
-        QtGui.QFontDatabase.addApplicationFont(":/fonts/RobotoMono-Regular.ttf")
-        QtGui.QFontDatabase.addApplicationFont(":/fonts/SFProDisplay-Regular.ttf")
 
         # Fetch user info
         user_ok, user_data = api_calls.get_user()
@@ -1376,9 +1373,6 @@ class LoginWindow(QtWidgets.QWidget):
 
         self.setWindowTitle(f"{self.product_name} - Login")
 
-        QtGui.QFontDatabase.addApplicationFont(":/fonts/RobotoMono-Regular.ttf")
-        QtGui.QFontDatabase.addApplicationFont(":/fonts/SFProDisplay-Regular.ttf")
-
         self._make_labels_clickable()
         self._apply_header_with_fancylabel()
 
@@ -1611,6 +1605,23 @@ class VerifyEmailWindow(QtWidgets.QWidget):
         toast = PopupToast(self, text=text, duration=duration, toast_type=toast_type)
         toast.show_toast()
 
+def load_app_fonts():
+    font_files = [
+        ":/fonts/fonts/SFPRODISPLAYREGULAR.OTF",
+        ":/fonts/fonts/RobotoMono-Regular.ttf",
+        ":/fonts/fonts/GoogleSans-Italic-VariableFont_GRAD,opsz,wght.ttf",
+        ":/fonts/fonts/GoogleSans-VariableFont_GRAD,opsz,wght.ttf",
+        ":/fonts/fonts/GoogleSansCode-Italic-VariableFont_wght.ttf",
+        ":/fonts/fonts/GoogleSansCode-VariableFont_wght.ttf",
+    ]
+
+    for p in font_files:
+        fid = QFontDatabase.addApplicationFont(p)
+        if fid == -1:
+            pass
+        else:
+            QFontDatabase.applicationFontFamilies(fid)
+
 if __name__ == "__main__":
     
     manage_db = ManageDatabase()
@@ -1629,6 +1640,8 @@ if __name__ == "__main__":
     api_calls = ApiCalls(backaddr_full)
 
     app = QtWidgets.QApplication(sys.argv)
+
+    load_app_fonts()
 
     main_window = MainAppWindow()
     login_window = LoginWindow()

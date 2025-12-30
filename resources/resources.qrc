@@ -21,6 +21,11 @@
     <file>images/blue_gradiant_bg.jpg</file>
   </qresource>
   <qresource prefix="fonts">
+    <file>fonts/SFPRODISPLAYREGULAR.OTF</file>
     <file>fonts/RobotoMono-Regular.ttf</file>
+    <file>fonts/GoogleSans-Italic-VariableFont_GRAD,opsz,wght.ttf</file>
+    <file>fonts/GoogleSans-VariableFont_GRAD,opsz,wght.ttf</file>
+    <file>fonts/GoogleSansCode-Italic-VariableFont_wght.ttf</file>
+    <file>fonts/GoogleSansCode-VariableFont_wght.ttf</file>
   </qresource>
 </RCC>
