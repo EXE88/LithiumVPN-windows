@@ -13,6 +13,7 @@ class ManageDatabase:
         self.DOMAIN_PORT = CONFIG["DOMAIN_PORT"]
 
         self.db_file = str(path_helpers.get_database_path(self.DB_NAME))
+        self.default_theme = "dark"
 
     def init_db(self):
         self.execute_database("CREATE TABLE IF NOT EXISTS Auth (access TEXT,refresh TEXT);")
@@ -28,6 +29,13 @@ class ManageDatabase:
                     "INSERT INTO Backaddr (sub, name, tld, port, ip) VALUES (?, ?, ?, ?, ?);",
                     (self.DOMAIN_SUB, self.DOMAIN_NAME, self.DOMAIN_TLD, self.DOMAIN_PORT, self.DOMAIN_IP)
                 )
+                cursor.execute("SELECT value FROM Settings WHERE key = ? LIMIT 1;", ("theme",))
+                row = cursor.fetchone()
+                if not row or not row[0] or str(row[0]).strip().lower() == "none":
+                    cursor.execute(
+                        "INSERT OR REPLACE INTO Settings (key, value) VALUES (?, ?);",
+                        ("theme", self.default_theme)
+                    )
                 conn.commit()
         except sqlite3.Error as e:
             print(f"Database error in init_db (Backaddr insert): {e}")
@@ -156,7 +164,16 @@ class ManageDatabase:
                 conn.close()
 
     def set_theme(self, theme_name: str):
-        return self.set_setting("theme", theme_name)
+        value = (theme_name or "").strip().lower()
+        if not value or value == "none":
+            value = self.default_theme
+        return self.set_setting("theme", value)
 
     def get_theme(self):
-        return self.get_setting("theme")
+        value = self.get_setting("theme")
+        if not value:
+            return self.default_theme
+        value = str(value).strip().lower()
+        if value in {"dark", "light", "blue"}:
+            return value
+        return self.default_theme

@@ -1,12 +1,15 @@
 import os
-from typing import Dict
+from typing import Dict, Optional, Union
 from PyQt6 import QtGui, QtWidgets, QtCore
+from modules.path_helpers import get_path
 
 
 class ThemeManager:
-    def __init__(self, main_window: QtWidgets.QMainWindow, assets_root: str = "assets/themes"):
+    def __init__(self, main_window: QtWidgets.QMainWindow, assets_root: Optional[Union[str, os.PathLike]] = None):
         self.main_window = main_window
-        self.assets_root = assets_root
+        if assets_root is None:
+            assets_root = get_path("assets", "themes")
+        self.assets_root = str(assets_root)
 
     def _load_qss_files(self, theme: str) -> Dict[str, str]:
         path = os.path.join(self.assets_root, theme)

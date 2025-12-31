@@ -113,10 +113,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.admin_telegram = CONFIG['ADMIN_TELEGRAM_ID']
         self.menu_toggle = False
 
-        self.buyconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
-        self.myconfig_card_style = str(open(get_path("assets", "themes", manage_db.get_theme(), "myconfig_card.qss"), "r", encoding="utf-8").read())
+        theme_name = str(manage_db.get_theme())
+        self.buyconfig_card_style = str(open(get_path("assets", "themes", theme_name, "buyconfig_card.qss"), "r", encoding="utf-8").read())
+        self.myconfig_card_style = str(open(get_path("assets", "themes", theme_name, "myconfig_card.qss"), "r", encoding="utf-8").read())
 
-        if manage_db.get_theme()=="light":
+        if theme_name == "light":
             self.ui.person_icon_homeTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_homeTab_white_theme.png"))
             self.ui.person_icon_accountTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_accountTab_white_theme.png"))
             self.ui.person_icon_buycoinTab.setPixmap(QtGui.QPixmap(":/icons/icons/user_buycoinTab_white_theme.png"))
@@ -372,7 +373,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 pass
 
             try:
-                frame_stylesheet = str(open(get_path("assets", "themes", manage_db.get_theme(), "buyconfig_card.qss"), "r", encoding="utf-8").read())
+                frame_stylesheet = str(open(get_path("assets", "themes", str(manage_db.get_theme()), "buyconfig_card.qss"), "r", encoding="utf-8").read())
                 try:
                     layout = getattr(self.ui, 'verticalLayout_buyconfigTab', None)
                     if layout is None:
@@ -396,7 +397,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 pass
 
             try:
-                mycfg_stylesheet = str(open(get_path("assets", "themes", manage_db.get_theme(), "myconfig_card.qss"), "r", encoding="utf-8").read())
+                mycfg_stylesheet = str(open(get_path("assets", "themes", str(manage_db.get_theme()), "myconfig_card.qss"), "r", encoding="utf-8").read())
                 try:
                     layout = getattr(self.ui, 'mainContainer_myconfigsTab', None)
                     if layout is not None:
