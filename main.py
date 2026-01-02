@@ -710,7 +710,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         days = cfg.get("days_left", 0) if isinstance(cfg, dict) else 0
         days = self.format_days_left(days)
-
         gb = cfg.get("gb_left", 0) if isinstance(cfg, dict) else 0
 
         safe_name = self._sanitize_name(display_name)
@@ -753,7 +752,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         lbl_gb = QtWidgets.QLabel(frame)
         lbl_gb.setObjectName(f"myconfigs_frame_{safe_name}_gbLeft")
-        lbl_gb.setText(f"GB Left: {gb}")
+        if CONFIG['UNLIMITEDMODE'] and float(gb) >= 140 or CONFIG['UNLIMITEDMODE'] and gb == 0:
+            lbl_gb.setText(f"unlimited")
+        else:
+            lbl_gb.setText(f"GB Left: {gb}")
         lbl_gb.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
 
         try:
@@ -779,37 +781,44 @@ class MainAppWindow(QtWidgets.QMainWindow):
         connect_btn.setText("Connect")
         connect_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
-        share_btn = QtWidgets.QPushButton(frame)
-        share_btn.setObjectName(f"myconfigs_frame_{safe_name}_shareBtn")
-        share_btn.setText("Share")
-        share_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        if not CONFIG['UNLIMITEDMODE']:
+            share_btn = QtWidgets.QPushButton(frame)
+            share_btn.setObjectName(f"myconfigs_frame_{safe_name}_shareBtn")
+            share_btn.setText("Share")
+            share_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
         # Use display_name and config_codes map; handle missing map gracefully
         connect_btn.clicked.connect(
             lambda _checked, dname=display_name, code=config_codes.get(display_name): self._connect_myconfig(dname, code)
         )
 
-        share_btn.clicked.connect(
-            lambda _checked, dname=display_name, code=config_codes.get(display_name): self.share_myconfig(dname, code)
-        )
+        if not CONFIG['UNLIMITEDMODE']:    
+            share_btn.clicked.connect(
+                lambda _checked, dname=display_name, code=config_codes.get(display_name): self.share_myconfig(dname, code)
+            )
 
         button_container.addWidget(connect_btn)
-        button_container.addWidget(share_btn)
+
+        if not CONFIG['UNLIMITEDMODE']:
+            button_container.addWidget(share_btn)
 
         root_layout.addLayout(servername_container)
         root_layout.addLayout(label_container)
         root_layout.addLayout(button_container)
 
         connect_id = connect_btn.objectName()
-        share_id = share_btn.objectName()
+
+        if not CONFIG['UNLIMITEDMODE']:
+            share_id = share_btn.objectName()
 
         style = self.myconfig_card_style
         style = style.replace("SAFENAME", safe_name)
         style = style.replace("{safe_name}", safe_name)
         style = style.replace("CONNECT_ID", connect_id)
         style = style.replace("{connect_id}", connect_id)
-        style = style.replace("SHARE_ID", share_id)
-        style = style.replace("{share_id}", share_id)
+        if not CONFIG['UNLIMITEDMODE']:
+            style = style.replace("SHARE_ID", share_id)
+            style = style.replace("{share_id}", share_id)
         try:
             frame.setStyleSheet(style)
         except Exception:
@@ -874,7 +883,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
             usage_lbl = QtWidgets.QLabel(frame)
             usage_lbl.setObjectName(f"plan_usage_lbl_{plan_id}")
-            usage_lbl.setText(f"Usage Limit : {plan_usage}GB")
+            if CONFIG['UNLIMITEDMODE'] and float(plan_usage) >= 140 or CONFIG['UNLIMITEDMODE'] and plan_usage == "":
+                usage_lbl.setText(f"Usage Limit : unlimited")
+            else:
+                usage_lbl.setText(f"Usage Limit : {plan_usage}GB")
             usage_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
             time_lbl = QtWidgets.QLabel(frame)
@@ -1022,6 +1034,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
             plan_id = plan.get("id", plan.get("plan_id", "Unknown"))
             name = plan.get("plan_name", plan.get("name", "Unknown"))
             usage = plan.get("plan_usage", plan.get("usage", "N/A"))
+            if CONFIG['UNLIMITEDMODE'] and float(usage) >= 140 or CONFIG['UNLIMITEDMODE'] and usage == "N/A":
+                usage = "unlimited"
             time_days = plan.get("plan_time", plan.get("time", "N/A"))
             price = plan.get("plan_price", plan.get("price", "N/A"))
             number_of_users = plan.get("number_of_users", "")

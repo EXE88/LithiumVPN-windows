@@ -1,6 +1,7 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import Qt, QSize, QRect, QPoint
 from PyQt6.QtGui import QColor
+from configuration import CONFIG
 
 class ConfigDelegateComboBox(QtWidgets.QStyledItemDelegate):
     def __init__(self, parent=None):
@@ -23,7 +24,10 @@ class ConfigDelegateComboBox(QtWidgets.QStyledItemDelegate):
 
         sub_parts = []
         if gb != "":
-            sub_parts.append(f"{gb} GB Left")
+            if CONFIG['UNLIMITEDMODE'] and float(gb) >= 140 or CONFIG['UNLIMITEDMODE'] and str(gb) == "N/A":
+                sub_parts.append("unlimited")
+            else:
+                sub_parts.append(f"{gb} GB Left")
         if days != "":
             try:
                 days_val = float(days)
