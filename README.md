@@ -123,7 +123,7 @@ This project is licensed under the terms provided in `License.txt`.
 
 - for building project use :
 ```
-pyinstaller --noconfirm --onedir --add-data "core/binding;core/binding" --add-data "core/temp;core/temp" --add-data "assets/icons;assets/icons" --name LithiumVPN -i assets/icons/appicon.ico --uac-admin -w main.py
+pyinstaller --noconfirm --onedir --add-data "core/binding;core/binding" --add-data "core/temp;core/temp" --add-data "assets/icons;assets/icons" --add-data "assets/themes;assets/themes" --name LithiumVPN -i assets/icons/appicon.ico --uac-admin -w main.py && rm -r build/ LithiumVPN.spec
 ```
 - for converting .ui file to .py use :
 ```
