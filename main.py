@@ -59,6 +59,10 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # system tray initialization
         self._init_tray()
 
+        # periodic health check
+        self._init_health_timer()
+        self._queue_health_ping()
+
         # Signals
         self.logout_finished.connect(self._handle_logout_finished)
 
@@ -331,6 +335,22 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # Hidden by default; call enable_tray() to show
         self.tray_icon.hide()
         self.tray_enabled = False
+
+
+    def _init_health_timer(self):
+        self._health_timer = QtCore.QTimer(self)
+        self._health_timer.timeout.connect(self._queue_health_ping)
+        self._health_timer.start(5 * 60 * 1000)
+
+    def _queue_health_ping(self):
+        t = threading.Thread(target=self._perform_health_ping, daemon=True)
+        t.start()
+
+    def _perform_health_ping(self):
+        try:
+            api_calls.health_windows()
+        except Exception:
+            pass
 
     def _on_theme_selected(self, theme_name: str):
         try:

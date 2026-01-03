@@ -228,6 +228,12 @@ class ApiCalls:
         else:
             return False, "Server error."
 
+    def health_windows(self):
+        ok, resp, code = self._request("GET", "/health/windows/", retry_on_401=False)
+        if not ok:
+            return False
+        return code == 200
+
     def buy_plan(self, plan_id):
         data = {"plan_id": plan_id}
         ok, resp, code = self._request("POST", "/plans/buy/", data=data)
