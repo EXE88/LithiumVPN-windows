@@ -1,0 +1,59 @@
+QFrame#dragframe_notificationsTab {
+    background-color: transparent;
+}
+
+QLabel#header_notificationsTab {
+    color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));
+    background-color: transparent;
+}
+
+QScrollArea#notificationsScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+QWidget#notificationsScrollContents {
+    background-color: transparent;
+}
+
+QFrame#notificationsCard {
+    background-color: rgba(15, 23, 42, 160);
+    border: 1px solid rgba(59, 130, 246, 140);
+    border-radius: 10px;
+}
+
+QLabel#notificationsTitle {
+    color: #f8fafc;
+    font: 600 10pt "SF Pro Display";
+}
+
+QLabel#notificationsDescription {
+    color: #f8fafc;
+    font: 550 10pt "SF Pro Display";
+}
+
+QLabel#notificationsMeta {
+    color: #94a3b8;
+}
+
+QLabel#notificationsEmptyLabel {
+    color: #94a3b8;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 10px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(148, 163, 184, 0.8);
+    min-height: 20px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(148, 163, 184, 1.0);
+}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background: none;
+}

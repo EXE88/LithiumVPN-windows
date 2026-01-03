@@ -542,6 +542,102 @@ class Ui_MainWindow(object):
         self.dragframe_myconfigsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.dragframe_myconfigsTab.setObjectName("dragframe_myconfigsTab")
         self.tabWidget.addTab(self.myconfigsTab, "")
+        self.notificationsTab = QtWidgets.QWidget()
+        self.notificationsTab.setStyleSheet("QFrame#dragframe_notificationsTab{\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLabel#header_notificationsTab{\n"
+"    color:qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.488636, y2:0, stop:0 rgba(59, 130, 246, 255), stop:1 rgba(6, 182, 212, 255));\n"
+"    background-color:transparent;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    background: transparent;\n"
+"    width: 12px;\n"
+"    margin: 6px 0px 6px 0px;\n"
+"}\n"
+"QScrollBar::groove:vertical {\n"
+"    background: transparent;\n"
+"    border-radius: 7px;\n"
+"    margin: 0px;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-height: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 4px 2px 4px 2px;\n"
+"}\n"
+"QScrollBar::handle:vertical:hover {\n"
+"    background: rgba(255,255,255,0.95);\n"
+"}\n"
+"QScrollBar::handle:vertical:pressed {\n"
+"    background: rgba(255,255,255,1.0);\n"
+"    margin-top: 5px;\n"
+"}\n"
+"QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
+"    height: 0px;\n"
+"    subcontrol-origin: padding;\n"
+"}\n"
+"QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {\n"
+"    background: transparent;\n"
+"}\n"
+"QScrollBar:horizontal {\n"
+"    background: transparent;\n"
+"    height: 12px;\n"
+"    margin: 0px 6px 0px 6px;\n"
+"}\n"
+"QScrollBar::groove:horizontal { border-radius: 7px; background: transparent; }\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgba(255,255,255,0.85);\n"
+"    min-width: 36px;\n"
+"    border-radius: 999px;\n"
+"    border: 1px solid rgba(255,255,255,0.25);\n"
+"    margin: 2px 4px 2px 4px;\n"
+"}\n"
+"QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.95); }\n"
+"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal { width: 0px; }\n"
+"QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }\n"
+"QScrollBar{\n"
+"    border-radius: 12px;\n"
+"    border: 1px solid #555;\n"
+"}\n"
+"QScrollArea{\n"
+"    border: 0px solid black;\n"
+"}")
+        self.notificationsTab.setObjectName("notificationsTab")
+        self.header_notificationsTab = QtWidgets.QLabel(parent=self.notificationsTab)
+        self.header_notificationsTab.setGeometry(QtCore.QRect(77, 15, 241, 51))
+        font = QtGui.QFont()
+        font.setFamily("Roboto Mono")
+        font.setPointSize(28)
+        self.header_notificationsTab.setFont(font)
+        self.header_notificationsTab.setStyleSheet("")
+        self.header_notificationsTab.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.header_notificationsTab.setObjectName("header_notificationsTab")
+        self.dragframe_notificationsTab = QtWidgets.QFrame(parent=self.notificationsTab)
+        self.dragframe_notificationsTab.setGeometry(QtCore.QRect(-3, 0, 400, 80))
+        self.dragframe_notificationsTab.setStyleSheet("")
+        self.dragframe_notificationsTab.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.dragframe_notificationsTab.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.dragframe_notificationsTab.setObjectName("dragframe_notificationsTab")
+        self.scrollArea_notificationsTab = QtWidgets.QScrollArea(parent=self.notificationsTab)
+        self.scrollArea_notificationsTab.setGeometry(QtCore.QRect(0, 80, 395, 521))
+        self.scrollArea_notificationsTab.setWidgetResizable(True)
+        self.scrollArea_notificationsTab.setObjectName("scrollArea_notificationsTab")
+        self.scrollArea_widgetContents_notificationsTab = QtWidgets.QWidget()
+        self.scrollArea_widgetContents_notificationsTab.setGeometry(QtCore.QRect(0, 0, 395, 521))
+        self.scrollArea_widgetContents_notificationsTab.setObjectName("scrollArea_widgetContents_notificationsTab")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollArea_widgetContents_notificationsTab)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.mainContainer_notificationsTab = QtWidgets.QVBoxLayout()
+        self.mainContainer_notificationsTab.setContentsMargins(8, 8, 8, 8)
+        self.mainContainer_notificationsTab.setSpacing(8)
+        self.mainContainer_notificationsTab.setObjectName("mainContainer_notificationsTab")
+        self.verticalLayout_3.addLayout(self.mainContainer_notificationsTab)
+        self.scrollArea_notificationsTab.setWidget(self.scrollArea_widgetContents_notificationsTab)
+        self.tabWidget.addTab(self.notificationsTab, "")
         self.buyconfigTab = QtWidgets.QWidget()
         self.buyconfigTab.setStyleSheet("QFrame#dragframe_buyconfigTab{\n"
 "    background-color: transparent;\n"
@@ -1023,7 +1119,7 @@ class Ui_MainWindow(object):
         self.blueThemeSelect_button_settingsTab.setObjectName("blueThemeSelect_button_settingsTab")
         self.tabWidget.addTab(self.settingsTab, "")
         self.sideMenu = QtWidgets.QWidget(parent=self.centralwidget)
-        self.sideMenu.setGeometry(QtCore.QRect(400, 3, 111, 341))
+        self.sideMenu.setGeometry(QtCore.QRect(400, 3, 111, 391))
         self.sideMenu.setStyleSheet("#sideMenu {\n"
 "    background-color: rgb(30, 41, 59);\n"
 "    border-radius:14px;\n"
@@ -1044,47 +1140,54 @@ class Ui_MainWindow(object):
 "}")
         self.sideMenu.setObjectName("sideMenu")
         self.homeButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.homeButton_sideMenu.setGeometry(QtCore.QRect(0, 30, 111, 31))
+        self.homeButton_sideMenu.setGeometry(QtCore.QRect(0, 33, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.homeButton_sideMenu.setFont(font)
         self.homeButton_sideMenu.setObjectName("homeButton_sideMenu")
         self.accountButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.accountButton_sideMenu.setGeometry(QtCore.QRect(0, 80, 111, 31))
+        self.accountButton_sideMenu.setGeometry(QtCore.QRect(0, 83, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.accountButton_sideMenu.setFont(font)
         self.accountButton_sideMenu.setObjectName("accountButton_sideMenu")
         self.myconfigsButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.myconfigsButton_sideMenu.setGeometry(QtCore.QRect(0, 130, 111, 31))
+        self.myconfigsButton_sideMenu.setGeometry(QtCore.QRect(0, 133, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.myconfigsButton_sideMenu.setFont(font)
         self.myconfigsButton_sideMenu.setObjectName("myconfigsButton_sideMenu")
         self.buyconfigButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.buyconfigButton_sideMenu.setGeometry(QtCore.QRect(0, 180, 111, 31))
+        self.buyconfigButton_sideMenu.setGeometry(QtCore.QRect(0, 183, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.buyconfigButton_sideMenu.setFont(font)
         self.buyconfigButton_sideMenu.setObjectName("buyconfigButton_sideMenu")
         self.settingsButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.settingsButton_sideMenu.setGeometry(QtCore.QRect(0, 280, 111, 31))
+        self.settingsButton_sideMenu.setGeometry(QtCore.QRect(0, 333, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.settingsButton_sideMenu.setFont(font)
         self.settingsButton_sideMenu.setObjectName("settingsButton_sideMenu")
         self.buycoinButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
-        self.buycoinButton_sideMenu.setGeometry(QtCore.QRect(0, 230, 111, 31))
+        self.buycoinButton_sideMenu.setGeometry(QtCore.QRect(0, 233, 111, 31))
         font = QtGui.QFont()
         font.setFamily("SF Pro Display")
         font.setPointSize(10)
         self.buycoinButton_sideMenu.setFont(font)
         self.buycoinButton_sideMenu.setObjectName("buycoinButton_sideMenu")
+        self.notificationsButton_sideMenu = QtWidgets.QPushButton(parent=self.sideMenu)
+        self.notificationsButton_sideMenu.setGeometry(QtCore.QRect(0, 283, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("SF Pro Display")
+        font.setPointSize(10)
+        self.notificationsButton_sideMenu.setFont(font)
+        self.notificationsButton_sideMenu.setObjectName("notificationsButton_sideMenu")
         self.menuButton = QtWidgets.QPushButton(parent=self.centralwidget)
         self.menuButton.setGeometry(QtCore.QRect(330, 30, 51, 41))
         self.menuButton.setStyleSheet("")
@@ -1162,6 +1265,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.accountTab), _translate("MainWindow", "Tab 2"))
         self.header_myconfigsTab.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.myconfigsTab), _translate("MainWindow", "Page"))
+        self.header_notificationsTab.setText(_translate("MainWindow", "LithiumVPN"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.notificationsTab), _translate("MainWindow", "Page"))
         self.header_buyconfigTab.setText(_translate("MainWindow", "LithiumVPN"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.buyconfigTab), _translate("MainWindow", "Page"))
         self.header_buycoinTab.setText(_translate("MainWindow", "LithiumVPN"))
@@ -1183,3 +1288,4 @@ class Ui_MainWindow(object):
         self.buyconfigButton_sideMenu.setText(_translate("MainWindow", "Buy Configs"))
         self.settingsButton_sideMenu.setText(_translate("MainWindow", "Settings"))
         self.buycoinButton_sideMenu.setText(_translate("MainWindow", "Buy Coins"))
+        self.notificationsButton_sideMenu.setText(_translate("MainWindow", "Notifications"))

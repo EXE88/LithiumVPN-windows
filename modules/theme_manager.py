@@ -56,6 +56,8 @@ class ThemeManager:
                     pass
                 elif 'myconfigs' in key:
                     getattr(ui, 'myconfigsTab', ui).setStyleSheet(content)
+                elif 'notifications' in key:
+                    getattr(ui, 'notificationsTab', ui).setStyleSheet(content)
                 elif 'centralwidget' in key:
                     getattr(ui, 'centralwidget', ui).setStyleSheet(content)
                 elif 'sidemenu' in key:

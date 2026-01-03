@@ -3,6 +3,8 @@ import sys
 import threading
 import sqlite3
 import webbrowser
+from datetime import datetime
+import re
 from configuration import CONFIG
 
 from PyQt6 import QtWidgets, QtGui, QtCore
@@ -220,6 +222,16 @@ class MainAppWindow(QtWidgets.QMainWindow):
             bold=True
         )
 
+        self.notifications_header = GlowText.from_label(
+            self.ui.notificationsTab,
+            self.ui.header_notificationsTab,
+            self.product_name,
+            glow_color=QColor(85, 0, 255),
+            blur=200,
+            font_name="consolas",
+            bold=True
+        )
+
         # Admin Telegram ID in buy-coins tab
         self.ui.adminId_buycoinTab.setText(self.admin_telegram)
         self.admin_telegram_label = RGBLabel(self.ui.buycoinTab, self.ui.adminId_buycoinTab, self.admin_telegram)
@@ -259,6 +271,45 @@ class MainAppWindow(QtWidgets.QMainWindow):
         configs = user_data.get("config_codes", []) if (user_ok and isinstance(user_data, dict)) else []
         self.load_myconfigs(configs)
 
+        status, messge = api_calls.get_events_recent()
+        if status:
+            self._populate_notifications_list(messge)
+        else:
+            self._show_toast(messge, 3000, "error")
+
+        status, message = api_calls.get_events_new()
+        if status:
+            self.unseen_notifications = message
+            if len(message['events']) > 0:
+                self.has_new_notifications = True
+                self._show_toast(f"You have {len(message['events'])} new notifications", 3000, "info")
+            else:
+                self.has_new_notifications = False
+        else: 
+            self._show_toast(message, 3000, "error")
+            self.unseen_notifications = None
+
+        if self.unseen_notifications is not None:
+            if self.has_new_notifications:
+                self.notifications_dot = QtWidgets.QPushButton(self.ui.notificationsButton_sideMenu)
+                self.notifications_dot.setObjectName("notificationsDotButton")
+                self.notifications_dot.setToolTip("Notifications")
+                self.notifications_dot.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+                self.notifications_dot.setFixedSize(8, 8)
+                self.notifications_dot.move(6, 6)
+                self.notifications_dot.setStyleSheet("""
+                    QPushButton#notificationsDotButton{
+                        background-color: #e11d48;
+                        border: none;
+                        border-radius: 4px;
+                    }
+                    QPushButton#notificationsDotButton:pressed{
+                        background-color: #be123c;
+                    }
+                """)
+                self.notifications_dot.raise_()
+                self.notifications_dot.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
+
         # Ensure menu button and side menu are on top
         self.ui.dragframe_homeTab.mousePressEvent = self._start_drag
         self.ui.dragframe_accountTab.mousePressEvent = self._start_drag
@@ -266,6 +317,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.dragframe_buyconfigTab.mousePressEvent = self._start_drag
         self.ui.dragframe_myconfigsTab.mousePressEvent = self._start_drag
         self.ui.dragframe_settingsTab.mousePressEvent = self._start_drag
+        self.ui.dragframe_notificationsTab.mousePressEvent = self._start_drag
 
         self.ui.dragframe_homeTab.mouseMoveEvent = self._do_drag
         self.ui.dragframe_accountTab.mouseMoveEvent = self._do_drag
@@ -273,6 +325,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.dragframe_buyconfigTab.mouseMoveEvent = self._do_drag
         self.ui.dragframe_myconfigsTab.mouseMoveEvent = self._do_drag
         self.ui.dragframe_settingsTab.mouseMoveEvent = self._do_drag
+        self.ui.dragframe_notificationsTab.mouseMoveEvent = self._do_drag
 
         # close/min buttons
         self.ui.closeButton.clicked.connect(self.animated_close)
@@ -285,6 +338,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
         self.ui.dragframe_buyconfigTab.raise_()
         self.ui.dragframe_myconfigsTab.raise_()
         self.ui.dragframe_settingsTab.raise_()
+        self.ui.dragframe_notificationsTab.raise_()
         self.ui.closeButton.raise_()
         self.ui.minimizeButton.raise_()
         self.ui.menuButton.raise_()
@@ -303,10 +357,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
         # side menu buttons
         self.ui.homeButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(0))
         self.ui.accountButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(1))
-        self.ui.buycoinButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
-        self.ui.buyconfigButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(3))
-        self.ui.settingsButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
+        self.ui.buycoinButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(5))
+        self.ui.buyconfigButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(4))
+        self.ui.settingsButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(6))
         self.ui.myconfigsButton_sideMenu.clicked.connect(lambda: self.ui.tabWidget.setCurrentIndex(2))
+        self.ui.notificationsButton_sideMenu.clicked.connect(lambda: self.on_notifications_clicked())
         self.ui.logoutButton_accountTab.clicked.connect(self.on_logout_clicked)
         self.ui.buyButton_buycoinTab.clicked.connect(self.on_buycoin_clicked)
         self.ui.proxyExclusives_button_settingsTab.clicked.connect(self.settings_exclusive_proxy_apply_clicked)
@@ -460,6 +515,130 @@ class MainAppWindow(QtWidgets.QMainWindow):
                 self._show_toast("error in changing theme", toast_type="alert")
             except Exception:
                 pass
+
+    def _populate_notifications_list(self, events: list):
+        layout = getattr(self.ui, "mainContainer_notificationsTab", None)
+        if layout is None:
+            return
+
+        if isinstance(events, dict):
+            events = events.get("events", []) or []
+        if events is None:
+            events = []
+
+        try:
+            while layout.count():
+                item = layout.takeAt(0)
+                if item is None:
+                    continue
+                w = item.widget()
+                if w is not None:
+                    try:
+                        w.setParent(None)
+                        w.deleteLater()
+                    except Exception:
+                        pass
+                    continue
+                sub = item.layout()
+                if sub is not None:
+                    try:
+                        while sub.count():
+                            si = sub.takeAt(0)
+                            if si is None:
+                                continue
+                            w2 = si.widget()
+                            if w2 is not None:
+                                try:
+                                    w2.setParent(None)
+                                    w2.deleteLater()
+                                except Exception:
+                                    pass
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
+        if not events:
+            empty = QtWidgets.QLabel(self.ui.scrollArea_widgetContents_notificationsTab)
+            empty.setObjectName("notificationsEmptyLabel")
+            empty.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            empty.setText("No notifications yet")
+            layout.addWidget(empty)
+            layout.addStretch(1)
+            return
+
+
+        for ev in events:
+            try:
+                frame = QtWidgets.QFrame(self.ui.scrollArea_widgetContents_notificationsTab)
+                frame.setObjectName("notificationsCard")
+                frame.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Fixed)
+
+                frame_layout = QtWidgets.QVBoxLayout(frame)
+                frame_layout.setContentsMargins(12, 10, 12, 10)
+                frame_layout.setSpacing(4)
+
+                # Title / topic
+                title = QtWidgets.QLabel(frame)
+                title.setObjectName("notificationsTitle")
+                title.setWordWrap(True)
+                title_text = ""
+                if isinstance(ev, dict):
+                    title_text = ev.get("topic") or ev.get("title") or ev.get("id") or "Notification"
+                else:
+                    title_text = str(ev)
+                title.setText(str(title_text))
+
+                try:
+                    f = title.font()
+                    f.setBold(True)
+                    title.setFont(f)
+                except Exception:
+                    pass
+
+                desc_text = ""
+                if isinstance(ev, dict):
+                    desc_text = ev.get("description") or ev.get("body") or ""
+                else:
+                    desc_text = ""
+                if desc_text:
+                    desc = QtWidgets.QLabel(frame)
+                    desc.setObjectName("notificationsDescription")
+                    desc.setWordWrap(True)
+                    desc.setText(str(desc_text))
+                    frame_layout.addWidget(desc)
+
+                meta_text = ""
+                if isinstance(ev, dict):
+                    raw = ev.get("created_at") or ev.get("timestamp") or ""
+                    if raw:
+                        try:
+                            if raw.endswith("Z"):
+                                raw = raw.replace("Z", "+00:00")
+                            dt = datetime.fromisoformat(raw)
+                            meta_text = dt.strftime("%Y-%m-%d %H:%M")
+                        except Exception:
+                            meta_text = str(raw)
+                if meta_text:
+                    meta = QtWidgets.QLabel(frame)
+                    meta.setObjectName("notificationsMeta")
+                    meta.setWordWrap(True)
+                    meta.setText(meta_text)
+                    try:
+                        mf = meta.font()
+                        mf.setPointSize(max(8, mf.pointSize() - 1))
+                        meta.setFont(mf)
+                        meta.setStyleSheet("color: #9aa3b2;")
+                    except Exception:
+                        pass
+                    frame_layout.addWidget(meta)
+
+                frame_layout.insertWidget(0, title)
+                layout.addWidget(frame)
+            except Exception:
+                continue
+
+        layout.addStretch(1)
 
     # -------------------- internal helpers --------------------
 
@@ -1386,11 +1565,18 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
     def _sanitize_name(self, name: str) -> str:
         """Convert a name to a safe string suitable for object naming."""
-        import re
         if not name:
             return "unnamed"
         s = re.sub(r"[^0-9a-zA-Z]+", "_", str(name))
         return s.strip("_") or "unnamed"
+
+    def on_notifications_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(3)
+        if self.has_new_notifications:
+            self.has_new_notifications = False
+            self.notifications_dot.deleteLater()
+            threading.Thread(target=api_calls.mark_events_checked, daemon=True).start()
+
 
     def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
         """Show a temporary popup toast message."""

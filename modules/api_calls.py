@@ -251,4 +251,32 @@ class ApiCalls:
         else:
             return False, "Server error."
 
-        
+    def get_events_new(self):
+        ok, resp, code = self._request("GET", "/events/new/")
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+        if code == 200:
+            return True, resp.json()
+        return False, "Server error."
+
+    def get_events_recent(self):
+        ok, resp, code = self._request("GET", "/events/recent/")
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+        if code == 200:
+            return True, resp.json()
+        return False, "Server error."
+
+    def mark_events_checked(self):
+        ok, resp, code = self._request("POST", "/events/checked/")
+        if not ok:
+            if code == 401:
+                return False, "Unauthorized. Please log in again."
+            return False, resp
+        if code == 200:
+            return True, resp.json()
+        return False, "Server error."
