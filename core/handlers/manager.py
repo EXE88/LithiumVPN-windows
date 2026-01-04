@@ -452,11 +452,12 @@ def set_proxy_exceptions(entries: Iterable[str]) -> List[str]:
     return normalized
 
 class XrayClient:
-    def __init__(self, config_code, xray_path=None, http_port=10809, set_system_proxy=False):
+    def __init__(self, config_code, xray_path=None, http_port=10809, set_system_proxy=False, manage_global_proc=True):
         self.config_code = config_code
         self.xray_path = xray_path
         self.http_port = http_port
         self.set_system_proxy = set_system_proxy
+        self.manage_global_proc = manage_global_proc
         self.xray_proc = None
         self.cfg_path = None
 
@@ -464,7 +465,7 @@ class XrayClient:
         gen = XrayConfigGenerator(self.config_code, http_port=self.http_port)
         cfg = gen.generate()
         self.cfg_path = write_temp_config(cfg)
-        self.xray_proc = starter.startFromJSON(self.cfg_path,json.dumps(cfg))
+        self.xray_proc = starter.startFromJSON(self.cfg_path, json.dumps(cfg), allow_parallel=not self.manage_global_proc)
         if self.set_system_proxy and platform.system().lower().startswith("win"):
             set_windows_system_proxy("127.0.0.1", self.http_port)
 
@@ -479,14 +480,15 @@ class XrayClient:
                 pass
         if self.cfg_path and os.path.exists(self.cfg_path):
             os.remove(self.cfg_path)
-        starter._proc = None
+        if self.manage_global_proc:
+            starter._proc = None
 
     def ping(self,port=10810):
         proxies = {
             "http":f"http://127.0.0.1:{port}",
             "https":f"http://127.0.0.1:{port}"
         }
-        xray_proc = XrayClient(self.config_code,http_port=port)
+        xray_proc = XrayClient(self.config_code, http_port=port, manage_global_proc=False)
         start_time = datetime.datetime.now()
         xray_proc.start()
         try:

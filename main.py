@@ -1603,7 +1603,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
             "http":f"http://127.0.0.1:{port}",
             "https":f"http://127.0.0.1:{port}"
         }
-        xray_proc = XrayClient(str(config_code), http_port=int(port))
+        xray_proc = XrayClient(str(config_code), http_port=int(port), manage_global_proc=False)
         start_time = datetime.now()
         xray_proc.start()
         try:
