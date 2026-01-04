@@ -15,5 +15,5 @@ CONFIG = {
     "APPICON_NAME":"appicon.ico",
     "TRAYICON_NAME":"trayicon.png",
 
-    "UNLIMITEDMODE": False,
+    "UNLIMITEDMODE": True,
 }
