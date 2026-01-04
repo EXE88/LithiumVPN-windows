@@ -3,6 +3,8 @@ import os
 import platform
 import winreg
 import ctypes
+import requests
+import datetime
 from typing import List, Iterable
 from core.handlers import starter
 import tempfile
@@ -478,3 +480,21 @@ class XrayClient:
         if self.cfg_path and os.path.exists(self.cfg_path):
             os.remove(self.cfg_path)
         starter._proc = None
+
+    def ping(self,port=10810):
+        proxies = {
+            "http":f"http://127.0.0.1:{port}",
+            "https":f"http://127.0.0.1:{port}"
+        }
+        xray_proc = XrayClient(self.config_code,http_port=port)
+        start_time = datetime.datetime.now()
+        xray_proc.start()
+        try:
+            requests.get("https://www.google.com/generate_204",proxies=proxies,timeout=10)
+            end_time = datetime.datetime.now()
+            delta = end_time - start_time
+            xray_proc.stop()
+            return True, (delta.total_seconds()*100).__round__()
+        except:
+            xray_proc.stop()
+            return False, "EOF"

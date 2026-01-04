@@ -1,5 +1,6 @@
 import resources_rc
 import sys
+import requests
 import threading
 import sqlite3
 import webbrowser
@@ -492,6 +493,7 @@ class MainAppWindow(QtWidgets.QMainWindow):
                             except Exception:
                                 safe_name = ''
                             connect_id = f"{name}_connectBtn"
+                            ping_id = f"{name}_pingBtn"
                             share_id = f"{name}_shareBtn"
 
                             style = mycfg_stylesheet
@@ -499,6 +501,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
                             style = style.replace("{safe_name}", safe_name)
                             style = style.replace("CONNECT_ID", connect_id)
                             style = style.replace("{connect_id}", connect_id)
+                            style = style.replace("PING_ID", ping_id)
+                            style = style.replace("{ping_id}", ping_id)                            
                             style = style.replace("SHARE_ID", share_id)
                             style = style.replace("{share_id}", share_id)
 
@@ -928,17 +932,22 @@ class MainAppWindow(QtWidgets.QMainWindow):
 
         servername_container = QtWidgets.QHBoxLayout()
         servername_container.setSpacing(4)
-
         lbl_servername = QtWidgets.QLabel(frame)
         lbl_servername.setObjectName(f"myconfigs_frame_{safe_name}_servername")
         lbl_servername.setText(f"Server: {cfg.get("server", "")}")
         lbl_servername.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-
         servername_container.addWidget(lbl_servername)
+
+        ping_container = QtWidgets.QHBoxLayout()
+        ping_container.setSpacing(4)
+        lbl_ping = QtWidgets.QLabel(frame)
+        lbl_ping.setObjectName(f"myconfigs_frame_{safe_name}_ping")
+        lbl_ping.setText(f"Ping: 0 ms")
+        lbl_ping.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+        ping_container.addWidget(lbl_ping)
 
         label_container = QtWidgets.QHBoxLayout()
         label_container.setSpacing(6)
-
         lbl_name = QtWidgets.QLabel(frame)
         lbl_name.setObjectName(f"myconfigs_frame_{safe_name}_configName")
         lbl_name.setText(str(display_name))
@@ -966,7 +975,6 @@ class MainAppWindow(QtWidgets.QMainWindow):
             lbl_servername.setFont(cons_font)
         except Exception:
             pass
-
         label_container.addWidget(lbl_name)
         label_container.addWidget(lbl_days)
         label_container.addWidget(lbl_gb)
@@ -980,6 +988,11 @@ class MainAppWindow(QtWidgets.QMainWindow):
         connect_btn.setText("Connect")
         connect_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
 
+        ping_btn = QtWidgets.QPushButton(frame)
+        ping_btn.setObjectName(f"myconfigs_frame_{safe_name}_pingBtn")
+        ping_btn.setText("Ping")
+        ping_btn.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+
         if not CONFIG['UNLIMITEDMODE']:
             share_btn = QtWidgets.QPushButton(frame)
             share_btn.setObjectName(f"myconfigs_frame_{safe_name}_shareBtn")
@@ -991,21 +1004,27 @@ class MainAppWindow(QtWidgets.QMainWindow):
             lambda _checked, dname=display_name, code=config_codes.get(display_name): self._connect_myconfig(dname, code)
         )
 
+        ping_btn.clicked.connect(
+            lambda _checked, dname=display_name, code=config_codes.get(display_name): lbl_ping.setText(str(f"Ping : {self.ping_config(code, 10810)[1]} ms")))
+
         if not CONFIG['UNLIMITEDMODE']:    
             share_btn.clicked.connect(
                 lambda _checked, dname=display_name, code=config_codes.get(display_name): self.share_myconfig(dname, code)
             )
 
+        button_container.addWidget(ping_btn)
         button_container.addWidget(connect_btn)
 
         if not CONFIG['UNLIMITEDMODE']:
             button_container.addWidget(share_btn)
 
         root_layout.addLayout(servername_container)
+        root_layout.addLayout(ping_container)
         root_layout.addLayout(label_container)
         root_layout.addLayout(button_container)
 
         connect_id = connect_btn.objectName()
+        ping_id = ping_btn.objectName()
 
         if not CONFIG['UNLIMITEDMODE']:
             share_id = share_btn.objectName()
@@ -1015,6 +1034,8 @@ class MainAppWindow(QtWidgets.QMainWindow):
         style = style.replace("{safe_name}", safe_name)
         style = style.replace("CONNECT_ID", connect_id)
         style = style.replace("{connect_id}", connect_id)
+        style = style.replace("PING_ID", ping_id)
+        style = style.replace("{ping_id}", ping_id)
         if not CONFIG['UNLIMITEDMODE']:
             style = style.replace("SHARE_ID", share_id)
             style = style.replace("{share_id}", share_id)
@@ -1576,7 +1597,24 @@ class MainAppWindow(QtWidgets.QMainWindow):
             self.has_new_notifications = False
             self.notifications_dot.deleteLater()
             threading.Thread(target=api_calls.mark_events_checked, daemon=True).start()
-
+    
+    def ping_config(self,config_code,port=10810):
+        proxies = {
+            "http":f"http://127.0.0.1:{port}",
+            "https":f"http://127.0.0.1:{port}"
+        }
+        xray_proc = XrayClient(str(config_code), http_port=int(port))
+        start_time = datetime.now()
+        xray_proc.start()
+        try:
+            requests.get("https://www.google.com/generate_204",proxies=proxies,timeout=10)
+            end_time = datetime.now()
+            delta = end_time - start_time
+            xray_proc.stop()
+            return True, (delta.total_seconds()*100).__round__()
+        except:
+            xray_proc.stop()
+            return False, "EOF"
 
     def _show_toast(self, text: str, duration: int = 2500, toast_type: str = "info"):
         """Show a temporary popup toast message."""
