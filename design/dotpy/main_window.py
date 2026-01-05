@@ -1055,7 +1055,7 @@ class Ui_MainWindow(object):
         self.proxyExclusives_textedit_settingsTab = QtWidgets.QPlainTextEdit(parent=self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Consolas")
-        font.setPointSize(-1)
+        font.setPointSize(1)
         self.proxyExclusives_textedit_settingsTab.setFont(font)
         self.proxyExclusives_textedit_settingsTab.setToolTip("")
         self.proxyExclusives_textedit_settingsTab.setStyleSheet("")

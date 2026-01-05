@@ -9,7 +9,7 @@ CONFIG = {
     "DOMAIN_SUB":"ton",
     "DOMAIN_NAME":"fast-pro",
     "DOMAIN_TLD":"ir",
-    "DOMAIN_PORT":8000,
+    "DOMAIN_PORT":9000,
     "MODE": "DOMAIN",
 
     "APPICON_NAME":"appicon.ico",
